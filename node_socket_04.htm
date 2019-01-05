@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+Hello World - Socket.IO Chat Application
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+try{
+	var socket = io();
+}
+
+catch(e){
+	console.log('Cannot connect to socket ' + e);
+}
+
+</script>
+</body>
+</html>

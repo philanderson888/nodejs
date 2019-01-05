@@ -1,0 +1,39 @@
+<html>
+<body>
+<h1>Hello World Chat Application</h1>
+
+<form action=''>
+	<input id='name' value='testName' />
+	<input id='chat_text' autocomplete='off' />
+	<button type='submit'>Send</button>
+</form>
+<ul id='messages'>Test message Here</ul>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script>
+
+try{
+	var socket=io();
+}
+catch(e){
+	console.log('cannot connect to socket ' + e);
+}
+$('form').submit(function(){
+	console.log('client sending a chat message');
+	var json_text = $('#chat_text').val();
+	var json_name = $('#name').val();
+	$('#messages').prepend('<p>' + json_name + ' : ' + json_text + '</p>');
+	var jsonObject = {
+		name:json_name,
+		message:json_text
+	};
+	$('#messages').prepend('<p>' + JSON.stringify(jsonObject) + '</p>');
+	$('#chat_text').val('');
+	socket.emit(jsonObject);
+	socket.emit('chat_message',jsonObject);
+	event.preventDefault;
+	return false;
+});
+</script>
+</body>
+</html>

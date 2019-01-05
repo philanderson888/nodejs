@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<form method="post" action="http://localhost:8080">
+	<input type="text" id="a" name="a" value="test value" />
+	<button type="submit">Submit to http://localhost:8080</button>
+</form>
+<form method="post" action="http://localhost:8080/test">
+	<input type="text" id="b" name="b" value="test value" />
+	<button type="submit">Submit To http://localhost:8080/test</button>
+</form>
+<form method="POST" action="http://localhost:8080/test2">
+	<input type="text" id="c" name="c" value="test value" />
+	<input type="hidden" name="_method" value="PUT" />
+	<button type="submit" id="submit_put_request">Submit PUT request to http://localhost:8080/test2</button>
+</form>
+
+</body>
+</html>
