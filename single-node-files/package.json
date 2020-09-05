@@ -1,0 +1,14 @@
+{
+  "name": "single-node-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node-play-sound-02.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "say": "^0.16.0"
+  }
+}
