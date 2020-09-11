@@ -41,7 +41,7 @@ A tutorial workspace for learning NodeJS
 	- [PS-NODE](#ps-node)
 	- [Creating Child Processes](#creating-child-processes)
 	- [Media](#media)
-		- [Playing A File](#playing-a-file)
+	- [play-sound](#play-sound)
 		- [Speaking Text](#speaking-text)
 	- [Logging](#logging)
 
