@@ -15,11 +15,12 @@ console.log(find("google","googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("ggg","googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("_g_o_","googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("mex____","xflexmexkex"));
-CheckIfSequenceIsValid("1 2 3 4");
-CheckIfSequenceIsValid("1 2 3 5");
-CheckIfSequenceIsValid("1 2 a 5");
-FindBinaryDigitSum(1234);
-
+checkIfSequenceIsValid("1 2 3 4");
+checkIfSequenceIsValid("1 2 3 5");
+checkIfSequenceIsValid("1 2 a 5");
+findBinaryDigitSum(1234);
+findMostFrequentlyUsedWords('a a a  b  c c  d d d d  e e e e e');
+findMostFrequentlyUsedWords('  , e   .. ');
 
 function find(needle,haystack){
     
@@ -75,7 +76,8 @@ function find(needle,haystack){
     }
     return -1;
 }
-function CheckIfSequenceIsValid(sequence){
+
+function checkIfSequenceIsValid(sequence){
     /*
     https://www.codewars.com/kata/5512e5662b34d88e44000060/train/javascript
     Check if an item is part of a sequence of numbers or not.  Return missing index if not, otherwise 0.  Return 1 if invalid characters present
@@ -121,7 +123,8 @@ function CheckIfSequenceIsValid(sequence){
         return missingDigit;
     }
 }
-function FindBinaryDigitSum(n){
+
+function findBinaryDigitSum(n){
     console.log('\n\nConverting ' + n + ' to binary and totalling the sum of the digits');
     // null cases
     if(n<=0) return 0;
@@ -134,4 +137,49 @@ function FindBinaryDigitSum(n){
     }
     console.log('total of binary digits is ' + totalOfBinaryDigits);
     return totalOfBinaryDigits;
+}
+
+function findMostFrequentlyUsedWords(text){
+    /*
+    https://www.codewars.com/kata/51e056fe544cf36c410000fb/train/javascript
+    This has already been done in Java!
+    Take a string, parse it into substrings and find the top 3 most common substrings
+    Return an array with the top 3 substrings in it!
+     */
+    console.log("\n\nFinding out the top 3 most commonly used substrings in a string")
+    console.log(text);
+    // first eliminate all undesirable characters and replace them with a space
+    var filtered = text.replace(/[^\w\s']/g,' ')
+    var filtered = filtered.toLowerCase();''
+    console.log(filtered);
+    var arrayOfWords = filtered.split(" ");
+    arrayOfWords.sort();
+    const filteredArray = arrayOfWords.filter(item=>item!=''&&item!='\'');
+    console.log(filteredArray);
+    // use maps !  https://stackoverflow.com/questions/1144705/best-way-to-store-a-key-value-array-in-javascript/1144737
+    // now get count
+    const map = new Map();
+    filteredArray.forEach((item)=>{
+        if(map.has(item)){
+            // increment
+            map.set(item,map.get(item)+1);
+        }
+        else{
+            map.set(item,1);
+        }
+    });
+    // sort by value descending
+    const mapSortedDescending = new Map([...map.entries()].sort((a,b)=>b[1]-a[1]));
+    console.log(mapSortedDescending);
+    const mapTopThreeItems = []
+    // get first three entries
+    let counter = 0;
+    for(let key of mapSortedDescending.keys()){
+        mapTopThreeItems.push(key);
+        // only want 3 items!
+        counter++;
+        if(counter==3) break;
+    }
+    console.log(mapTopThreeItems);
+    return mapTopThreeItems;
 }
