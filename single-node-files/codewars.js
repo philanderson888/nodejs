@@ -21,6 +21,7 @@ checkIfSequenceIsValid("1 2 a 5");
 findBinaryDigitSum(1234);
 findMostFrequentlyUsedWords('a a a  b  c c  d d d d  e e e e e');
 findMostFrequentlyUsedWords('  , e   .. ');
+animal({name:"dog",legs:4,color:"white"});
 
 function find(needle,haystack){
     
@@ -182,4 +183,10 @@ function findMostFrequentlyUsedWords(text){
     }
     console.log(mapTopThreeItems);
     return mapTopThreeItems;
+}
+function animal(obj){
+    /* simple manipulation of an object */
+    let output = `This ${obj.color} ${obj.name} has ${obj.legs} legs.`
+    console.log(output);
+    return output;
 }
