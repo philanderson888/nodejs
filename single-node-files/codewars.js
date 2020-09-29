@@ -22,6 +22,15 @@ findBinaryDigitSum(1234);
 findMostFrequentlyUsedWords('a a a  b  c c  d d d d  e e e e e');
 findMostFrequentlyUsedWords('  , e   .. ');
 animal({name:"dog",legs:4,color:"white"});
+saleHotDogs(1);
+saleHotDogs(4);
+saleHotDogs(5);
+forLoops({Our:"earth",is:"a",beautyful:"world"});
+colorOf(255,0,0);
+colorOf(1,2,3);
+colorOf(10,0,198);
+moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"left",1);
+moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"right",1);
 
 function find(needle,haystack){
     
@@ -189,4 +198,112 @@ function animal(obj){
     let output = `This ${obj.color} ${obj.name} has ${obj.legs} legs.`
     console.log(output);
     return output;
+}
+
+function saleHotDogs(n){
+    /*
+    https://www.codewars.com/kata/57202aefe8d6c514300001fd/train/javascript
+    Just use ternarys to get a result
+    */
+    let price = (n<5)?100:(n>=5&&n<10)?95:(n>=10)?90:null;
+    console.log(n*price);
+    return n*price;
+}
+
+function forLoops(obj){
+    /*
+    https://www.codewars.com/kata/5722b3f0bd5583cf44001000/train/javascript
+    */
+   console.log('\n\nusing for..in over this object ' + obj);
+   for(let key in obj){
+       console.log(`${key}:${obj[key]}`)
+   }
+   var output = [];
+   for(let key in obj){
+     if(key.length==5){
+         output.push(key);
+     }
+     if(obj[key].length==5){
+         output.push(obj[key])
+     }
+   }
+   console.log(output);
+   return output;
+}
+
+function colorOf(r,g,b){
+    /*
+    https://www.codewars.com/kata/57238ceaef9008adc7000603/train/javascript
+    */
+   console.log(`returning hex from rgb given r,g,b ${r} ${g} ${b}`)
+    if(r==0) r = '00';
+    if(g==0) g = '00';
+    if(b==0) b = '00';
+    if (r.toString(16).length==1) r = '0' + r.toString(16);
+    if (g.toString(16).length==1) g = '0' + g.toString(16);
+    if (b.toString(16).length==1) b = '0' + b.toString(16);
+    let output = '#' + r.toString(16) + g.toString(16) + b.toString(16);
+    console.log(output);
+    return output;
+}
+
+function moveLeftOrRight(arr,d,n){
+    /*
+    https://www.codewars.com/kata/572af273a3af3836660014a1/train/javascript
+    have to move elements left or right by given number of items
+    */
+   array = '';
+   arr.forEach(item=>array+="["+item+"],");
+   console.log(`moving ${n} elements ${d} given initial array ${array}`);
+   if(d!="left"&&d!="right") return arr;
+   if(n==0) return arr;
+   if(arr.length==0) return arr;
+   let leftmostItem = '';
+   let rightmostItem = '';
+   let nextItem = '';
+   if(d=="left"){
+    for(let i=0;i<n;i++){
+        // want to shift from start of each array element and push() onto the end
+        leftmostItem=arr[0].shift();
+        console.log(`first item shifted out is ${leftmostItem}`)
+        for(let j=1;j<arr.length;j++){
+            // next have to shift the item from the next array and push it onto this array
+            nextItem=arr[j].shift();
+            // push this onto first array (which has index 0)
+            arr[j-1].push(nextItem);
+        }
+        // finally add the first item on the end!
+        arr[arr.length-1].push(leftmostItem);
+        printArray(arr)
+    }
+   }
+   // direction is right
+   else{
+    // just repeat the above code but move right
+    for(let i=0;i<n;i++){
+        rightmostItem=arr[arr.length-1].pop();
+        console.log(`item popped of the end of the array is ${rightmostItem}`);
+        // count down this time
+        for(let j=arr.length-2;j>=0;j--){
+            nextItem=arr[j].pop();
+            arr[j+1].unshift(nextItem);
+        }
+        // finally add the last item on at the beginning
+        arr[0].unshift(rightmostItem);
+        printArray(arr);
+    }
+   }
+   return arr;
+}
+function printArray(arr){
+    array = '';
+    arr.forEach(item=>array+="["+item+"],");
+    console.log(`array is ${array}`);
+}
+
+function insertIt(arr){
+    /*
+    https://www.codewars.com/kata/572fdeb4380bb703fc00002c/train/javascript
+    use map() in this codewars and insert the '|' symbol where appropriate
+    */
 }
