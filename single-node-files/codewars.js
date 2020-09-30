@@ -31,6 +31,7 @@ colorOf(1,2,3);
 colorOf(10,0,198);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"left",1);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"right",1);
+isolateIt(["abcd","efgh"]);
 
 function find(needle,haystack){
     
@@ -301,9 +302,11 @@ function printArray(arr){
     console.log(`array is ${array}`);
 }
 
-function insertIt(arr){
+function isolateIt(arr){
     /*
     https://www.codewars.com/kata/572fdeb4380bb703fc00002c/train/javascript
-    use map() in this codewars and insert the '|' symbol where appropriate
+    pass in array of strings
+    insert the | symbol in the middle of each string abcd=ab|cd and abc = a|c
     */
+   console.log(`entering the | symbol into each element of the array ${arr}`);
 }
