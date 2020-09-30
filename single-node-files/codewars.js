@@ -31,7 +31,7 @@ colorOf(1,2,3);
 colorOf(10,0,198);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"left",1);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"right",1);
-isolateIt(["abcd","efgh"]);
+isolateIt(["abcd","efgh","cdefg"]);
 
 function find(needle,haystack){
     
@@ -308,5 +308,25 @@ function isolateIt(arr){
     pass in array of strings
     insert the | symbol in the middle of each string abcd=ab|cd and abc = a|c
     */
-   console.log(`entering the | symbol into each element of the array ${arr}`);
+   console.log(`\n\nentering the | symbol into each element of the array [${arr}]`);
+   let output = arr.map(item=>{
+    // if even string
+    if(item.length%2==0){
+        firstHalf=item.slice(0,item.length/2);
+        lastHalf=item.slice(item.length/2);
+        item=[firstHalf,'|',lastHalf].join('');
+        console.log(item);
+        return item;
+    }
+    // odd string
+    else{
+        firstHalf=item.slice(0,item.length/2);
+        lastHalf=item.slice(item.length/2+1);
+        item=[firstHalf,'|',lastHalf].join('');
+        console.log(item);
+        return item;
+    }
+   });
+   console.log(output);
+   return output;
 }
