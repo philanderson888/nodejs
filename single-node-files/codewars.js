@@ -31,7 +31,14 @@ colorOf(1,2,3);
 colorOf(10,0,198);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"left",1);
 moveLeftOrRight( [[1,2,3],[4,5,6],[7,8,9]],"right",1);
-isolateIt(["abcd","efgh","cdefg"]);
+mapAndAddSymbol(["abcd","efgh","cdefg"]);
+filterGrade([50,60,70,80,90,100]);
+mirrorImage([11,22,33,33,22,11]);
+mirrorImage([454,86,57,75,16,88]);
+mirrorImage([454,0,57,0,16,88]);
+reduceHeadsAndTails([1,2,3,4,5]);
+reduceHeadsAndTails([123,456,789,12,34,56,78]);
+
 
 function find(needle,haystack){
     
@@ -302,7 +309,7 @@ function printArray(arr){
     console.log(`array is ${array}`);
 }
 
-function isolateIt(arr){
+function mapAndAddSymbol(arr){
     /*
     https://www.codewars.com/kata/572fdeb4380bb703fc00002c/train/javascript
     pass in array of strings
@@ -329,4 +336,80 @@ function isolateIt(arr){
    });
    console.log(output);
    return output;
+}
+
+function filterGrade(scores){
+    /*
+    https://www.codewars.com/kata/573023c81add650b84000429/train/javascript
+   filters an array and only maps the relevant scores
+    */
+    var output = {S:0,A:0,B:0,C:0,D:0,X:0}
+    scores.forEach(score=>{
+        if(score==100) output.S+=1;
+        else if(score<100 && score>=90) output.A += 1;
+        else if(score<90 && score>=80) output.B += 1;
+        else if(score<80 && score>=60) output.C += 1;
+        else if(score<60 && score>=0) output.D += 1;
+        else if(score=-1) output.X += 1;
+    })
+    console.log(output);
+    return output;
+
+}
+
+function mirrorImage(arr){
+    /*
+    https://www.codewars.com/kata/57308546bd9f0987c2000d07/train/javascript
+    search consecutive pairs to see if they are a mirror image of each other and return that pair if so,
+    otherwise array with -1 in it
+    */
+   console.log(`\n\nensuring a pair of items exist such that one is a mirror of the other in array [${arr}]`)
+   // null cases
+   if(arr.some(item=>item===-1)) return [-1,-1];
+   let mirror1=0;
+   let mirror2=0;
+   let match = false;
+   for(let i=1;i<arr.length;i++){
+     mirror1=arr[i-1];
+     mirror2=arr[i];
+     mirror1string = mirror1.toString();
+     mirror2string = mirror2.toString().split('').reverse().join('');
+     match = (mirror1string===mirror2string)
+     console.log(`two mirror items are ${mirror1string} and ${mirror2string} and do they match? ${match}`)
+     if(match) break;
+   }
+   let output=[];
+   if(match){
+       output.push(mirror1);
+       output.push(mirror2);
+   }
+   else{
+       output.push(-1);
+       output.push(-1);
+   }
+   console.log(`output is ${output}`)
+   return output;
+}
+
+function reduceHeadsAndTails(arr){
+    /*
+    https://www.codewars.com/kata/573156709a231dcec9000ee8/train/javascript
+    given an array of numbers, remove the first and last digits and create a new array, and so on until a final number
+    is reached
+    */
+    console.log(`\n\ntaking the first and last digits of each array element, adding then getting the joint product given array ${arr}`);
+    const sums = [];
+    for(let i=1;i<arr.length;i++){
+        let a = arr[i-1];
+        let b = arr[i];
+        let lastLetter = a.toString()[a.toString().length-1];
+        let firstLetter = b.toString()[0];
+        let sum = parseInt(lastLetter)+parseInt(firstLetter);
+        console.log(`a is ${a} and b is ${b}, lastletter is ${lastLetter}, first letter ${firstLetter} and sum ${sum}`)
+        sums.push(sum);
+    }
+    console.log(sums);
+    const product = sums.reduce((a,b)=>a*b);
+    console.log(`product is ${product}`)
+    return product;
 }
