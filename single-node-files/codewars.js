@@ -42,7 +42,6 @@ arrayFlatten([[1,2],[3,4],[5,6]]);
 firstNonRepeatingLetter('stress');
 firstNonRepeatingLetter('sTress');
 firstNonRepeatingLetter('moonmen');
-firstNonRepeatingLetterRefactored('stress');
 
 
 function find(needle,haystack){
@@ -446,44 +445,8 @@ function firstNonRepeatingLetter(s){
     https://www.codewars.com/kata/52bc74d4ac05d0945d00054e/train/javascript
     Given string s find the first letter which does not repeat
     */
-   // convert to lower case
-   console.log(`\n\nfinding the first non-repeating letter in string ${s}`)
-   // null cases
-   if (s==='') return "";
-   if (s===' ') return "";
-   if (s.length==0) return "";
-   if (s.length==1) return s;
-   let lower = s.toLowerCase();
-   let letter = '';
-   let uniqueLetter = '';
-   for(let i=0;i<lower.length;i++){
-      let matchFound=false;
-      letter=lower[i];
-      console.log(`letter is ${letter}`);
-      // now compare this letter with every other letter, moving forwards only
-      for(let j=0;j<lower.length;j++){  
-        // obviously can't compare the same letter
-        if(j!=i){
-            // if match found, break and move on
-            console.log(`comparing ${letter} with ${lower[j]}`);
-            if(lower[j]===letter){
-                matchFound=true;
-                break;
-            } 
-        }
-      }
-      if(!matchFound){
-        // we have found our letter so no need to continue!
-        uniqueLetter=s[i];  
-        break;
-      }
-   }
-   console.log(`unique letter is ${uniqueLetter}`)
-   return uniqueLetter;
-}
-
-function firstNonRepeatingLetterRefactored(s){
     console.log(`\n\nfinding first letter which is unique in string ${s}`)
+    // convert to lower case
     const lower = s.toLowerCase();
     let uniqueLetter = '';
     for(let i=0;i<lower.length;i++){
