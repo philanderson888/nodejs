@@ -38,6 +38,11 @@ mirrorImage([454,86,57,75,16,88]);
 mirrorImage([454,0,57,0,16,88]);
 reduceHeadsAndTails([1,2,3,4,5]);
 reduceHeadsAndTails([123,456,789,12,34,56,78]);
+arrayFlatten([[1,2],[3,4],[5,6]]);
+firstNonRepeatingLetter('stress');
+firstNonRepeatingLetter('sTress');
+firstNonRepeatingLetter('moonmen');
+firstNonRepeatingLetterRefactored('stress');
 
 
 function find(needle,haystack){
@@ -412,4 +417,94 @@ function reduceHeadsAndTails(arr){
     const product = sums.reduce((a,b)=>a*b);
     console.log(`product is ${product}`)
     return product;
+}
+
+function arrayFlatten(arr){
+    /*
+    https://www.codewars.com/kata/5731861d05d14d6f50000626/train/javascript
+    Flatten the array then sort descending using the '>' character in between element
+    to return a string
+    */
+   // flatten to 1D array
+   
+   let printArray = '';
+   arr.forEach(item=> printArray+=(`[${item}],`))
+   console.log(`\n\nFlatten this array of arrays then sort by order ${printArray}`);
+   var flatten = [].concat(...arr);
+   console.log(`Array flattened but not sorted ${flatten}`);
+   flatten.sort((a,b)=>b-a);
+   console.log(`Now sorted ${flatten}`);
+   // now add '>' between elements
+   var output = flatten.join('>');
+   console.log(`flattened, sorted, now adding '>' character ${output}`)
+   return output
+}
+
+function firstNonRepeatingLetter(s){
+    /*
+    Date: 3 October 2020
+    https://www.codewars.com/kata/52bc74d4ac05d0945d00054e/train/javascript
+    Given string s find the first letter which does not repeat
+    */
+   // convert to lower case
+   console.log(`\n\nfinding the first non-repeating letter in string ${s}`)
+   // null cases
+   if (s==='') return "";
+   if (s===' ') return "";
+   if (s.length==0) return "";
+   if (s.length==1) return s;
+   let lower = s.toLowerCase();
+   let letter = '';
+   let uniqueLetter = '';
+   for(let i=0;i<lower.length;i++){
+      let matchFound=false;
+      letter=lower[i];
+      console.log(`letter is ${letter}`);
+      // now compare this letter with every other letter, moving forwards only
+      for(let j=0;j<lower.length;j++){  
+        // obviously can't compare the same letter
+        if(j!=i){
+            // if match found, break and move on
+            console.log(`comparing ${letter} with ${lower[j]}`);
+            if(lower[j]===letter){
+                matchFound=true;
+                break;
+            } 
+        }
+      }
+      if(!matchFound){
+        // we have found our letter so no need to continue!
+        uniqueLetter=s[i];  
+        break;
+      }
+   }
+   console.log(`unique letter is ${uniqueLetter}`)
+   return uniqueLetter;
+}
+
+function firstNonRepeatingLetterRefactored(s){
+    console.log(`\n\nfinding first letter which is unique in string ${s}`)
+    const lower = s.toLowerCase();
+    let uniqueLetter = '';
+    for(let i=0;i<lower.length;i++){
+        let match=false;
+        let letter = lower[i];
+        console.log(`checking letter ${letter}`);
+        for(let j=0;j<lower.length;j++){
+            if(i!=j){
+                console.log(`checking ${letter} against ${lower[j]}`);
+              if(lower[j]==letter) {
+                  match=true;
+                  break;
+              }
+            }
+        }
+        if(match===false){
+            // letter is unique so break and get case of letter from original string
+            uniqueLetter=s[i];
+            break;
+        }
+    }
+    console.log(`unique letter is ${uniqueLetter}`)
+    return uniqueLetter;
 }
