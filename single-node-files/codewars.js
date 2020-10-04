@@ -56,6 +56,9 @@ findInterestingNumbers(12322, []);
 findInterestingNumbers(3208, []);
 findInterestingNumbers(1232, []);
 findInterestingNumbers(67888, []);
+findPrimeFactors(7775460);
+findPrimeFactors(86240);
+findPrimeFactors(7919);
 
 
 function find(needle, haystack) {
@@ -496,11 +499,11 @@ function findInterestingNumbers(number, awesomePhrases) {
     console.log(`\n\nfinding intesting numbers a) all zeros? b) same digits? c) sequential? in ${number}`)
     // null cases
     if (number < 98) return 0;
-    if (  (number == 98) || (number==99)) return 1;
+    if ((number == 98) || (number == 99)) return 1;
     // all zeros
     let allZeros = true
     for (let i = 1; i < number.toString().length; i++) {
-      //  console.log(`checking for zeros - digit ${number.toString()[i]}`)
+        //  console.log(`checking for zeros - digit ${number.toString()[i]}`)
         if (number.toString()[i] === '0') {
             continue;
         }
@@ -513,8 +516,8 @@ function findInterestingNumbers(number, awesomePhrases) {
     }
     // next case - look at every digit being the same
     const firstDigit = number.toString()[0];
-    const sameDigits = number.toString().split('').every(digit=>digit===firstDigit);
-    if(sameDigits){
+    const sameDigits = number.toString().split('').every(digit => digit === firstDigit);
+    if (sameDigits) {
         console.log(`All digits the same ${number}`);
         return 2;
     }
@@ -522,32 +525,32 @@ function findInterestingNumbers(number, awesomePhrases) {
     const firstNumber = parseInt(firstDigit);
     console.log(`first digit in ${number} is ${firstNumber}`)
     let sequentialAscending = true;
-    for(let i=1;i<number.toString().length;i++){
-        if(parseInt(number.toString()[i])===firstNumber+i){
+    for (let i = 1; i < number.toString().length; i++) {
+        if (parseInt(number.toString()[i]) === firstNumber + i) {
             continue;
         }
-        if(     parseInt(number.toString()[i])===0    &&    parseInt(number.toString()[i-1])===9)  {
+        if (parseInt(number.toString()[i]) === 0 && parseInt(number.toString()[i - 1]) === 9) {
             // special case of sequential number being in order ...8,9,0 which is correct
             continue;
         }
-        else{
-            sequentialAscending=false;
+        else {
+            sequentialAscending = false;
         }
     }
-    if(sequentialAscending){
+    if (sequentialAscending) {
         console.log(`number is sequential ascending ${number}`);
         return 2;
     }
     let sequentialDescending = true;
-    for(let i=1;i<number.toString().length;i++){
-        if(parseInt(number.toString()[i])===firstNumber-i){
+    for (let i = 1; i < number.toString().length; i++) {
+        if (parseInt(number.toString()[i]) === firstNumber - i) {
             continue;
         }
-        else{
-            sequentialDescending=false;
+        else {
+            sequentialDescending = false;
         }
     }
-    if(sequentialDescending){
+    if (sequentialDescending) {
         console.log(`number is sequential descending ${number}`);
         return 2;
     }
@@ -556,55 +559,55 @@ function findInterestingNumbers(number, awesomePhrases) {
     console.log(`checking number ${number} to see if it's a palindrome`)
     let palindrome = true;
     // check first and last digits, and so on, into the middle
-    for(let i=0;i<number.toString().length/2;i++){
+    for (let i = 0; i < number.toString().length / 2; i++) {
         const firstNum = number.toString()[i];
-            console.log(`first number is ${firstNum}`);
-        let lastNum = number.toString()[number.toString().length-1-i];
-            console.log(`last number is ${lastNum}`);
-            console.log(`palindrome check - i = ${i}, check ${firstNum} against ${lastNum}`)
-        if(firstNum===lastNum){
+        console.log(`first number is ${firstNum}`);
+        let lastNum = number.toString()[number.toString().length - 1 - i];
+        console.log(`last number is ${lastNum}`);
+        console.log(`palindrome check - i = ${i}, check ${firstNum} against ${lastNum}`)
+        if (firstNum === lastNum) {
             continue;
         }
-        palindrome=false;
+        palindrome = false;
         break;
-    }  
-    if(palindrome){
+    }
+    if (palindrome) {
         console.log(`number ${number} is a palindrome`)
         return 2;
-    }    
+    }
 
     //  do they match a phrase in the awesome array!
     console.log(`now checking for a match of number ${number} in array ${awesomePhrases} of length ${awesomePhrases.length}`)
-    const matchAPhrase = awesomePhrases.some(item=>item===number)
-    if(matchAPhrase){
+    const matchAPhrase = awesomePhrases.some(item => item === number)
+    if (matchAPhrase) {
         console.log(`number ${number} matches a phrase in array ${awesomePhrases}`)
         return 2;
     }
     // check for partial matches
-    const partialMatch = awesomePhrases.some(item=> Math.abs(number-item)<=2 );
-    if(partialMatch){
+    const partialMatch = awesomePhrases.some(item => Math.abs(number - item) <= 2);
+    if (partialMatch) {
         console.log(`number ${number} has a partial match in array ${awesomePhrases}`);
         return 1;
     }
 
-    
-    console.log(`looking for a palindrome partial match within 2 numbers - from ${number-2} to ${number+2}`)
-    for (let close=number-2;close<=number+2;close++){
+
+    console.log(`looking for a palindrome partial match within 2 numbers - from ${number - 2} to ${number + 2}`)
+    for (let close = number - 2; close <= number + 2; close++) {
         // don't check the exact number as that has been done
-        let partialPalindrome=true;
-        if(close!==number){
+        let partialPalindrome = true;
+        if (close !== number) {
             // now for each number check if it is a palindrome.  
-            for(let i=0;i<close.toString().length/2;i++){
+            for (let i = 0; i < close.toString().length / 2; i++) {
                 const firstNum = close.toString()[i];
-                const lastNum = close.toString()[close.toString().length-1-i];
+                const lastNum = close.toString()[close.toString().length - 1 - i];
                 console.log(`palindrome check ${i} on first ${firstNum} and last ${lastNum} `)
-                if(firstNum===lastNum){
+                if (firstNum === lastNum) {
                     continue;
                 }
-                partialPalindrome=false;
+                partialPalindrome = false;
                 break;
             }
-            if(partialPalindrome){
+            if (partialPalindrome) {
                 console.log(`partial palindrome has been found in number ${close} nearly matching ${number}`)
                 return 1;
             }
@@ -612,55 +615,106 @@ function findInterestingNumbers(number, awesomePhrases) {
     }
 
     // now have to check out ascending or descending numbers within 2 of the exact number
-    for (let close=number-2;close<=number+2;close++){
+    for (let close = number - 2; close <= number + 2; close++) {
         console.log(`checking ${close} for a partial match for ascending numbers`)
-        let partialAscendingMatch=true;
+        let partialAscendingMatch = true;
         // don't check the exact number as it's been done
-        if(close!==number){
-            for (let i=0;i<close.toString().length;i++){
+        if (close !== number) {
+            for (let i = 0; i < close.toString().length; i++) {
                 let a = parseInt(close.toString()[i]);
-                let b = firstNumber+i;
+                let b = firstNumber + i;
+                if (b === 10) b = 0;
                 console.log(`checking ${a} against ${b} for a match in ascending numbers partially`)
-                if(a===b){
+                if (a === b) {
                     continue;
                 }
                 // special case of 9 then 0
-                if(parseInt(close.toString()[i]===0) && parseInt(close.toString()[i-1]===9)){
+                if (parseInt(close.toString()[i] === 0) && parseInt(close.toString()[i - 1] === 9)) {
                     continue;
                 }
-                else{
-                    partialAscendingMatch=false;
+                else {
+                    partialAscendingMatch = false;
                 }
-            }        
-            if(partialAscendingMatch){
+            }
+            if (partialAscendingMatch) {
                 console.log(`partial ascending match has been found in ${number}`)
                 return 1;
             }
         }
     }
     // repeat this for descending sequences
-    for(let close=number-2;close<=number+2;close++){
+    for (let close = number - 2; close <= number + 2; close++) {
         console.log(`checking ${close} for a partial match on descending numbers`);
         let partialDescendingMatch = true;
-        if(close!==number){
-            for(let i=0;i<close.toString().length;i++){
+        if (close !== number) {
+            for (let i = 0; i < close.toString().length; i++) {
                 let a = parseInt(close.toString()[i]);
-                let b = parseInt(firstNumber-i);
-                console.log(`comparing ${parseInt(close.toString()[i])} to ${firstNumber-i}`)
-                if(a===b){
+                let b = parseInt(firstNumber - i);
+                console.log(`comparing ${parseInt(close.toString()[i])} to ${firstNumber - i}`)
+                if (a === b) {
                     continue;
                 }
                 // special case of 3.2.1.0
-                if(parseInt(close.toString()[i]===0) && parseInt(close.toString()[i-1]===1)){
+                if (parseInt(close.toString()[i] === 0) && parseInt(close.toString()[i - 1] === 1)) {
                     continue;
                 }
-                partialDescendingMatch=false;
+                partialDescendingMatch = false;
             }
-            if(partialDescendingMatch){
+            if (partialDescendingMatch) {
                 console.log(`partial descending match has been found in ${number}`)
                 return 1;
             }
         }
     }
     return 0;
+}
+
+function findPrimeFactors(n) {
+    /*
+    4 October 2020
+    https://www.codewars.com/kata/54d512e62a5e54c96200019e/train/javascript
+    Output prime factors in form "(p1**n1)(p2**n2)" eg 86240 = "(2**5)(5)(7**2)(11)"
+    */
+    console.log(`\n\nfinding the prime factors of number ${n}`);
+    // going to have a list of prime factors here!
+    const output = [];
+    let number = n;
+    let divisor = 2;
+    while (divisor <= n/2+1) {
+        if(number%divisor==0){
+            number=number/divisor;
+            output.push(divisor);
+        }
+        else{
+            divisor++;
+        }
+    }
+    if(number===n) output.push(number);
+    console.log(`prime numbers of ${n} are ${output}`);
+    // now just gather them in a format for outputting!!!
+    const outputPairs = {};
+    output.forEach(item=>{
+        if(item in outputPairs){
+            outputPairs[item] += 1
+        }
+        else{
+            outputPairs[item] = 1;
+        }
+    });
+    console.log(`The count of each prime number is as follows`);
+    console.log(outputPairs);
+    // now lets construct the answer in the format specified
+    let outputString = '';
+    for(const[key,value] of Object.entries(outputPairs)){
+        if(value===1){
+            outputString += `(${key})`;
+        }
+        else{
+            outputString+= `(${key}**${value})`
+        }
+        
+    }
+    console.log(`output string is ${outputString}`);
+    return outputString;
+
 }
