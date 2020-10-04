@@ -669,50 +669,49 @@ function findInterestingNumbers(number, awesomePhrases) {
     return 0;
 }
 
-function findPrimeFactors(n) {
+function findPrimeFactors(n){
     /*
     4 October 2020
     https://www.codewars.com/kata/54d512e62a5e54c96200019e/train/javascript
     Output prime factors in form "(p1**n1)(p2**n2)" eg 86240 = "(2**5)(5)(7**2)(11)"
     */
-    console.log(`\n\nfinding the prime factors of number ${n}`);
-    // going to have a list of prime factors here!
-    const output = [];
+    console.log(`\n\nFinding prime factors of ${n}`);
     let number = n;
     let divisor = 2;
-    while (divisor <= n/2+1) {
+    const output = [];
+    while(divisor<=n/2+1){
         if(number%divisor==0){
-            number=number/divisor;
             output.push(divisor);
+            number = number / divisor;
         }
         else{
             divisor++;
         }
     }
-    if(number===n) output.push(number);
-    console.log(`prime numbers of ${n} are ${output}`);
-    // now just gather them in a format for outputting!!!
+    // case of prime number
+    if(number===n) output.push(n);
+    console.log(`prime numbers are ${output}`);
+    // now output as pairs
     const outputPairs = {};
     output.forEach(item=>{
         if(item in outputPairs){
-            outputPairs[item] += 1
+            outputPairs[item]+=1;
         }
         else{
-            outputPairs[item] = 1;
+            outputPairs[item]=1;
         }
     });
-    console.log(`The count of each prime number is as follows`);
+    console.log(`output pairs are`);
     console.log(outputPairs);
-    // now lets construct the answer in the format specified
+    // create output string
     let outputString = '';
     for(const[key,value] of Object.entries(outputPairs)){
         if(value===1){
-            outputString += `(${key})`;
+            outputString+=`(${key})`;
         }
         else{
-            outputString+= `(${key}**${value})`
+            outputString += `(${key}**${value})`
         }
-        
     }
     console.log(`output string is ${outputString}`);
     return outputString;
