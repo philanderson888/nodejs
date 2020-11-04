@@ -176,7 +176,7 @@ REASONS TO AVOID NODE
 		
 
 		
-Node Documentation
+## Node Documentation
 
 	
 Node documentation 
@@ -200,44 +200,22 @@ Node documentation
 	
 		http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js
 		
-		
-		
-		
-Node Video Tutorials
+	API
 
-		
-13 minutes   	https://www.youtube.com/watch?v=pU9Q6oiQNd0
-		
-http://gaurassociates.com/#/nodejs/10
+		https://nodejs.org/api/
 	
-JSONP
-	https://www.youtube.com/watch?v=GcHWqyzSCc8
-NODE University
-    http://node.university/courses
-Youtube free courses
-	Node Intro
-    https://www.youtube.com/watch?v=U8XF6AFGqlc - 24 minutes - total beginners - Node from scratch - Traversy Media
-	Node Express
-    https://www.youtube.com/watch?v=gnsO8-xJ8rs 1 hour 24 minutes - beginner from scratch - Traversy Media
-		
- 
- 
- 
- 
-	
-	
-	
-Node documentation
+	SEARCH
 
-NODE SITE
-	
-	https://nodejs.org/api/
-	
-NPM SITE
-	
-	Search within node for keyword : https://www.npmjs.com/browse/keyword/hash
+		https://www.npmjs.com/browse/keyword/hash
 		
 		
+			
 		
+
+ 
+ 
+ 
+	
+
 		
 	
