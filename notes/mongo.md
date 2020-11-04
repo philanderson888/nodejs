@@ -15,6 +15,8 @@
 	- [RESTORE MONGO DATABASE](#restore-mongo-database)
 	- [NODE INSTALL MONGO](#node-install-mongo)
 	- [Simple Mongo Commands](#simple-mongo-commands)
+	- [Remove All Items From Collection](#remove-all-items-from-collection)
+	- [Add Multiple Items To Collection](#add-multiple-items-to-collection)
 	- [Mongoose](#mongoose)
 
 
@@ -341,8 +343,38 @@ CREATE COLLECTION OR INSERT NEW DATA INTO COLLECTION
 		                                .skip(3)
 										
 										
+## Remove All Items From Collection
+
+```js
+const mongo = require('mongodb').MongoClient
+const url = 'mongodb://localhost:27017'
+let db, jobs
+
+mongo.connect(
+  url,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
+  (err, client) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    db = client.db('jobs')
+    jobs = db.collection('jobs')
+    jobs.deleteMany({})
+  }
+)
+```
 	
-	
+## Add Multiple Items To Collection
+
+```js
+jobs = db.collection('jobs')
+const data = [{...}, {...}]
+jobs.insertMany(data)
+```
 	
 	
 DISPLAY DATA 
