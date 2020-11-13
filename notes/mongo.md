@@ -17,6 +17,7 @@
 	- [Simple Mongo Commands](#simple-mongo-commands)
 	- [Remove All Items From Collection](#remove-all-items-from-collection)
 	- [Add Multiple Items To Collection](#add-multiple-items-to-collection)
+	- [Mongo CRUD operations](#mongo-crud-operations)
 	- [Mongoose](#mongoose)
 
 
@@ -626,7 +627,107 @@ MONGO SECURITY
 	YOU HAVE TO START MONGO DATABASE IN SECURE MODE TO ENABLE AUTHENTICATION AND STANDARD SECURITY FEATURES
 	https://docs.mongodb.org/manual/administration/security-checklist/	   
 			
-			
+
+## Mongo CRUD operations
+
+```js
+Mongo MLAB CRUD Operations 
+  created: function () { 
+	this.$http.get('https://api.mlab.com/api/1/databases?apiKey=..') 
+  	.then(function (response) { 
+    	console.log('databases') 
+    	console.log(response) 
+    	console.log(response.data) 
+  	}) 
+	this.$http.get('https://api.mlab.com/api/1/databases/userlist/collections/?apiKey=...') 
+  	.then(function (response) { 
+    	console.log('') 
+    	console.log('collections in userlist database') 
+    	console.log(response) 
+    	console.log(response.data) 
+  	}) 
+	this.$http.get('https://api.mlab.com/api/1/databases/userlist/collections/userlist/?apiKey=...') 
+  	.then(function (response) { 
+    	console.log('') 
+    	console.log('items in userlist collection') 
+    	console.log(response) 
+    	console.log(response.data) 
+  	}) 
+	this.$http.get('https://api.mlab.com/api/1/databases/userlist/collections/users/?apiKey=...') 
+  	.then(function (response) { 
+    	console.log('') 
+    	console.log('users in users collection') 
+    	console.log(response) 
+    	console.log(response.data) 
+        this.users = response.data 
+  	}) 
+  } 
+} 
+methods: { 
+    addUser: function (e) { 
+  	console.log('add') 
+      e.preventDefault() 
+  	this.$http.post('https://api.mlab.com/api/1/databases/userlist/collections/users/?apiKey=fA8mLOQSZkQf3wf0E3yRHmyxXe-uRLWN', this.newUser) 
+    	.then(function (response) { 
+      	console.log(response) 
+      	console.log(response.data) 
+      	console.log(response.data.name) 
+      	console.log(response.data.email) 
+      	console.log(response.data._id) 
+      	console.log(response.data._id.$oid) 
+          this.users.push({ 
+        	name: this.newUser.name, 
+        	email: this.newUser.email, 
+        	contacted: false, 
+        	_id: response.data._id.$oid 
+      	}) 
+    	}) 
+	},
+	deleteUser: function (user) { 
+		console.log('deleting user') 
+		this.users.splice(this.users.indexOf(user), 1) 
+		this.$http.get('https://api.mlab.com/api/1/databases/userlist/collections/users/?apiKey=fA8mLOQSZkQf3wf0E3yRHmyxXe-uRLWN') 
+			.then(function (response) { 
+			console.log(response) 
+			console.log(response.data) 
+			console.log('done') 
+			}) 
+		console.log('user ID that we are deleting is ' + user._id.$oid) 
+		let url = 'https://api.mlab.com/api/1/databases/userlist/collections/users/' + user._id.$oid + '/?apiKey=fA8mLOQSZkQf3wf0E3yRHmyxXe-uRLWN' 
+		console.log('url is ' + url) 
+		this.$http.delete(url) 
+			.then(function (response) { 
+			console.log(response) 
+			console.log(response.data) 
+			}) 
+	}, 
+	editUser: function (user) { 
+		let url = '/#/test' 
+			window.open(url,'_self') 
+		} 
+	},
+	toggleUser: function (user) { 
+		console.log('') 
+		console.log('toggling users status') 
+		console.log('=====================') 
+		console.log('user ID that we are toggling is ' + user._id.$oid) 
+		console.log('user is ' + JSON.stringify(user)) 
+		console.log('user.contacted is ' + user.contacted) 
+			user.contacted = !(user.contacted) 
+		console.log('user.contacted is ' + user.contacted) 
+			this.users.splice(this.users.indexOf(user),1,user) 
+		console.log(this.users) 
+		console.log('user is ' + JSON.stringify(user)) 
+		let url = 'https://api.mlab.com/api/1/databases/userlist/collections/users/' + user._id.$oid + '/?apiKey=fA8mLOQSZkQf3wf0E3yRHmyxXe-uRLWN' 
+		console.log('url is ' + url) 
+		this.$http.put(url,user) 
+			.then(function (response) { 
+			console.log(response) 
+			console.log(response.data) 
+		}) 
+	}, 
+}
+```
 
 ## Mongoose
 
