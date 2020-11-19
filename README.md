@@ -24,7 +24,7 @@ A tutorial workspace for learning NodeJS
 	- [MIDDLEWARE](#middleware)
 	- [Node Modules](#node-modules)
 	- [Core Modules](#core-modules)
-		- [Lodash  for Arrays, Numbers, Strings](#lodash-for-arrays-numbers-strings)
+		- [Lodash  for Arrays, Numbers, Strings](#lodash--for-arrays-numbers-strings)
 	- [STDIN : GETTING RAW INPUT FROM THE USER](#stdin--getting-raw-input-from-the-user)
 	- [RUNNING NODE WITH PARAMETERS](#running-node-with-parameters)
 	- [REFERENCING FILES](#referencing-files)
@@ -43,6 +43,7 @@ A tutorial workspace for learning NodeJS
 		- [Speaking Text](#speaking-text)
 	- [Logging](#logging)
 	- [MongoDB](#mongodb)
+	- [JWT](#jwt)
 
 
 
@@ -2820,4 +2821,8 @@ say.export("I'm sorry, Dave.", 'hal.wav', (err) => {
 
 [Mongo Access Control](notes/mongo-access-control.md)
 
-[Mongoose](notes/mongoose.md)		
+[Mongoose](notes/mongoose.md)	
+
+## JWT
+
+[Node with JWT](notes/jwt.md)
