@@ -14,6 +14,7 @@ const credentials = {
 const expressJwt = require('express-jwt');
 const jsonwebtoken = require('jsonwebtoken');
 const jwtSecret = 'secret123';
+const jwtExpirySeconds = 100;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json())
@@ -68,11 +69,25 @@ const signin = (request,response) => {
         password
     }
     console.log(`user ${JSON.stringify(user)}`);
+    if (!username || !password) {
+        response.send('not authorised')
+        return response.status(401).end()
+    }
+    if(!userData.some(item => item.username === user.username && item.password === user.password)){
+        response.send('not authorised')
+        return response.status(401).end()
+    }
     response.setHeader('Access-Control-Allow-Origin','*');
     response.setHeader('Access-Control-Request-Method','*');
     response.setHeader('Access-Control-Allow-Methods','OPTIONS,GET')
+    const token = jsonwebtoken.sign({ user }, jwtSecret, {
+        algorithm: 'HS256',
+        expiresIn: jwtExpirySeconds,
+    })
+    response.cookie('token',token,{maxAge: jwtExpirySeconds * 1000})
     response.writeHead(200,{'Content-Type':'application/json'});
-    response.end(JSON.stringify(userData));
+    console.log(`token sent as cookie at ${new Date()}`,token)
+    response.end(JSON.stringify(userData))
 }
 app.get('/',homePage);
 app.get('/jwt',jwt);
