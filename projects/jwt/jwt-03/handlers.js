@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 const jwtKey = 'my_secret_key'
 const jwtExpirySeconds = 60
 const users = {
-  user1: 'password1',
-  user2: 'password2'
+  bob: '123',
+  builder: '456'
 }
 const signIn = (req, res) => {
   const { username, password } = req.body
@@ -17,6 +17,9 @@ const signIn = (req, res) => {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds
   })
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Request-Method','*');
+  res.setHeader('Access-Control-Allow-Methods','OPTIONS,GET')
   console.log('token:', token)
   res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
   res.send(token)
