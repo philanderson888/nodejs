@@ -14,6 +14,13 @@ November 2020
   - [Back End in Node!](#back-end-in-node)
   - [Install back end](#install-back-end)
   - [JWT token](#jwt-token)
+  - [Authorization Headers](#authorization-headers)
+  - [basic](#basic)
+  - [bearer](#bearer)
+  - [API key](#api-key)
+  - [digest](#digest)
+  - [OAuth](#oauth)
+  - [AWS](#aws)
 
 ## Introduction
 
@@ -86,3 +93,70 @@ http://localhost:3000/jwt
 */
 ```
 
+## Authorization Headers
+
+These contains the credentials to log in
+
+Some are
+
+- basic
+- bearer
+- API key
+- digest auth
+- OAuth 2.0
+- Hawk
+- AWS Signature
+
+## basic
+
+The base64 string reads `username:password` and is treated as plain text except if https is used
+
+```json
+{
+Authorization: Basic AXVubzpwQDU1dzByYM==
+}
+```
+
+## bearer
+
+```json
+{
+    Authorization: Bearer <token>
+}
+```
+
+## API key
+
+either in url
+
+```
+GET /endpoint?api_key=abcdefgh123456789
+```
+
+or in a header
+
+```json
+{
+    X-API-Key: 11234
+}
+```
+
+## digest
+
+```json
+{
+    Authorization: Digest username=”admin” Realm=”abcxyz” nonce=”474754847743646”, uri=”/uri” response=”7cffhfr54685gnnfgerg8”
+}
+```
+
+## OAuth
+
+individual to provider
+
+## AWS
+
+```json
+{
+    Authorization: AWS4-HMAC-SHA256 Credential=abc/20200618/us-east-1/execute-api/aws4_request, SignedHeaders=host;x-amz-date, Signature=c6c85d0eb7b56076609570f4dbdf730d0a017208d964c615253924149ce65de5
+}
+```
