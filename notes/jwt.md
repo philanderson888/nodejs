@@ -21,6 +21,7 @@ November 2020
   - [digest](#digest)
   - [OAuth](#oauth)
   - [AWS](#aws)
+  - [Authenticating A User](#authenticating-a-user)
 
 ## Introduction
 
@@ -159,4 +160,12 @@ individual to provider
 {
     Authorization: AWS4-HMAC-SHA256 Credential=abc/20200618/us-east-1/execute-api/aws4_request, SignedHeaders=host;x-amz-date, Signature=c6c85d0eb7b56076609570f4dbdf730d0a017208d964c615253924149ce65de5
 }
+```
+
+## Authenticating A User
+
+Let's now see if we can authenticate a user in the back-end
+
+```js
+yarn add mongodb dotenv
 ```
