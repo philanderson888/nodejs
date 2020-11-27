@@ -15,6 +15,7 @@ How can we see in detail what is inside an HTTP packet?
   - [Download attachment](#download-attachment)
   - [Send data](#send-data)
   - [Redirect](#redirect)
+  - [CORS](#cors)
 
 ## Introduction
 
@@ -86,5 +87,23 @@ response.redirect('/folder/path/')
 response.redirect('http://domain.com')
 ```
 
+## CORS
 
+CLIENT-SIDE COMPONENT: “Hey browser, please call this API from https://somecoolapi.com
+
+BROWSER: “Sure thing. Lemme ask.”. “Hmm, somecoolapi.com is a different domain than mytenant.sharepoint.com, where we are now. I should check first”; calls somecoolapi.com.
+
+WEBSITE: “New domain, who dis?”
+
+BROWSER: “Hey, someone from origin: mytenant.sharepoint.com would like to get access to your API. You can find out all about it in my OPTIONS HTTP headers.”
+
+WEBSITE: “Sure, I don’t see any reasons why you shouldn’t be allowed. Here, let me give you some Access-Control-Allow-Origin headers to confirm I’m ok with it. Just make sure you only GET stuff, no POST or DELETEs, ok?”.
+
+WEBSITE: “Awesome!”; Turns to user, “Good news! somecoolapi.com said they’ll do it!”.
+
+WEBSITE: Makes request. Gets results. Returns results to user.
+
+They lived happily ever after.
+
+The End.
 
