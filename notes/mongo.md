@@ -7,6 +7,19 @@
 	- [Documentation](#documentation)
 	- [Resources](#resources)
 	- [Install Mongo](#install-mongo)
+	- [MLab](#mlab)
+	- [Connect to database](#connect-to-database)
+	- [create collection](#create-collection)
+	- [connect to a collection](#connect-to-a-collection)
+	- [insertOne](#insertone)
+	- [insertMany](#insertmany)
+	- [_id](#_id)
+	- [find()](#find)
+	- [find particular fields](#find-particular-fields)
+	- [filter](#filter)
+	- [findOne()](#findone)
+	- [sort](#sort)
+	- [deleteOne()](#deleteone)
 	- [Running Mongo Database](#running-mongo-database)
 		- [RUNNING MONGO CLIENT](#running-mongo-client)
 		- [RUNNING MONGO ONLINE](#running-mongo-online)
@@ -18,6 +31,7 @@
 	- [Remove All Items From Collection](#remove-all-items-from-collection)
 	- [Add Multiple Items To Collection](#add-multiple-items-to-collection)
 	- [Mongo CRUD operations](#mongo-crud-operations)
+	- [Mongo-Watch](#mongo-watch)
 	- [Mongoose](#mongoose)
 
 
@@ -28,14 +42,287 @@ https://docs.mongodb.org/manual/
 		
 ## Resources
 
-https://www.youtube.com/watch?v=Do_Hsb_Hs3c (22 minutes)
+https://www.w3schools.com/nodejs/nodejs_mongodb.asp
 
+https://www.youtube.com/watch?v=Do_Hsb_Hs3c (22 minutes)
 
 
 ## Install Mongo
 
-```js
 https://docs.mongodb.com/manual/installation
+
+
+## MLab
+
+An alternative to Mongo is Mlab which hosts a database for free.
+
+- Sign up
+- Create a database
+- Create a user
+- Get the url and use it below
+
+## Connect to database
+
+```js
+yarn add mongodb dotenv
+```
+
+server.js
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+console.log(url)
+MongoClient.connect(url,(error,database) => {
+    if(error) throw error;
+    console.log('Connected to mongo');
+    database.close();
+});
+```
+
+## create collection 
+
+This connects to our named database which has already been created eg on MLab
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+console.log(url)
+MongoClient.connect(url, (error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    // usersDb.createCollection('users',(error, response) => {
+    //     if (error) throw error;
+    //     console.log('collection ok')
+    // })
+    database.close();
+});
+```
+
+## connect to a collection
+
+after being created we can connect to a collection using
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    database.close();
+});
+```
+
+## insertOne
+
+we can insert a record using
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const user = {
+        username : 'bob',
+        password : '123',
+    }
+	users.insertOne(user)
+		.then(result=>{
+			console.log(`success! new id is ${result.insertedId}`)
+		}).catch(error => {
+			console.log(`user not created`,error)
+		})
+});
+/*
+user created
+*/
+```
+
+## insertMany
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const user = {
+        username : 'bob',
+        password : '123',
+    }
+    const user2 = {
+        username: 'bill',
+        password: '456'
+    }
+    const usersToAdd = [user,user2];
+    users.insertMany(usersToAdd,(error,response) => {
+		console.log(`${response.insertedCount} users added`)
+        database.close();
+    })
+});
+/*
+2 users added
+*/
+```
+
+```json
+response {
+	insertedIds:  [..],
+	ops: [],
+	result: {},
+}
+```
+
+## _id
+
+if we specify `_id` then mongo will use the `_id` we specify.
+
+if not mongo will add its own 
+
+
+## find()
+
+to find all users we write
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const allUsers = users.find({}).toArray((error,user) => {
+        console.log(`user`,user)
+        database.close();
+    })
+});
+```
+
+## find particular fields
+
+to return particular fields we include
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const allUsers = users.find({},{projection:{username:1,password:1,_id:0}}).toArray((error,user) => {
+        console.log(`user`,user)
+        database.close();
+    })
+});
+/*
+user [ 
+  { username: 'bob', password: '123' },
+  { username: 'bill', password: '456' } 
+]
+*/
+```
+
+## filter
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const filter = { username: 'bob' };
+    const allUsers = users.find(filter,{projection:{username:1,password:1,_id:0}}).toArray((error,user) => {
+        console.log(`user`,user)
+        database.close();
+    })
+});
+```
+
+## findOne()
+
+to find the first user we write
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const allUsers = users.findOne({username:'bob'},(error,user) => {
+        console.log(`user`,user)
+        database.close();
+    })
+});
+```
+
+## sort
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const filter = { username: 'bob' };
+    const sort = {username:1};
+    const allUsers = users
+        .find(filter,{projection:{username:1,password:1,_id:0}})
+        .sort(sort)
+        .toArray((error,user) => {
+            console.log(`user`,user)
+            database.close();
+        })
+});
+```
+
+## deleteOne()
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+MongoClient.connect(url,{useUnifiedTopology:true,retryWrites:false},(error,database) => {
+    if(error) throw error;
+    const usersDb = database.db('jwt-authentication-database-2020-11');
+    const users = usersDb.collection('users');
+    const filter = { username: 'bob' };
+    const sort = {username:1};
+    const deleteUser = { username: 'bob'};
+    users.deleteOne(deleteUser, (error,user) => {
+        console.log(`user deleted`)
+        database.close();
+    })
+});
+/*
+user deleted
+*/
+```
+
+
+###
+
+###
+
+####
+
+```js
 npm install mongodb
 Create database folder at c:\data\db 
 var MongoClient=require('mongodb').MongoClient;
@@ -728,6 +1015,22 @@ methods: {
 	}, 
 }
 ```
+
+
+## Mongo-Watch 
+
+This listens for changes
+
+```js
+npm install mongo-watch 
+MongoWatch = require 'mongo-watch'
+watcher = new MongoWatch {format: 'pretty'}
+// watch
+watcher.watch ('test.mytable', event => {
+	console.log ('something changed:', event)
+});
+```
+
 
 ## Mongoose
 

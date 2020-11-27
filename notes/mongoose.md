@@ -1,9 +1,20 @@
 # Mongoose
 
+## Contents
 
+- [Mongoose](#mongoose)
+	- [Contents](#contents)
+
+## Author
+
+@philanderson888
+November 2020
+
+## Introduction
+
+Mongoose provides an OOP-style structure to access a Mongo database and updates are made in relation to objects
 
 ```js
-
 Install Mongoose
 
 npm install mongoose          (Must run as admin)
