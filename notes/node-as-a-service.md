@@ -36,6 +36,3 @@ Node AutoStart : Linux
 				
 PM2 : Check out script capabilities to create a script to start PM2 at server startup
 	http://pm2.keymetrics.io/docs/usage/startup/
-	
-	
-	

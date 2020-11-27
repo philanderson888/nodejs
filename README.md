@@ -21,10 +21,12 @@ A tutorial workspace for learning NodeJS
 		- [Node Environment Variables](#node-environment-variables)
 	- [RUNNING A NODE FILE](#running-a-node-file)
 	- [Node Debugging](#node-debugging)
+	- [Node As A Service](#node-as-a-service)
+	- [Environment Variables](#environment-variables)
 	- [Middleware](#middleware)
 	- [Modules](#modules)
 	- [Async](#async)
-	- [Node as a service](#node-as-a-service)
+	- [Node as a service](#node-as-a-service-1)
 	- [STDIN : GETTING RAW INPUT FROM THE USER](#stdin--getting-raw-input-from-the-user)
 	- [RUNNING NODE WITH PARAMETERS](#running-node-with-parameters)
 	- [File Management](#file-management)
@@ -39,6 +41,7 @@ A tutorial workspace for learning NodeJS
 	- [JWT](#jwt)
 	- [HTTP](#http)
 	- [HTTPS](#https)
+	- [CORS](#cors)
 
 
 
@@ -1040,7 +1043,7 @@ RESTART WITH 'FOREVER' (AND FOREVER-MONITOR)
 		
 		
 			
-			
+## Node As A Service		
 			
 						
 PM2 - Restart After Crash
@@ -1092,7 +1095,29 @@ PM2 - Restart After Crash
 		pm2 logs
 	
 		
-				
+## Environment Variables
+
+```js
+yarn add mongodb dotenv
+```
+
+create an entry in `.env` file
+
+```
+MLabConnectionString=mongodb://...url...
+```
+
+server.js
+
+```js
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MLabConnectionString;
+console.log(url);
+/*
+mongodb://...url...
+*/
+```
 		
 ## Middleware
 
@@ -1802,3 +1827,7 @@ say.export("I'm sorry, Dave.", 'hal.wav', (err) => {
 ## HTTPS
 
 [HTTPS](notes/https.md)
+
+## CORS
+
+[CORS](notes/http.md##cors)
