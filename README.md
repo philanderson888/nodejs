@@ -9,6 +9,7 @@ A tutorial workspace for learning NodeJS
 - [Node](#node)
 	- [Contents](#contents)
 	- [Introduction](#introduction)
+	- [getting started - all-in-one-app](#getting-started---all-in-one-app)
 	- [NODE LABS](#node-labs)
 	- [Node documentation](#node-documentation)
 	- [NODE : Overall Philosophy and BIG PICTURE](#node--overall-philosophy-and-big-picture)
@@ -42,7 +43,8 @@ A tutorial workspace for learning NodeJS
 	- [HTTP](#http)
 	- [HTTPS](#https)
 	- [CORS](#cors)
-	- [NestJs](#nestjs)
+	- [NestJS](#nestjs)
+	- [Gatsby](#gatsby)
 
 
 
@@ -54,6 +56,9 @@ A tutorial workspace for learning NodeJS
 [Introduction](notes/introduction.md)
  
  
+ ## getting started - all-in-one-app
+
+ To see the basics in action head straight to [all-in-one-app](projects/all-in-one-app) and run `nodemon all-in-one-app.js`
  
  ## NODE LABS
 
