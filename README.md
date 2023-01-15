@@ -45,6 +45,9 @@ A tutorial workspace for learning NodeJS
 	- [CORS](#cors)
 	- [NestJS](#nestjs)
 	- [Gatsby](#gatsby)
+	- [Qwik](#qwik)
+	- [Deno](#deno)
+	- [Unit testing](#unit-testing)
 
 
 
@@ -58,7 +61,11 @@ A tutorial workspace for learning NodeJS
  
  ## getting started - all-in-one-app
 
- To see the basics in action head straight to [all-in-one-app](projects/all-in-one-app) and run `nodemon all-in-one-app.js`
+ To see the basics in action 
+ 
+ 1) go to folder [all-in-one-app](projects/all-in-one-app)
+ 2) run `npm run start`
+ 3) go to http://localhost and click on the examples
  
  ## NODE LABS
 
@@ -1846,3 +1853,22 @@ say.export("I'm sorry, Dave.", 'hal.wav', (err) => {
 [Gatsby](notes/gatsby.md)
 	
 [Gatsby Site](https://github.com/philanderson888/gatsby-coffee)
+
+## Qwik
+
+can be used to instantly deploy apps
+
+https://qwik.builder.io
+
+## Deno
+
+deno is built in `rust` as a faster alternative to `npm`
+
+- Deno deploy fastest means of deploying website like Netlify 
+  - [https://deno.com/deploy](https://deno.com/deploy)
+- Deno build trial blog with fresh 
+  - [https://deno.com/blog/build-a-blog-with-fresh](https://deno.com/blog/build-a-blog-with-fresh)
+
+## Unit testing
+
+[Unit Testing](notes/unit-testing.md)

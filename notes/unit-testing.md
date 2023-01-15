@@ -1,9 +1,29 @@
 # Node Testing
 
+## contents
 
-    
-Unit Testing
-		
+- [Node Testing](#node-testing)
+	- [contents](#contents)
+	- [introduction](#introduction)
+	- [references](#references)
+	- [ASSERT](#assert)
+	- [Jasmine Testing](#jasmine-testing)
+	- [VOWS TESTING](#vows-testing)
+	- [SHOULD TESTING](#should-testing)
+	- [Page Testing : Mocha](#page-testing--mocha)
+	- [Cross-Page Testing](#cross-page-testing)
+	- [Logic Testing : Javascript](#logic-testing--javascript)
+	- [Lint : Potential Errors](#lint--potential-errors)
+	- [Link checking  : Link Checker](#link-checking---link-checker)
+	- [Install Mocha](#install-mocha)
+	- [EXPRESS : APP.USE](#express--appuse)
+	- [WEB PAGE](#web-page)
+	- [CONDITIONAL TESTING CSS AND JS  : GLOBAL ON ALL PAGES](#conditional-testing-css-and-js---global-on-all-pages)
+	- [JS TEST FILE IN MOCHA](#js-test-file-in-mocha)
+	- [CROSS PAGE TESTING](#cross-page-testing-1)
+
+## introduction
+
 What is unit testing
 	TESTING INDIVIDUAL MODULES 
 How to plan for unit testing
@@ -15,7 +35,14 @@ How to plan for unit testing
 	
 	
 	
-	
+## references
+
+- Why use unit testing 
+  - [https://snyk.io/blog/how-to-write-unit-test-in-javascript](https://snyk.io/blog/how-to-write-unit-test-in-javascript/)
+
+
+- Write js unit tests 
+  - [https://snyk.io/blog/how-to-write-unit-test-in-javascript](https://snyk.io/blog/how-to-write-unit-test-in-javascript/)
 	
 	
 	
@@ -53,7 +80,7 @@ Testing for good practice with ESLint
 	
 	
 	
-ASSERT 
+## ASSERT 
 	const assert = require('assert');
 	https://nodejs.org/api/assert.html
 	
@@ -76,7 +103,7 @@ ASSERT
 	
 	
 	
-Jasmine Testing
+## Jasmine Testing
 
 	
 UNIT TEST : JUST TEST ONE COMPONENT IN ISOLATION
@@ -136,12 +163,13 @@ Jasmine Example 3
 	
 	This describe function may seem confusing at first if you are new to Jasmine, but it is actually very simple to understand. The first argument is just a short description of what you are testing (in this case we are testing Hello World app). The second argument is just the function that is going to execute the test.
 	We now want to add the two tests we are going to run. The first test ensures our server is returning a HTTP status of 200, or OK. For this we will need to write another describe function.
+```js
 	describe("Hello World Server", function() {
 	  describe("GET /", function() {
             
 	  });
 	});
-		
+```		
 		
 		
 	In the first argument, we use “GET /” as the description because if you remember, in our Node app we use app.get('/', function { ... }); to kick off our code.
@@ -149,6 +177,8 @@ Jasmine Example 3
 	
 	
 	The next step is to write an it function. The it function is very similar to the describe function, just instead of describing the test, you are inputting the contents you expect to be returned.
+
+```js
 	describe("Hello World Server", function() {
 	  describe("GET /", function() {
 		it("returns status code 200", function() {
@@ -262,137 +292,315 @@ Jasmine Example 3
 		});
 	  });
 	});
-	As you can see I have added the helloWorld.closeServer(); function right below our expect function in our second it function. Putting the close server function in that spot will ensure that our tests have been ran and then the server will close.
-	Step 4. Run your Tests
-	Before we can run our tests locally, there is one more step to complete. Open the package.json file in your projects directory. Once the file is open you will need to put the command jasmine-node spec into the test section. Your file should look like this now:
-	{
-	  "name": "node-tutorial",
-	  "version": "1.0.0",
-	  "main": "app.js",
-	  "dependencies": {
-		"express": "^4.13.3",
-		"jasmine-node": "^1.14.5",
-		"request": "^2.65.0"
-	  },
-	  "devDependencies": {},
-	  "scripts": {
-		"test": "jasmine-node spec"
-	  },
-	  "author": "",
-	  "license": "ISC"
-	}
-	We made this change to our package.json file because want to be able to run our tests from the command npm test. Run that command in your project directory now and you should see an output similar to this:
-	Distellis-MBP:node-tutorial zack$ npm test
-	> jasminetesting@1.0.0 test /Users/zack/ws/src/node-tutorial
-	> jasmine-node spec
-	Magic is happening on port 3000
-	..
-	Finished in 0.06 seconds
-	2 tests, 2 assertions, 0 failures, 0 skipped
-	As you can see our test file ran our sample application, made sure the status code was equal to 200, and then tested that the body was equal to “Hello World”. Now open your app.js file and change “Hello World” to “Hi Mom” and run the test again.
-	You should see an output similar to this:
-	Distellis-MBP:node-tutorial zack$ npm test
-	> jasminetesting@1.0.0 test /Users/zack/ws/src/node-tutorial
-	> jasmine-node spec
-	Magic is happening on port 3000
-	.F
-	Failures:
-	  1) Hello World Server GET / returns Hello World
-	   Message:
-		 Expected 'Hi Mom' to be 'Hello World'.
-	   Stacktrace:
-		 Error: Expected 'Hi Mom' to be 'Hello World'.
-		at Request._callback (/Users/zack/ws/src/node-tutorial/spec/hello_world_spec.js:16:22)
-		at Request.self.callback (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:198:22)
-		at emitTwo (events.js:87:13)
-		at Request.emit (events.js:172:7)
-		at Request. (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:1082:10)
-		at emitOne (events.js:82:20)
-		at Request.emit (events.js:169:7)
-		at IncomingMessage. (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:1009:12)
-	Finished in 0.052 seconds
-	2 tests, 2 assertions, 1 failure, 0 skipped
-	Since we changed the Value of the body of the response to “Hi Mom” this caused our Jasmine test to fail. This is important because we want to make sure that when we make change to our code that the output is still what we expect it to be. You can now go back and change “Hi Mom” back to “Hello World” in our app.js file.
+```
+As you can see I have added the helloWorld.closeServer(); function right below our expect function in our second it function. Putting the close server function in that spot will ensure that our tests have been ran and then the server will close.
+Step 4. Run your Tests
+Before we can run our tests locally, there is one more step to complete. Open the package.json file in your projects directory. Once the file is open you will need to put the command jasmine-node spec into the test section. Your file should look like this now:
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	Run your code and call the function with given input and assert TRUE OR FALSE 
-	WHETHER THE CODE RESULT SHOULD BE A GIVEN VALUE 
-	
-	HANDY TO WRITE TESTS BEFORE YOU WRITE YOUR CODE! SAVES A LOT OF WORK AND TIME!
-	
-	describe ("INPUT TEXT", function(){
-		it("INPUT TEXT 2", function(){
-			expect(field1).toBe(field2);
-			expect(x).toBe(true);
-			expect(y).not.toBe (true);
-			expect(x).toBeDefined();
-			toBeNull();
-			toContain("x")           IN ARRAY 
-			toBeLessThan(x);
-			toThrow()
-			toThrowError("x")
-			toEqual(1)
-			expect(function.parameter).toHaveBeenCalledWith(123)  
-			
-		});
-	});
-	
-	
-	
-Jasmine Links
+```json
+{
+	"name": "node-tutorial",
+	"version": "1.0.0",
+	"main": "app.js",
+	"dependencies": {
+	"express": "^4.13.3",
+	"jasmine-node": "^1.14.5",
+	"request": "^2.65.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+	"test": "jasmine-node spec"
+	},
+	"author": "",
+	"license": "ISC"
+}
+```
 
-	https://github.com/jasmine/jasmine	
+We made this change to our package.json file because want to be able to run our tests from the command npm test. Run that command in your project directory now and you should see an output similar to this:
+
+```
+Distellis-MBP:node-tutorial zack$ npm test
+> jasminetesting@1.0.0 test /Users/zack/ws/src/node-tutorial
+> jasmine-node spec
+Magic is happening on port 3000
+..
+Finished in 0.06 seconds
+2 tests, 2 assertions, 0 failures, 0 skipped
+```
+
+As you can see our test file ran our sample application, made sure the status code was equal to 200, and then tested that the body was equal to “Hello World”. Now open your app.js file and change “Hello World” to “Hi Mom” and run the test again.
+You should see an output similar to this:
+
+```
+Distellis-MBP:node-tutorial zack$ npm test
+> jasminetesting@1.0.0 test /Users/zack/ws/src/node-tutorial
+> jasmine-node spec
+Magic is happening on port 3000
+.F
+Failures:
+	1) Hello World Server GET / returns Hello World
+	Message:
+		Expected 'Hi Mom' to be 'Hello World'.
+	Stacktrace:
+		Error: Expected 'Hi Mom' to be 'Hello World'.
+	at Request._callback (/Users/zack/ws/src/node-tutorial/spec/hello_world_spec.js:16:22)
+	at Request.self.callback (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:198:22)
+	at emitTwo (events.js:87:13)
+	at Request.emit (events.js:172:7)
+	at Request. (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:1082:10)
+	at emitOne (events.js:82:20)
+	at Request.emit (events.js:169:7)
+	at IncomingMessage. (/Users/zack/ws/src/node-tutorial/node_modules/request/request.js:1009:12)
+Finished in 0.052 seconds
+2 tests, 2 assertions, 1 failure, 0 skipped
+```
+
+Since we changed the Value of the body of the response to “Hi Mom” this caused our Jasmine test to fail. This is important because we want to make sure that when we make change to our code that the output is still what we expect it to be. You can now go back and change “Hi Mom” back to “Hello World” in our app.js file.
 	
-	https://www.distelli.com/docs/tutorials/test-your-nodejs-with-jasmine
+	
+	
+	
+	
+Run your code and call the function with given input and assert TRUE OR FALSE 
+
+WHETHER THE CODE RESULT SHOULD BE A GIVEN VALUE 
+	
+HANDY TO WRITE TESTS BEFORE YOU WRITE YOUR CODE! SAVES A LOT OF WORK AND TIME!
+	
+```js
+describe ("INPUT TEXT", function(){
+	it("INPUT TEXT 2", function(){
+		expect(field1).toBe(field2);
+		expect(x).toBe(true);
+		expect(y).not.toBe (true);
+		expect(x).toBeDefined();
+		toBeNull();
+		toContain("x")           IN ARRAY 
+		toBeLessThan(x);
+		toThrow()
+		toThrowError("x")
+		toEqual(1)
+		expect(function.parameter).toHaveBeenCalledWith(123)  
 		
-	http://blog.codeship.com/jasmine-node-js-application-testing-tutorial/
+	});
+});
+```	
 	
-	https://github.com/jasmine/jasmine-npm
-	  
 	
+### Jasmine Links
+
+https://github.com/jasmine/jasmine	
+
+https://www.distelli.com/docs/tutorials/test-your-nodejs-with-jasmine
 	
-Mocha Testing
+http://blog.codeship.com/jasmine-node-js-application-testing-tutorial/
+
+https://github.com/jasmine/jasmine-npm
+	
+
+	
+## Mocha Testing
 	
 TDD TEST DRIVEN DESIGN : MEANS DESIGN YOUR TESTS FIRST! 	
 	
 WILL NOT ALLOW ANY TEST TO RUN FOR MORE THAN 2 SECONDS BEFORE FAILING IT
 ACCEPTANCE TESTING - TESTS THE OUTCOMES, DOES NOT TEST THE LOGIC
-	https://github.com/mochajs/mocha
-	http://mochajs.org/
+
+
+https://github.com/mochajs/mocha
+
+http://mochajs.org/
 	
-	npm install -g mocha
-	
-	mkdir test
-	
-	By default, mocha looks for the glob ./test/ *.js, so you may want to put your tests in test/ folder.
-	
-	$ $EDITOR test/test.js
-	
-	
-	var assert = require('assert');
-	describe('Array', function() {
-	  describe('#indexOf()', function () {
-		it('should return -1 when the value is not present', function () {
-		  assert.equal(-1, [1,2,3].indexOf(5));
-		  assert.equal(-1, [1,2,3].indexOf(0));
-		});
-	  });
+```js
+npm install -g mocha
+
+mkdir test
+
+By default, mocha looks for the glob ./test/ *.js, so you may want to put your tests in test/ folder.
+
+$ $EDITOR test/test.js
+
+
+var assert = require('assert');
+describe('Array', function() {
+	describe('#indexOf()', function () {
+	it('should return -1 when the value is not present', function () {
+		assert.equal(-1, [1,2,3].indexOf(5));
+		assert.equal(-1, [1,2,3].indexOf(0));
 	});
-	
-	
-	
-	
-	
-	
-VOWS TESTING
+	});
+});
+```
 
-SHOULD TESTING
+	
+	
+	
+	
+## VOWS TESTING
 
-		 
+## SHOULD TESTING
+
+
+
+
+	
+ 
+## Page Testing : Mocha
+
+HTML PRESENTATION AND FUNCTIONALITY
+ 
+## Cross-Page Testing 
+
+HTML TALKING TO ANOTHER PAGE
+ 
+## Logic Testing : Javascript
+ 
+ 
+## Lint : Potential Errors
+ 
+## Link checking  : Link Checker
+ 
+ 
+ 
+WRITE TESTS FIRST SO THEY FAIL INITIALLY SO WHEN THEY PASS YOU KNOW IT'S BECAUSE OF THE CODE YOU HAVE WRITTEN
+ 
+ 
+ 
+ 
+## Install Mocha
+ 
+```js
+Npm install -g Mocha --save-dev
+ 
+ 
+--save-dev    adds to Development Dependencies instead of runtime dependencies  (NOT DEPLOYED TO LIVE SITE)
+``` 
+ 
+ADD MOCHA FILES TO /PUBLIC FOLDER 
+
+```js
+mocha.js
+mocha.css
+``` 
+ 
+ 
+INSTALL CHAI ASSERTION LIBRARY SO RUN ASSERTION TESTS IN BROWSER
+ 
+
+```js
+Npm install --save-dev chai
+```
+
+ADD CHAI TO /PUBLIC FOLDER     chai.js
+ 
+ 
+ 
+ 
+ 
+TESTS : TURN ON WITH URL ?TEST=1
+ 
+ 
+ 
+ 
+## EXPRESS : APP.USE  
+ 
+** NOTE : RUN THIS FIRST BEFORE OTHER APP.USE METHODS TO DETECT IF NON-PRODUCTION ENVIRONMENT AND TESTING IS ON
+   
+     res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1'
+ 
+ 
+ 
+## WEB PAGE
+ 
+CONDITIONAL TESTING CSS AND JS  : GLOBAL ON ALL PAGES
+ 
+```js
+{{#IF showTests}} 
+ 
+<link rel='mocha.css'>
+``` 
+ 
+AT END OF BODY
+ 
+
+```js
+<SCRIPT SRC=MOCHA.JS>
+<SCRIPT SRC=CHAI.JS>
+ 
+<SCRIPT SRC=GLOBAL-TESTS.JS>
+``` 
+ 
+ 
+ 
+## CONDITIONAL TESTING CSS AND JS  : GLOBAL ON ALL PAGES
+ 
+ 
+{{#IF INDIVIDUAL PAGE TEST}}
+
+<SCRIPT SRC=INIDIVIDUAL-PAGE-TEST.JS>
+ 
+ 
+ 
+## JS TEST FILE IN MOCHA
+ 
+Suite('Global Test', function(){
+ 
+Test('what I am testing gets stated here',function(){
+ 
+Assert(….test must return TRUE!!! …);
+ 
+});
+ 
+});
+ 
+ 
+ 
+ 
+ 
+## CROSS PAGE TESTING
+ 
+USE A 'HEADLESS BROWSER' TO EFFECTIVELY VISIT A REMOTE SITE AND GLEAN INFORMATION TO RUN AGAINST OUR TESTS
+ 
+EG SELENIUM 
+ 
+RUN SOME TESTS AGAINST WHAT THE BROWSER SHOULD DO
+ 
+QUITE COMPLEX
+ 
+ 
+ 
+ 
+ 
+RUN YOUR MOCHA TEST
+ 
+1.	INSTALL MOCHA GLOBALLY NPM INSTALL -G MOCHA
+2.	START YOUR SERVER
+3.	RUN YOUR TEST   mocha -u tdd -R spec qa/tests-crosspage.js 2>/dev/null
+TDD OR BDD
+SPEC IS A 'REPORTER' 
+2>/DEV/NULL  ==> OUTPUT STACK TRACE
+ 
+ 
+ 
+ 
+UNIT TESTS FOR TESTING THE LOGIC OF YOUR CODE
+ 
+ 
+Var expect = require('chai').expect;
+ 
+Suite('my tests', function(){
+ 
+Test ('this test description',function(){
+Expect(….must return true …);
+});
+ 
+});
+ 
+ 
+Then run the file with Mocha
+ 
+Mocha -u tdd -R spec unit-test01.js
+ 
+ 
+
+	 

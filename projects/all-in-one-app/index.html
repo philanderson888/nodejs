@@ -7,8 +7,15 @@
     <title>NodeJS Web Server</title>
 </head>
 <body>
-    <h3>NodeJS web server examples</h3>
+    <h3>NodeJS web server sending HTML static file on port 3001</h3>
     <ul>
+        <li>home
+            <ul>
+                <li>
+                    <a href="http://localhost">http://localhost</a>
+                </li>    
+            </ul>    
+        </li>
         <li>node server sending plain text
             <ul>
                 <li>
@@ -16,22 +23,53 @@
                 </li>    
             </ul>    
         </li>
-        <li>node server sending http
+        <li>node server sending static HTTP
             <ul>
                 <li>
-                    raw  html <a href="http://localhost:3001">http://localhost:3001</a>
+                    HTTP returned <a href="http://localhost:3001">http://localhost:3001</a>
                 </li>    
             </ul> 
         </li>
         <li>
-            express server returning json
+            GET
             <ul>
                 <li>
-                    parsing request.query parameters <a href="http://localhost/jsonResponse">http://localhost/jsonResponse => {     }</a>
+                    local api - empty request returns empty data <a href="http://localhost/jsonResponse">http://localhost/jsonResponse => {     }</a>
                 </li>
                 <li>
-                    parsing request.query parameters <a href="http://localhost/jsonResponse?name=phil">http://localhost/jsonResponse?name=phil --> {  name : phil  }</a>
+                    local api - send parameters return json <a href="http://localhost/jsonResponse?name=phil">http://localhost/jsonResponse?name=phil --> {  name : phil  }</a>
                 </li>
+                <li>
+                    hosted netlify API - send parameters return json <a href="https://netlify-express-serverless.netlify.app/.netlify/functions/json01">https://netlify-express-serverless.netlify.app/.netlify/functions/json01 => {  name: phil   }</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            POST
+            <ul>
+                <li>
+                    POST to JsonPlaceholder api from a node page in this local app <a href="http://localhost/sendPostRequestToJsonPlaceholder">sendPostRequestToJsonPlaceholder => {}</a>
+                </li>       
+                <li>
+                    POST to JsonPlaceholder api from a node page in this local app with data <a href="http://localhost/sendPostRequestToJsonPlaceholder?name=bob">http://localhost/sendPostRequestToJsonPlaceholder?name=bob => {name:bob}</a>
+                </li>    
+                <li>
+                    POST user to JSONPlaceholder.typicode.com <a href="http://localhost/sendPostRequestToDemoApi?name=bob">http://localhost/sendPostRequestToDemoApi?name=bob => {  name: bob   }</a>
+                </li>
+                <li>
+                    POST to hosted netlify api from a node page in this local app with data <a href="http://localhost/sendPostRequestToNetlifyApi?name=bob">http://localhost/sendPostRequestToNetlifyApi?name=bob => {name:bob}</a>
+                </li>            
+            </ul>
+        </li>
+        <li>
+            PUT
+            <ul>
+                <li>
+                    PUT to JsonPlaceholder from local node app <a href="http://localhost/sendPutRequestToJsonPlaceholder?id=5&name=bob">http://localhost/sendPutRequestToJsonPlaceholder?id=5&name=bob => {.. success ... name:bob }</a>
+                </li>    
+                <li>
+                    PUT to hosted netlify api from local node app <a href="http://localhost/sendPutRequestToNetlifyExpressApi?name=bob">http://localhost/sendPostRequestToNetlifyApi?name=tim => .. success .. {name:bob}</a>
+                </li>            
             </ul>
         </li>
     </ul>
