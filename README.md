@@ -12,6 +12,8 @@ A tutorial workspace for learning NodeJS
 	- [getting started - all-in-one-app](#getting-started---all-in-one-app)
 	- [NODE LABS](#node-labs)
 	- [Node documentation](#node-documentation)
+		- [official](#official)
+		- [random lists of web, javascript, node and front-end library terms](#random-lists-of-web-javascript-node-and-front-end-library-terms)
 	- [NODE : Overall Philosophy and BIG PICTURE](#node--overall-philosophy-and-big-picture)
 	- [Node and Express History](#node-and-express-history)
 	- [First Tasks](#first-tasks)
@@ -176,32 +178,16 @@ AWAIT
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	
 	
 
 	
 	
 ## Node documentation
+
+### official
 
 NODE SITE
 	
@@ -210,9 +196,14 @@ NODE SITE
 NPM SITE
 	
 	Search within node for keyword : https://www.npmjs.com/browse/keyword/hash
+
 		
-		
-		
+### random lists of web, javascript, node and front-end library terms
+
+https://github.com/philanderson888/javascript/blob/main/notes/random-web-terms-and-glossary.md
+
+
+	
 		
 		
 		
