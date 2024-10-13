@@ -2,8 +2,6 @@
 
 A tutorial workspace for learning NodeJS
 
-*Note - need to eliminate duplicate work in the \notes folder*
-
 ## Contents
 
 - [Node](#node)
@@ -13,9 +11,7 @@ A tutorial workspace for learning NodeJS
 	- [NODE LABS](#node-labs)
 	- [Node documentation](#node-documentation)
 		- [official](#official)
-		- [random lists of web, javascript, node and front-end library terms](#random-lists-of-web-javascript-node-and-front-end-library-terms)
-	- [NODE : Overall Philosophy and BIG PICTURE](#node--overall-philosophy-and-big-picture)
-	- [Node and Express History](#node-and-express-history)
+	- [history](#history)
 	- [First Tasks](#first-tasks)
 	- [Installing node](#installing-node)
 	- [Updating Node](#updating-node)
@@ -193,74 +189,15 @@ NODE SITE
 	
 	https://nodejs.org/api/
 	
-NPM SITE
-	
-	Search within node for keyword : https://www.npmjs.com/browse/keyword/hash
+NPM LIBRARIES
+
+	https://www.npmjs.com/browse/keyword/hash
 
 		
-### random lists of web, javascript, node and front-end library terms
-
-https://github.com/philanderson888/javascript/blob/main/notes/random-web-terms-and-glossary.md
 
 
-	
-		
-		
-		
-		
-		
-		
-	
-		
-## NODE : Overall Philosophy and BIG PICTURE
 
-Introduction 
-	WHAT IS IT 
-	
-	WHY SHOULD WE USE IT
-	
-	BENEFITS 
-	
-	COMPETITORS
-	POPULARITY
-	
-	SPIN-OFF TECHNOLOGIES NOW UNDER ITS UMBRELLA 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-## Node and Express History
+## history
 
 NODE 2009
 
@@ -271,6 +208,8 @@ Node 6.11 Stable
 Node 8 latest
 Express 2010
 Express 4 current
+
+
 
 Intro
 
