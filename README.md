@@ -35,7 +35,6 @@ A tutorial workspace for learning NodeJS
 	- [Media](#media)
 	- [play-sound](#play-sound)
 		- [Speaking Text](#speaking-text)
-	- [Logging](#logging)
 	- [MongoDB](#mongodb)
 	- [JWT](#jwt)
 	- [HTTP](#http)
@@ -1707,9 +1706,6 @@ player.play('assets/media/mp3-sample-sound.mp3', (err) => {
 });
 ```
 
-See [node-play-sound.js](../nodejs/single-node-files/node-play-sound.js)
-
-
 ### Speaking Text
 
 To speak text we can use https://www.npmjs.com/package/say
@@ -1744,10 +1740,7 @@ say.export("I'm sorry, Dave.", 'hal.wav', (err) => {
 
 
 	
-	
-## Logging
-	
-[node-logging](node-logging.md)
+
 
 		
 ## MongoDB
