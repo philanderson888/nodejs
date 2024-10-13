@@ -15,11 +15,21 @@ A tutorial workspace for learning NodeJS
 	- [First Tasks](#first-tasks)
 	- [Installing node](#installing-node)
 	- [Updating Node](#updating-node)
+	- [UBUNTU 15.10 : INSTALL NODE (VERSION 2 USING CURL)](#ubuntu-1510--install-node-version-2-using-curl)
+	- [UBUNTU : TEST NODE IS WORKING](#ubuntu--test-node-is-working)
+		- [INSTALL FROM SOURCE CODE](#install-from-source-code)
+		- [INSTALL NPM NODE PACKAGE MANAGER](#install-npm-node-package-manager)
+			- [How to Update Node and NPM](#how-to-update-node-and-npm)
 	- [NPM Node Package Manager](#npm-node-package-manager)
 		- [How popular is a package?](#how-popular-is-a-package)
 		- [Node Environment Variables](#node-environment-variables)
+	- [RUNNING NODE IN THE COMMAND LINE : REPL READ EVAL PRINT LOOP](#running-node-in-the-command-line--repl-read-eval-print-loop)
 	- [RUNNING A NODE FILE](#running-a-node-file)
+	- [TO LAUNCH A NODE APPLICATION FROM ANOTHER NODE OR JAVASCRIPT FILE](#to-launch-a-node-application-from-another-node-or-javascript-file)
 	- [Node Debugging](#node-debugging)
+		- [DEBUGGING WITH CONSOLE.LOG](#debugging-with-consolelog)
+		- [DEBUGGING WITH COLOUR](#debugging-with-colour)
+		- [DEBUG : EXTRA NOTES](#debug--extra-notes)
 	- [Node As A Service](#node-as-a-service)
 	- [Environment Variables](#environment-variables)
 	- [Middleware](#middleware)
@@ -30,10 +40,14 @@ A tutorial workspace for learning NodeJS
 	- [RUNNING NODE WITH PARAMETERS](#running-node-with-parameters)
 	- [File Management](#file-management)
 	- [Processes](#processes)
+		- [Managing processes](#managing-processes)
 	- [PS-NODE](#ps-node)
 	- [Creating Child Processes](#creating-child-processes)
+		- [Creating A Child Process With EXEC](#creating-a-child-process-with-exec)
+		- [Creating A Child Process With Spawn](#creating-a-child-process-with-spawn)
+		- [CREATING A CHILD PROCESS USING FORK WHICH ALLOWS 2-WAY SOCKET.IO COMMUNCATION WITH THE CHILD PROCESS](#creating-a-child-process-using-fork-which-allows-2-way-socketio-communcation-with-the-child-process)
 	- [Media](#media)
-	- [play-sound](#play-sound)
+		- [play-sound](#play-sound)
 		- [Speaking Text](#speaking-text)
 	- [MongoDB](#mongodb)
 	- [JWT](#jwt)
@@ -383,123 +397,115 @@ https://nodejs.org/en/download/
 Installing Node on Ubuntu
 
 https://github.com/nodesource/distributions#debinstall
+
+```bash
+sudo apt-get update 
+Sudo apt-get upgrade
+Sudo apt-get dist-upgrade
+Sudo apt-get install apache2
+Web Browser : http://<IP> should now work!
+sudo apt-get install curl
+curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+sudo apt-get install -y nodejs                (-y = Yes)
+```
 		
-  sudo apt-get update 
-		Sudo apt-get upgrade
-		Sudo apt-get dist-upgrade
-		Sudo apt-get install apache2
-		Web Browser : http://<IP> should now work!
-		sudo apt-get install curl
-		curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-		sudo apt-get install -y nodejs                (-y = Yes)
-		
-		Optional: install build tools
-		To compile and install native addons from npm you may also need to install build tools:
-		sudo apt-get install -y build-essential
-		
-		sudo apt-get install npm 
-		
-		sudo npm -g install http
-		
-		Check nodejs install files at 	/usr/lib/nodejs 	
-		Check node modules at 			/usr/lib/node_modules or
-		/usr/local/lib/node_modules 
+Optional: install build tools
+
+To compile and install native addons from npm you may also need to install build tools:
+
+```bash
+sudo apt-get install -y build-essential
+sudo apt-get install npm 
+sudo npm -g install http
+```
+Check nodejs install files at 	/usr/lib/nodejs 	
+
+Check node modules at 			/usr/lib/node_modules or  /usr/local/lib/node_modules 
 	
-UBUNTU 15.10 : INSTALL NODE (VERSION 2 USING CURL)
-	curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-	sudo apt-get install -y nodejs 
+## UBUNTU 15.10 : INSTALL NODE (VERSION 2 USING CURL)
+
+```bash
+curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+sudo apt-get install -y nodejs 
 	
-	nodejs -v               (TEST INTALL eg returns v5.7.0) 
+nodejs -v               (TEST INTALL eg returns v5.7.0) 
 	
-	npm -v                   (TEST NPM VERSION EG v3.6.0) 
+npm -v                   (TEST NPM VERSION EG v3.6.0) 
+```
 	
 UBUNTU 15.10 : CREATE TEST NODE 
-	mkdir test
-	cd test 
-	npm init 
-	
-	
-	
-	Path on Linux Debian
-		export PATH=$PATH:/usr/local/bin
-		export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
+
+```bash
+mkdir test
+cd test 
+npm init 
+```
+
+Path on Linux Debian
+
+	export PATH=$PATH:/usr/local/bin
+
+	export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 			
 			
-UBUNTU : TEST NODE IS WORKING 
+## UBUNTU : TEST NODE IS WORKING 
 		
-		To test an installation is working (and that the setup scripts are working!) use:
+To test an installation is working (and that the setup scripts are working!) use:
 		
-		1) link nodejs to node
+1) link nodejs to node
+
+```bash
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+```
+2) 
 		
-		sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+```bash
+curl -sL https://deb.nodesource.com/test | bash -
+```
+
+Linux
+
+```bash
+./configure
+make
+sudo make install
+```
+
+### INSTALL FROM SOURCE CODE 
+
+https://github.com/nodejs/node
+	
+http://shapeshed.com/compiling-nodejs-from-source-on-ubuntu-10-04/
+	
+By default Node.js will be installed to /usr/local/bin/node and npm will be installed to /usr/local/bin/npm.
+
+
+
+
+### INSTALL NPM NODE PACKAGE MANAGER
+
+Windows : bundled together with Node 
+
+https://www.npmjs.com/package/npm
+
+Windows : npm installed by default with node at 
+
+C:\Program Files\nodejs\node.exe
+
+C:\Program Files\nodejs\npm.cmd
 		
-		2) 
-		
-		curl -sL https://deb.nodesource.com/test | bash -
-		
-			
-	Linux
-		./configure
-		make
-		sudo make install
+Apple :  bundled together
+
+https://www.npmjs.com/package/npm
+
+
+
+#### How to Update Node and NPM
+
+New versions of Node and NPM come out frequently. To install the updates, just download the installer from the Nodejs.org site and run it again. The new version of Node and NPM will replace the older versions.
 	
 	
-INSTALL FROM SOURCE CODE 
-	https://github.com/nodejs/node
-	
-	http://shapeshed.com/compiling-nodejs-from-source-on-ubuntu-10-04/
-	
-	
-		 By default Node.js will be installed to /usr/local/bin/node and npm will be installed to /usr/local/bin/npm.
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-	
-INSTALL NPM NODE PACKAGE MANAGER
-	Windows : bundled together with Node 
-	
-		https://www.npmjs.com/package/npm
-		
-		Windows : npm installed by default with node at 
-	
-			C:\Program Files\nodejs\node.exe
-			C:\Program Files\nodejs\npm.cmd
-		
-		
-		
-	Apple :  bundled together
-	
-		https://www.npmjs.com/package/npm
-		
-		
-	
-	
-How to Update Node and NPM
-	New versions of Node and NPM come out frequently. To install the updates, just download the installer from the Nodejs.org site and run it again. The new version of Node and NPM will replace the older versions.
-	
-	
-	
+
 	
 
 ## NPM Node Package Manager
@@ -510,78 +516,65 @@ How to Update Node and NPM
 
 ### Node Environment Variables
 
-```jsx
 Must start with REACT_APP_ or VUE_APP_ etc
 
+```js
 process.env.NODE_ENV is set to `development` or `test` or `production` in a build
-
 ```
 
-	
-	
-	
-	
-	
-		
-	
+
+
  
 		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 	 
-		 
-		 
-		 
-		 
-RUNNING NODE IN THE COMMAND LINE : REPL READ EVAL PRINT LOOP 
-	from https://nodejs.org/api/repl.html
+## RUNNING NODE IN THE COMMAND LINE : REPL READ EVAL PRINT LOOP 
+
+
+from https://nodejs.org/api/repl.html
 	
-	Can run REPL as STANDALONE or WITHIN OTHER MODULES
+Can run REPL as STANDALONE or WITHIN OTHER MODULES
 	
-	USE FOR DEBUGGING AND TESTING
+USE FOR DEBUGGING AND TESTING
 	
-	RUN : JUST TYPE 'NODE' TO ENTER COMMAND LINE INTERFACE
-	
-	a = [ 1, 2, 3];
-	[ 1, 2, 3 ]
-	> a.forEach(function (v) {
-	...   console.log(v);
-	...   });
-	1
-	2
-	3
-	
-	
-	
-	
-	
-	
+RUN : JUST TYPE 'NODE' TO ENTER COMMAND LINE INTERFACE
+
+```js
+a = [ 1, 2, 3];
+[ 1, 2, 3 ]
+> a.forEach(function (v) {
+...   console.log(v);
+...   });
+// 1
+// 2
+// 3
+```
+
+Read - Reads user's input, parse the input into JavaScript data-structure and stores in memory.
+Eval - Takes and evaluates the data structure
+Print - Prints the result
+Loop - Loops the above command until user press ctrl-c twice.
 		
-	Read - Reads user's input, parse the input into JavaScript data-structure and stores in memory.
-	Eval - Takes and evaluates the data structure
-	Print - Prints the result
-	Loop - Loops the above command until user press ctrl-c twice.
-	
-	
-	(Persistence can be provideed by a database eg Redis)
+(Persistence can be provideed by a database eg Redis)
 	
 	
 		
 	
 	
 ## RUNNING A NODE FILE 
-	node <NODE_FILE.JS>    WILL RUN A NODE FILE !!!
-	
-	
-	process.exit();        will TERMINATE YOUR APPLICATION 
-	
-	TO LAUNCH A NODE APPLICATION FROM ANOTHER NODE OR JAVASCRIPT FILE
-	SEE node_57 lab files 
+
+
+```js
+node <NODE_FILE.JS>    WILL RUN A NODE FILE !!!
+process.exit();        will TERMINATE YOUR APPLICATION 
+```
+
+## TO LAUNCH A NODE APPLICATION FROM ANOTHER NODE OR JAVASCRIPT FILE
+
+SEE node_57 lab files 
+
+
+
+
+
 	
 	
 	
@@ -713,59 +706,59 @@ Chrome LiveReload : AUTO-REFRESH BROWSER ON SOURCE FILE CHANGES
 			
 			
 			
-		
-		
-		
-		
+### DEBUGGING WITH CONSOLE.LOG
+
+See  https://developer.mozilla.org/en-US/docs/Web/API/Console/info
+
+
+```js
+console.error('error message);
+console.warn('warning message');  
+console.info('x')  displayed with blue 'i' info button
+console.assert(assertion) => Log if assertion is false  eg console.assert(false,'hi');
+console.group('message')  indents further logs until groupEnd
+console.groupEnd() 
+console.groupCollapsed  same as group but content is hidden unless clicked 
+console.count()
+console.count('label')
+console.table(["a","b","c"])
+console.time('ID');  finished by console.timeEnd('ID');
+// equivalent of string.format
+console.log("x is %d and y is %d", 1,2);
+```
+
+
+### DEBUGGING WITH COLOUR 
+
+
+Get colours in your node output console for easier spotting of debugging 
 	
-DEBUGGING WITH CONSOLE.LOG
-	See  https://developer.mozilla.org/en-US/docs/Web/API/Console/info
-	
-	console.error('error message);
-	console.warn('warning message');  
-	console.info('x')  displayed with blue 'i' info button
-	console.assert(assertion) => Log if assertion is false  eg console.assert(false,'hi');
-	console.group('message')  indents further logs until groupEnd
-	console.groupEnd() 
-	console.groupCollapsed  same as group but content is hidden unless clicked 
-	console.count()
-	console.count('label')
-	console.table(["a","b","c"])
-	console.time('ID');  finished by console.timeEnd('ID');
-	Equivalent of string.format
-	
-		console.log("x is %d and y is %d", 1,2);
-	
-	
-	
-	
-	
-	
-	
-DEBUGGING WITH COLOUR 
-	Get colours in your node output console for easier spotting of debugging 
-	
-	https://www.npmjs.com/package/colors
-	npm install colors 
-	
-	
-		see node_00_HelloWorld.js
-		
-		
-		var util=require("util");
-		var colors = require("colors");
-		var x = 10;
-		console.log(colors.green(x));
-		debugger;
-		setTimeout(function(){
-			console.log(colors.red("Hello World"));
-			console.log(colors.inverse("WOW"));
-			console.log(colors.rainbow("WOW"));
-		},2000);
-	
-	
-DEBUG : EXTRA NOTES
+https://www.npmjs.com/package/colors
+
+npm install colors 
+
+see node_00_HelloWorld.js
+
+
+```js
+var util=require("util");
+var colors = require("colors");
+var x = 10;
+console.log(colors.green(x));
+debugger;
+setTimeout(function(){
+	console.log(colors.red("Hello World"));
+	console.log(colors.inverse("WOW"));
+	console.log(colors.rainbow("WOW"));
+},2000);
+```
+
+
+### DEBUG : EXTRA NOTES
+
 DEBUGGING WITH NODE-INSPECTOR 
+
+
 	https://docs.nodejitsu.com/articles/getting-started/how-to-debug-nodejs-applications
 	
 	https://spin.atomicobject.com/2015/09/25/debug-node-js/
@@ -1290,69 +1283,49 @@ async.waterfall([
 		
 ## Processes
 
-	TASK RUNNING WHICH IS SENDING INFORMATION THROUGH TO THE CPU VIA A PROCESS ID /PID 
+TASK RUNNING WHICH IS SENDING INFORMATION THROUGH TO THE CPU VIA A PROCESS ID /PID 
+
+
+NAMES GIVEN TO DIFFERENT TYPES OF CODE RUNNING ON YOUR COMPUTER
 	
+- APPLICATION is USER-INITIATED
+- SERVICE is SYSTEM-INITIATED (CAN HAVE NO GUI)
+- PROCESS is CONSUMING CPU RESOURCES
+- THREAD is an INDIVIDUAL LINE OR BATCH OF CODE BEING SENT TO THE CPU RIGHT NOW 
+
+
+### Managing processes	
 	
-	NAMES GIVEN TO DIFFERENT TYPES OF CODE RUNNING ON YOUR COMPUTER
-		
-		APPLICATION 
-			USER-INITIATED
-		SERVICE 
-			SYSTEM-INITIATED (CAN HAVE NO GUI)
-		PROCESS
-			CONSUMING CPU RESOURCES
-			
-		THREAD 
-			INDIVIDUAL LINE OR BATCH OF CODE BEING SENT TO THE CPU RIGHT NOW 
-			
-		
-	
-	
-	
-Managing processes	
-	
-	
-	WINDOWS 
+WINDOWS 
+
+```
+TASK MANAGER 
+TASKLIST 
+TASKKILL
+```
+
+LINUX  
+
+```bash
+ACTIVITY MONITOR 
+top 
+top -o cpu   ORDER BY CPU 
+top -o rsize  ORDER BY RAM SIZE 
+ps aux | more 
+ps -e|grep node           LIST NODE PROCESSES 
+ps -ef | grep node 
+ps T                      LIST PROCESSES ON THIS TERMINAL 
+kill <process_id> 
+kill -9 <process_id>
+killall <name_of_process>
+pkill node                  KILLS ALL NODE PROCESSES 
+pkill -f node 
+```
+
+
+
+
 				
-		TASK MANAGER 
-		TASKLIST 
-		TASKKILL
-		
-	
-	
-		
-		
-		
-		
-					
-	
-	LINUX  
-	
-		ACTIVITY MONITOR 
-		top 
-		top -o cpu   ORDER BY CPU 
-		top -o rsize  ORDER BY RAM SIZE 
-		ps aux | more 
-		ps -e|grep node           LIST NODE PROCESSES 
-		ps -ef | grep node 
-		ps T                      LIST PROCESSES ON THIS TERMINAL 
-		kill <process_id> 
-		kill -9 <process_id>
-		killall <name_of_process>
-		pkill node                  KILLS ALL NODE PROCESSES 
-		pkill -f node 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-			
 		
 		
 ## PS-NODE
@@ -1363,36 +1336,36 @@ Managing processes
 		
 		
 ```js		
-		var ps = require('ps-node');
-		 
-		// A simple pid lookup 
-		ps.lookup({
-			command: 'node',
-			arguments: '--debug',
-			}, function(err, resultList ) {
-			if (err) {
-				throw new Error( err );
-			}
-		 
-			resultList.forEach(function( process ){
-				if( process ){
-					console.log( 'PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments );
-				}
-			});
-		});
-			
-			
-		var ps = require('ps-node');
-	 
-		// A simple pid lookup 
-		ps.kill( '12345', function( err ) {
-			if (err) {
-				throw new Error( err );
-			}
-			else {
-				console.log( 'Process %s has been killed!', pid );
-			}
-		});
+var ps = require('ps-node');
+	
+// A simple pid lookup 
+ps.lookup({
+	command: 'node',
+	arguments: '--debug',
+	}, function(err, resultList ) {
+	if (err) {
+		throw new Error( err );
+	}
+	
+	resultList.forEach(function( process ){
+		if( process ){
+			console.log( 'PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments );
+		}
+	});
+});
+	
+	
+var ps = require('ps-node');
+
+// A simple pid lookup 
+ps.kill( '12345', function( err ) {
+	if (err) {
+		throw new Error( err );
+	}
+	else {
+		console.log( 'Process %s has been killed!', pid );
+	}
+});
 ```
 		
 		
@@ -1413,7 +1386,10 @@ Managing processes
 				
 		
 Main Node Process 
-	console.log("Process " + process.argv[1] +" at work " );       
+
+```js
+console.log("Process " + process.argv[1] +" at work " );
+```
 	
 	
 	
@@ -1439,100 +1415,113 @@ Main Node Process
 	
 ## Creating Child Processes
 
-	THREE WAYS TO CREATE CHILD PROCESSES
+THREE WAYS TO CREATE CHILD PROCESSES
+
+	EXEC : NO COMMUNICATION UNTIL THE END
 	
-		EXEC : NO COMMUNICATION UNTIL THE END
+	SPAWN : CHILD PROCESS CAN COMMUNICATE WHILE IT IS RUNNING
+	
+	FORK : TWO-WAY SOCKET I/O COMMUNCATION BETWEEN PARENT AND CHILD PROCESS CAN TAKE PLACE
 		
-		SPAWN : CHILD PROCESS CAN COMMUNICATE WHILE IT IS RUNNING
-		
-		FORK : TWO-WAY SOCKET I/O COMMUNCATION BETWEEN PARENT AND CHILD PROCESS CAN TAKE PLACE
-		
 	
 	
 	
 	
-Creating A Child Process With EXEC 
-	ONLY COMMUNICATION WITH THIS PROCESS IS AT THE END AFTER PROCESS TERMINATES AND RETURNS CONTROL TO THE PARENT PROCESS 
+### Creating A Child Process With EXEC 
+
+ONLY COMMUNICATION WITH THIS PROCESS IS AT THE END AFTER PROCESS TERMINATES AND RETURNS CONTROL TO THE PARENT PROCESS 
+
+IE OUTPUT ONLY OBTAINED ONCE, AT THE END OF THE PROCESS AND NOT WHILE IT IS RUNNING 
+
+PROBLEM : NOT REAL TIME FEEDBACK 
+
 	
-	IE OUTPUT ONLY OBTAINED ONCE, AT THE END OF THE PROCESS AND NOT WHILE IT IS RUNNING 
+
+INFO
+
+	https://nodejs.org/api/child_process.html
+
+
+REQUIRE 
+
+```js
+var exec=require('child_process').exec;
+```
+
+CREATE THE CHILD PROCESS 
+
+```js
+var child=exec('node ./file.js);
+```
+
+AWAIT DATA WITH STDOUT ON 'DATA' ARRIVAL (AT TERMINATION OF PROCESS)
+
+```js
+child.stdout.on('data',callback);
+```
+
+
 	
-	PROBLEM : NOT REAL TIME FEEDBACK 
-	
-	
-	
-	INFO
-	
-		https://nodejs.org/api/child_process.html
-	
-	
-	REQUIRE 
-		var exec=require('child_process').exec;
-	CREATE THE CHILD PROCESS 
-	
-		var child=exec('node ./file.js);
-	
-	AWAIT DATA WITH STDOUT ON 'DATA' ARRIVAL (AT TERMINATION OF PROCESS)
-	
-		child.stdout.on('data',callback);
-				
-	EXAMPLE WITH STDOUT OUTPUT 
-	
+EXAMPLE WITH STDOUT OUTPUT 
+
 	
 ```js			
-				var exec = require('child_process').exec;
-				exec('node ./node_57_server.js', function(error,stdout,stderr){
-				 console.log('stdout: ', stdout);
-				 console.log('stderr: ', stderr);
-				 if(error !== null){
-					console.log('exec error: ', error);
-				 }
-				});
-				
-				
-				OR 
-				
-				var exec = require('child_process').exec;
-				var child = exec('node ./node_57_server.js');
-				child.stdout.on('data', function(data) {
-					console.log('stdout: ' + data);
-				});
-	```			
-				
-	SECOND EXAMPLE WITH STDOUT OUTPUT 
+var exec = require('child_process').exec;
+exec('node ./node_57_server.js', function(error,stdout,stderr){
+	console.log('stdout: ', stdout);
+	console.log('stderr: ', stderr);
+	if(error !== null){
+	console.log('exec error: ', error);
+	}
+});
+
+
+OR 
+
+var exec = require('child_process').exec;
+var child = exec('node ./node_57_server.js');
+child.stdout.on('data', function(data) {
+	console.log('stdout: ' + data);
+});
+```	
+
+
+SECOND EXAMPLE WITH STDOUT OUTPUT 
+
+```js	
+var exec=require('child_process').exec;
+var child=exec('node ./node_58_server_child_process.js');
+console.log('child process successfully started');
+console.log(child);
+child.stdout.on('data',function(data){
+	console.log('stdout: ' + data);
+});
+child.stderr.on('data',function(data){
+	console.log('stderr: ' + data);
+});
+child.on('close',function(code){
+	console.log('closing child process with code ' + code);
+});			
+```			
 	
-  ```js
+	
+OK TO CREATE GRANDCHILDREN PROCESSES ALSO 
+
+```
+MASTER 
+
+	CHILD1
+			GRANDCHILD1
+
+			GRANDCHILD2
 			
-				var exec=require('child_process').exec;
-				var child=exec('node ./node_58_server_child_process.js');
-				console.log('child process successfully started');
-				console.log(child);
-				child.stdout.on('data',function(data){
-				 console.log('stdout: ' + data);
-				});
-				child.stderr.on('data',function(data){
-				 console.log('stderr: ' + data);
-				});
-				child.on('close',function(code){
-				 console.log('closing child process with code ' + code);
-				});
+	CHILD2
+```				
 				
-	```			
+
+
+
 	
-	
-		
-				
-				
-	OK TO CREATE GRANDCHILDREN PROCESSES ALSO 
-			MASTER 
-		
-				CHILD1
-						GRANDCHILD1
-			
-						GRANDCHILD2
-						
-				CHILD2
-				
-				
 				
 	
 	
@@ -1544,120 +1533,121 @@ Creating A Child Process With EXEC
 	
 ## Terminating A Child Process 
 
-	PARENT HAS PROCESS ID process.pid 
+PARENT HAS PROCESS ID process.pid 
 	
-	CHILD HAS PROCESS ID child.pid 
+CHILD HAS PROCESS ID child.pid 
 	
-	
-	LINUX TERMINATE PROCESS 
-	
+LINUX TERMINATE PROCESS 
 		
-		kill a process using kill(child.pid); BUT ONLY WORKS IN LINUX!
+kill a process using kill(child.pid); BUT ONLY WORKS IN LINUX!
 	
-	
-	
-	
-	
-
-	
-	WINDOWS - TASKKILL BY PROCESS ID 
+WINDOWS - TASKKILL BY PROCESS ID 
 	
 ```js
-			var isWin = /^win/.test(process.platform);
-			if(!isWin) {
-				kill(processing.pid);
-			} else {
-				var cp = require('child_process');
-				cp.exec('taskkill /PID ' + child.pid + ' /T /F', function (error, stdout, stderr) {
-					// console.log('stdout: ' + stdout);
-					// console.log('stderr: ' + stderr);
-					// if(error !== null) {
-					//      console.log('exec error: ' + error);
-					// }
-				});             
-			}
+var isWin = /^win/.test(process.platform);
+if(!isWin) {
+	kill(processing.pid);
+} else {
+	var cp = require('child_process');
+	cp.exec('taskkill /PID ' + child.pid + ' /T /F', function (error, stdout, stderr) {
+		// console.log('stdout: ' + stdout);
+		// console.log('stderr: ' + stderr);
+		// if(error !== null) {
+		//      console.log('exec error: ' + error);
+		// }
+	});             
+}
 ```
 
 
+WINDOWS - TASKKILL BY PROCESS NAME 
+
+This will be the easiest to use to kill all node processes manually with one quick command
+
+```bash
+taskkill /im node.exe /f 
+```
 
 
+### Creating A Child Process With Spawn
+	
+WITH SPAWN COMMUNICATION CAN TAKE PLACE AT ANY TIME WHEN CHILD PROCESS IS RUNNING 
 
-	WINDOWS - TASKKILL BY PROCESS NAME 
-		This will be the easiest to use to kill all node processes 
-		manually with one quick command
-			
-		taskkill /im node.exe /f 
+https://nodejs.org/api/child_process.html 
 	
-				
-Creating A Child Process With Spawn
+http://jlunaquiroga.blogspot.co.uk/2014/03/creating-processes-in-nodejs.html
 	
-	WITH SPAWN COMMUNICATION CAN TAKE PLACE AT ANY TIME WHEN CHILD PROCESS IS RUNNING 
+Excellent Lab 
+
+	http://www.tutorialspoint.com/nodejs/nodejs_scaling_application.htm
+		
+		
+```js
+child_process.spawn(command, [args], [options])
+```
+
+
+WORKED EXAMPLE WITH SPAWN A CHILD PROCESS 
+
+node_60_script.js 
+
+```js
+const fs = require('fs');
+const child_process = require('child_process');
 	
-	https://nodejs.org/api/child_process.html 
-		
-	http://jlunaquiroga.blogspot.co.uk/2014/03/creating-processes-in-nodejs.html
-		
-	Excellent Lab 
-	
-		http://www.tutorialspoint.com/nodejs/nodejs_scaling_application.htm
-		
-		
-	
-		
-	child_process.spawn(command, [args], [options])
-			
-			
-			
-				
-	WORKED EXAMPLE WITH SPAWN A CHILD PROCESS 
-		
-				const fs = require('fs');
-				const child_process = require('child_process');
-				 
-				for(var i=0; i<3; i++) {
-				  var workerProcess = child_process.spawn('node', ['node_00_HelloWorld.js', i]);
-				  workerProcess.stdout.on('data', function (data) {
-					 console.log('stdout: ' + data);
-				  });
-				  workerProcess.stderr.on('data', function (data) {
-					 console.log('stderr: ' + data);
-				  });
-				  workerProcess.on('close', function (code) {
-					 console.log('child process exited with code ' + code);
-				  });
-				}
-					node_60_script.js 
+for(var i=0; i<3; i++) {
+	var workerProcess = child_process.spawn('node', ['node_00_HelloWorld.js', i]);
+	workerProcess.stdout.on('data', function (data) {
+		console.log('stdout: ' + data);
+	});
+	workerProcess.stderr.on('data', function (data) {
+		console.log('stderr: ' + data);
+	});
+	workerProcess.on('close', function (code) {
+		console.log('child process exited with code ' + code);
+	});
+}
+```
+
 					
 			
-		
-		
-		
-		
-	SECOND WORKED EXAMPLE WITH SPAWN PROCESS 
-	
-		const
-			 fs = require('fs'),
-			 process = require('child_process');
-		for(var i=0; i<10; i++) {
-			var ls = process.exec('node worker.js '+i, function (error, stdout, stderr) {
-			   if (error) {
-				 console.log(error.stack);
-				 console.log('Error code: '+error.code);
-				 console.log('Signal received: '+error.signal);
-			   }
-			   console.log('stdout: ' + stdout);
-			   console.log('stderr: ' + stderr);
-			   
-			 });
-			
-			 ls.on('exit', function (code) {
-			   console.log('Child process exited with exit code '+code);
-			 });
+SECOND WORKED EXAMPLE WITH SPAWN PROCESS 
+
+
+```js
+const fs = require('fs');
+const process = require('child_process');
+
+for(var i=0; i<10; i++) {
+	var ls = process.exec('node worker.js '+i, function (error, stdout, stderr) {
+		if (error) {
+			console.log(error.stack);
+			console.log('Error code: '+error.code);
+			console.log('Signal received: '+error.signal);
 		}
-	
-	CREATING A CHILD PROCESS AND TALKING TO IT : TEST APPLICATION USING A TIMER 
-		http://www.andygup.net/node-js-moving-intensive-tasks-to-a-child-process/
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
 		
+		});
+	
+		ls.on('exit', function (code) {
+		console.log('Child process exited with exit code '+code);
+		});
+}
+```
+
+CREATING A CHILD PROCESS AND TALKING TO IT : TEST APPLICATION USING A TIMER 
+
+http://www.andygup.net/node-js-moving-intensive-tasks-to-a-child-process
+
+
+
+
+
+
+
+
+
 		
 	
 	
@@ -1666,21 +1656,21 @@ Creating A Child Process With Spawn
 	
 	
 	
-CREATING A CHILD PROCESS USING FORK WHICH ALLOWS 2-WAY SOCKET.IO COMMUNCATION WITH THE CHILD PROCESS 
+### CREATING A CHILD PROCESS USING FORK WHICH ALLOWS 2-WAY SOCKET.IO COMMUNCATION WITH THE CHILD PROCESS 
  
-	http://www.tutorialspoint.com/nodejs/nodejs_scaling_application.htm
+http://www.tutorialspoint.com/nodejs/nodejs_scaling_application.htm
+
+
+	see node_61_process_fork.js 
 	
 	
-	   see node_61_process_fork.js 
-		
-		
-	https://nodejs.org/api/child_process.html#child_process_child_send_message_sendhandle_callback
-	
-	
-	FORK IS SAME AS SPAWN PLUS HAS 
-	
-	
-		A 2-WAY COMMUNICATION CHANNEL SET UP TO SEND LIVE MESSAGES!!!
+https://nodejs.org/api/child_process.html#child_process_child_send_message_sendhandle_callback
+
+
+FORK IS SAME AS SPAWN PLUS HAS 
+
+
+	A 2-WAY COMMUNICATION CHANNEL SET UP TO SEND LIVE MESSAGES!!!
 	
 		
 	
@@ -1691,7 +1681,7 @@ CREATING A CHILD PROCESS USING FORK WHICH ALLOWS 2-WAY SOCKET.IO COMMUNCATION WI
 
 In order to play sounds from `nodejs` to your computer you must have a connection.  In Windows the easiest way to do this is to download and have available `mplayer.exe` which is available at http://mplayerwin.sourceforge.net/downloads.html - download the `7zip` file and extract and use the `mplayer.exe` file in your node project.
 
-## play-sound
+### play-sound
 
 To play a sound file we can use https://www.npmjs.com/package/play-sound
 
