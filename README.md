@@ -60,17 +60,11 @@ A tutorial workspace for learning NodeJS
 	- [Deno](#deno)
 	- [Unit testing](#unit-testing)
 
-
-
-*Most of this document has already been split into smaller sub-documents in the /notes/ folder*
-
-
 ## Introduction	
 
 [Introduction](notes/introduction.md)
  
- 
- ## getting started - all-in-one-app
+  ## getting started - all-in-one-app
 
  To see the basics in action 
  
