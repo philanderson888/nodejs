@@ -173,13 +173,13 @@ In mongo client type the following
 use nodetest1  (Creates a new database collection)
 
     
-db.usercollection.insert({ "username" : "testuser1", "email" : "testuser1@testdomain.com" })
+db.usercollection.insert({ "username" : "testuser1", "email" : "testuser1@hotmail.com" })
 
     
 db.usercollection.find().pretty()
 
     
-newstuff = [{ "username" : "testuser2", "email" : "testuser2@testdomain.com" }, { "username" : "testuser3", "email" : "testuser3@testdomain.com" }]
+newstuff = [{ "username" : "testuser2", "email" : "testuser2@hotmail.com" }, { "username" : "testuser3", "email" : "testuser3@hotmail.com" }]
 
     
 db.usercollection.insert(newstuff);
@@ -524,7 +524,7 @@ Also start a new Mongo client window using mongo
 Create a new database - use ApiDb01
 
     
-Populate with some sample data eg db.userlist.insert({'username' : 'test1','email' : 'test1@test.com','fullname' : 'Bob Smith','age' : 27,'location' : 'San Francisco','gender' : 'Male'})
+Populate with some sample data eg db.userlist.insert({'username' : 'test1','email' : 'test1@hotmail.com','fullname' : 'Bob Smith','age' : 27,'location' : 'San Francisco','gender' : 'Male'})
 
     
 Add into app.js the following lines at the top for dependency declarations
