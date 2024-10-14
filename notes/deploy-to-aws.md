@@ -138,3 +138,10 @@ Resources:
       MinSize: 1
       MaxSize: 4
 ```
+
+then redeploy using 
+
+```bash
+eb deploy
+```
+
