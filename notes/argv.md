@@ -1,35 +1,49 @@
 # Node Arguments
+
+
+## contents
+
+
+- [Node Arguments](#node-arguments)
+	- [contents](#contents)
+	- [passing parameters](#passing-parameters)
+	- [unnamed parameters](#unnamed-parameters)
+	- [SHORT ARGUMENTS  -X](#short-arguments---x)
+	- [BOOLEAN ARGUMENTS](#boolean-arguments)
+	- [NON-HYPHENATED OPTIONS](#non-hyphenated-options)
+	- [DEFAULT](#default)
+	- [DEMAND (FIELDS ARE REQUIRED)](#demand-fields-are-required)
 	
+
 	
-	
-	
-	
-	
-	
-	
+## passing parameters
+
 	
 RUNNING NODE BUT PASSING PARAMETERS INTO THE APPLICATION AT RUNTIME 
-	ARGV : HOLDS THE ARRAY OF PARAMETERS PASSED TO THE APPLICATION 
-	EG NODE MYFILE.JS A B C 
-	
-		process.argv[] array holds the following 
+
+ARGV : HOLDS THE ARRAY OF PARAMETERS PASSED TO THE APPLICATION 
+
+EG NODE MYFILE.JS A B C 
+
+```js
+process.argv[] array holds the following 
+
+process.argv[0] is NODE EXECUTABLE 
 		
-		process.argv[0] is NODE EXECUTABLE 
+process.argv[1] is NODE APPLICATION 
 		
-		process.argv[1] is NODE APPLICATION 
+process.argv[2] is FIRST PARAMETER PASSED 
 		
-		process.argv[2] is FIRST PARAMETER PASSED 
-		
-		process.argv[3] is SECOND PARAMETER PASSED 
-		
-		
-	node_30_argv_parameters.js 
-	
-	
-	
-	ARGV HOLDS [NODE,JAVASCRIPT FILE,PARAMETERS]
-	
-	 $ node node_30_argv_parameters.js one two three four five
+process.argv[3] is SECOND PARAMETER PASSED 
+```
+
+see node_30_argv_parameters.js 
+
+ARGV HOLDS [NODE,JAVASCRIPT FILE,PARAMETERS]
+
+```js
+node node_30_argv_parameters.js one two three four five
+/*
 	 [ 'C:\\Program Files\\nodejs\\node.exe',
 	   'c:\\OneDrive\\PC\\showcase\\node_30_argv_parameters.js',
 	   'one',
@@ -37,112 +51,106 @@ RUNNING NODE BUT PASSING PARAMETERS INTO THE APPLICATION AT RUNTIME
 	   'three',
 	   'four',
 	   'five' ]
-	   
-	   
-		
-		
-		
-		
-		
-		
-		
-		
-		
+*/
+```
+
+## unnamed parameters
 		
 PASSING NAMED PARAMETERS AS ARGUMENTS TO A NODE EXECUTABLE
-	Optimist	
+
+Optimist	
 	
-		https://github.com/substack/node-optimist
-		
-		
-	Optimist 
+https://github.com/substack/node-optimist
 	
-		http://stackoverflow.com/questions/14213345/what-is-the-use-of-optimist-module-in-node-js
+http://stackoverflow.com/questions/14213345/what-is-the-use-of-optimist-module-in-node-js
 		
-		
-		var argv = require('optimist').argv;
-		
-		if (argv.rif - 5 * argv.xup > 7.138) {
-		  console.log('Buy more riffiwobbles');
-		}
-		else {
-		  console.log('Sell the xupptumblers');
-		}
-		
-		
-		
-		// call a function by hand 
-		node node_40_optimist.js --parameter1="hello world"
-		
-		
-		// call a function with parameters from code 
-		
-		$ ./xup.js --rif=55 --xup=9.52
-		Buy more riffiwobbles
-		$ ./xup.js --rif 12 --xup 8.1
-		Sell the xupptumblers
-		
-		
-		
-		SHORT ARGUMENTS  -X 
-		
-			var optimist = require('optimist');
-			var argv = optimist.argv;
-			console.log("x is %d and y is %d", argv.x, argv.y);
-		
-		To run this type node node_41_optimist.js -x 10 -y 11
-		
-		node_41_optimist.js
-		
-		
-		
-		
-		
-		BOOLEAN ARGUMENTS
-		
-			if(argv.s){
-				console.log('s is true');
-			}
-			if(argv.t){
-				console.log('t is true');
-			}
-		
-		run with node node_42_optimist.js -st 
-		
-		
-		
-		
-		
-		NON-HYPHENATED OPTIONS 
-		
-			JUST ADD TO ARGV ARRAY AS STRINGS OR NUMBERS 
+```js
+var argv = require('optimist').argv;
+
+if (argv.rif - 5 * argv.xup > 7.138) {
+	console.log('Buy more riffiwobbles');
+}
+else {
+	console.log('Sell the xupptumblers');
+}
+```
+
+call a function by hand 
+
+```js
+node node_40_optimist.js --parameter1="hello world"
+```
+
+call a function with parameters from code 
+
+```js
+$ ./xup.js --rif=55 --xup=9.52
+Buy more riffiwobbles
+$ ./xup.js --rif 12 --xup 8.1
+Sell the xupptumblers
+```
+
+## SHORT ARGUMENTS  -X 
+
+```js
+var optimist = require('optimist');
+var argv = optimist.argv;
+console.log("x is %d and y is %d", argv.x, argv.y);
+```
+
+To run this type 
+
+```js
+node node_41_optimist.js -x 10 -y 11
+```
+
+see node_41_optimist.js
+
+## BOOLEAN ARGUMENTS
+
+```js
+if(argv.s){
+	console.log('s is true');
+}
+if(argv.t){
+	console.log('t is true');
+}
+```
+
+run with 
+
+```js
+node node_42_optimist.js -st 
+```
+
+
+##  NON-HYPHENATED OPTIONS 
+
+JUST ADD TO ARGV ARRAY AS STRINGS OR NUMBERS 
 			
-			
-			node node_43_optimist.js -st -x 10 -y 11 --parameter1="parameter1" hello this is some extra text 
-			
-			
-		
-		DEFAULT
-			var optimist=require('optimist');
-			var argv=optimist.default('x',10).default('y',10).argv;
-			console.log("x is " + argv.x + " and y is " + argv.y);
-			node_44_optimist.js 
-			
-		
-		
-		DEMAND (FIELDS ARE REQUIRED)
-		
-			var optimist=require('optimist');
-			var argv=optimist.demand(['x','y']).argv;
-			console.log("x is " + argv.x + " and y is " + argv.y);
-		
-		
-			node_45_optimist.js 
-			
-			
-			
-	See YARGS and MINIMIST ALSO
-	
-	
-	
+```js
+node node_43_optimist.js -st -x 10 -y 11 --parameter1="parameter1" hello this is some extra text 
+```
+
+## DEFAULT
+
+```js
+var optimist=require('optimist');
+var argv=optimist.default('x',10).default('y',10).argv;
+console.log("x is " + argv.x + " and y is " + argv.y);
+```
+
+see node_44_optimist.js 
+
+## DEMAND (FIELDS ARE REQUIRED)
+
+```js
+var optimist=require('optimist');
+var argv=optimist.demand(['x','y']).argv;
+console.log("x is " + argv.x + " and y is " + argv.y);
+```
+
+see node_45_optimist.js 
+
+See YARGS and MINIMIST ALSO
 	
