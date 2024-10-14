@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-a        uses: actions/checkout@v4  # Latest version of checkout action
+        uses: actions/checkout@v4  # Latest version of checkout action
 
       - name: Set up Node.js
         uses: actions/setup-node@v4  # Latest version of setup-node action
