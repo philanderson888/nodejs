@@ -1,0 +1,34 @@
+name: Run CRUD App
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-node-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Latest version of checkout action
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4  # Latest version of setup-node action
+        with:
+          node-version: '20'  # Specify the Node.js version you want to use
+
+      - name: Install dependencies
+        run: |
+          cd projects
+          cd crud-app
+          npm install
+
+      - name: Run Node.js application
+        run: |
+          cd projects
+          cd crud-app
+          node crud-app.js

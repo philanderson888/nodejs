@@ -1,8 +1,8 @@
-# all-in-one-app
+# crud-app
 
 ## contents
 
-- [all-in-one-app](#all-in-one-app)
+- [crud-app](#crud-app)
   - [contents](#contents)
   - [introduction](#introduction)
   - [installation](#installation)
@@ -22,5 +22,5 @@ yarn global add nodemon
 ## running
 
 ```js
-nodemon all-in-one-app.js
+nodemon crud-app.js
 ```
