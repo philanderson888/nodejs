@@ -12,10 +12,15 @@ A tutorial workspace for learning NodeJS
 	- [Node documentation](#node-documentation)
 		- [official](#official)
 	- [history](#history)
+	- [intro](#intro)
 	- [First Tasks](#first-tasks)
 	- [Installing node](#installing-node)
-	- [Updating Node](#updating-node)
+	- [updading node npm yarn and pnpm](#updading-node-npm-yarn-and-pnpm)
+		- [Installing Node On Windows](#installing-node-on-windows)
+		- [Installing Node On MAC](#installing-node-on-mac)
+		- [Installing Node on Ubuntu](#installing-node-on-ubuntu)
 	- [UBUNTU 15.10 : INSTALL NODE (VERSION 2 USING CURL)](#ubuntu-1510--install-node-version-2-using-curl)
+	- [updating libraries to latest version](#updating-libraries-to-latest-version)
 	- [UBUNTU : TEST NODE IS WORKING](#ubuntu--test-node-is-working)
 		- [INSTALL FROM SOURCE CODE](#install-from-source-code)
 		- [INSTALL NPM NODE PACKAGE MANAGER](#install-npm-node-package-manager)
@@ -180,14 +185,6 @@ AWAIT
 	
 	
 	
-	
-
-
-	
-	
-
-	
-	
 ## Node documentation
 
 ### official
@@ -207,18 +204,12 @@ NPM LIBRARIES
 ## history
 
 NODE 2009
-
 NPM NODE PACKAGE MANAGER 2011
-
 Node for Windows 2012
-Node 6.11 Stable
-Node 8 latest
 Express 2010
-Express 4 current
 
 
-
-Intro
+## intro
 
 	
 	FIRST EVER PRESENTATION ON NODE BY RYAN DAHL THE CREATOR
@@ -256,20 +247,7 @@ Intro
 			
 			Picture of fast-food restaurant cashier  continually serving customers while others actually do the work of the tasks set eg preparing the meals behind the scenes and bagging up the meals ready to serve.  When the meal is 'ready' the cashier simply delivers the package to the waiting customer, again with little or no downtime (CPU time) for the cashier (process)
 		
-	ALWAYS RUN THE LATEST VERSION OF NODE AND JAVASCRIPT ON YOUR SERVER : DON'T HAVE TO WAIT FOR USERS TO UPDATE THEIR CLIENT!  YOU ARE THE ONE IN CONTROL OF THE JAVASCRIPT ON YOUR SERVER.
 		
-	USED IN
-	
-		GOOGLE MAPS
-		GMAIL
-		TWITTER
-		FACEBOOK
-		GITHUB
-		
-	USED TO READ
-	
-		MONGODB
-		COUCHDB
 		
 	DANGERS
 	
@@ -357,17 +335,79 @@ Install latest
 
  
 			
-			
-## Updating Node
+## updading node npm yarn and pnpm 
+
+updating on a mac using `homebrew` and also using `corepack` and `wget` tools
+
+check node and npm and updatee using homebrew on mac
 
 ```js
-# npm upgrade
+node -v
+// v22.9.0
+npm -v
+// 10.8.3
+npm install -g npm@latest
+npm -v
+// 10.9.0
+node -v
+// 22.9.0
+// now check using homebrew
+brew update 
+brew upgrade node
 npm install -g npm
+npm -v
+// 10.9.0
+node -v
+// v23.1.0
 ```
 
+also another newer way
+
+```js
+sudo brew install n
+n latest
+```
+
+
+
+so we have now updated node and npm to latest, let's check with yarn and pnpm
+
+
+firstly yarn
+
+```js
+yarn -v
+// 1.22.22
+npm install -g corepack
+corepack enable
+yarn set version stable
+yarn -v
+// 4.5.1
+```
+
+secondly pnpm
+
+```js
+pnpm -v
+// 9.12.3
+
+// update
+
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+// or wget (if curl is not installed)
+brew install wget // mac
+wget -qO- https://get.pnpm.io/install.sh | sh -
+
+pnpm -v
+// 9.12.3
+```
+
+
+see https://github.com/philanderson888/scripts/tree/master/bash for a running version of this script 
+
+
 		
-		
-Installing Node On Windows
+### Installing Node On Windows
 
 https://nodejs.org/en/download/  
 		
@@ -383,12 +423,14 @@ After install files live at
 			HELP=>ECLIPSE=>MARKETPLACE=>SEARCH=>ENIDE STUDIO OR NODECLIPSE
 		
 			FILE=>NEW=>PROJECT=>NODE.JS
-Installing Node On MAC
+
+### Installing Node On MAC
 			
 https://nodejs.org/en/download/  
 		
 	Download and run!
-Installing Node on Ubuntu
+
+### Installing Node on Ubuntu
 
 https://github.com/nodesource/distributions#debinstall
 
@@ -440,8 +482,16 @@ Path on Linux Debian
 	export PATH=$PATH:/usr/local/bin
 
 	export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
-			
-			
+
+## updating libraries to latest version
+
+we can try updating all libraries to latest using
+
+```js
+pnpm up --latest
+```
+
+
 ## UBUNTU : TEST NODE IS WORKING 
 		
 To test an installation is working (and that the setup scripts are working!) use:
