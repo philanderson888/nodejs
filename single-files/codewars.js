@@ -758,94 +758,22 @@ function encryptNumber(inputNumber) {
     console.log(`\n\nEncrypted output string is ${outputString}`);
 }
 
-/*
- * Complete the 'getRemovableIndices' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. STRING str1
- *  2. STRING str2
- */
-
 function getArrayOfMismatches(string1, string2) {
     
     console.log(` `);
-    console.log(`\n\nFinding out the array of mismatches between ${string1} and ${string2}`);
-    // Write your code here
-    /*
-    
-    LOGIC 
-    
-            
-        does character match in string 2? if so do nothing and continue
-        if there is a mismatch then 
-        
-    loop string 1
-        get index
-        get character at that index
-        does string 2 character match string 1?  if so do nothing
-        if there is a mismatch then push index to index of mismatches
-        also note this character as mismatched character
-        check the index we are at presently
-        go to the next index ... is it the same character ... if so add that one to the array also 
-        and next index ...
-        and next ... 
-        repeat until there is no match
-        then we are done
+    console.log(`\n\nfind the indexes of the missing characters`);
 
+    /*
+
+    string 1 is a substring of string 2.  find the index of the missing character.  
+    If that missing character is a duplicate in a sequence then get all the indexes of that character, in order.
+      
     eg string2 is abdgggda
        string1 is abdgg da
        so any item in string 2 at index 3, 4 or 5 can be removed to satisfy the result
        so return array [3,4,5]
-       
-       
-       
-       PSEUDOCODE
-    
-    string1
-    string2 has one character removed
-       
-    const arrayOfMismatches = [];
-    let mismatchedCharacter = ''; 
-    let mismatchFound = false;
-    
-    for (let index = 0; index < string1.length; index++) {
-        const characterString1 = string1[index]
-        const characterString2 = string2[index]
-        
-        if (mismatchFound) {
-           if (characterString1 === mismatchedCharacter) {
-               arrayOfMismatches.push(index);
-               continue;
-            } else {
-               break; // we are done
-           }
-        }
-        
-        if (characterString1 = characterString2) {
-           continue;
-        } else {
-            mismatchFound = true;
-            mismatchedCharacter = characterString1;
-            arrayOfMismatches.push(index);
-            continue 
-        }
-        
-        
-    }
-    
-    if (arrayOfMismatches.length = 0) {
-       arrayOfMismatches.push(-1);
-       console.log(' no matches found' );
-    } else {
-        console.log (we have found array of matches ... )
-    }
-      
-    
-
-    */
-    
-    // CODE
+   */    
+  
     
     const arrayOfMismatches = [];
     let mismatchedCharacter = ''; 
@@ -909,44 +837,7 @@ function getArrayOfMismatches(string1, string2) {
     return arrayOfMismatches
 
 
-    /*
 
-    function main() {
-    const str1 = readLine();
-
-    const str2 = readLine();
-
-    const result = getRemovableIndices(str1, str2);
-
-    process.stdout.write(result.join('\n') + '\n');
-
-
-
-    function arrayOfMismatches(string1, string2) {
-        'use strict';
-
-    process.stdin.resume();
-    process.stdin.setEncoding('utf-8');
-
-    let inputString = '';
-    let currentLine = 0;
-
-    process.stdin.on('data', function(inputStdin) {
-        inputString += inputStdin;
-    });
-
-    process.stdin.on('end', function() {
-        inputString = inputString.split('\n');
-
-        main();
-    });
-
-    function readLine() {
-        return inputString[currentLine++];
-    }
-
-
-    */
 }
 
 
@@ -978,64 +869,8 @@ function getServerLoad(serverLoadInput) {
     console.log(`============================================================`);
     console.log(`               server load                                  `);
     console.log(`============================================================`);
-    console.log(`\n\nFinding out the minimum number of minutes required to balance the server loads`);
-
-/*
-
-    A binary array, serverLoad, of length n is given to describe a circular chain of servers, 
-    where serverLoad[i] is 1 if the ith server is under heavy load, or 0 otherwise. 
-
-    Since the server topology is circular, the first server is considered adjacent to the last one. 
-
-    The load status of any two servers can be swapped in 1 minute.
-
-    Determine the minimum minutes required to group the heavily loaded servers together.
-
-    Example
-
-        Given, n = 5
-        serverLoad = [1, 0, 1, 0, 1]
-        Swap load status of servers at positions 1 and 2 (0-based indexing). The new load distribution is [1, 1, 0, 0, 1]. The last and first servers are considered adjacent so the servers are grouped as required.  The answer is 1 minute.
-
-    Function Description
-
-        Complete the function getMinimumMinutes in the editor below.
-
-    getMinimumMinutes has the following parameters:
-
-        int serverLoad[n]: the load status of the servers
-
-        Returns
-
-        int: the minimum number of minutes required to balance the server loads.
-
-    Constraints
-        - 1 ≤ n ≤ 2 * 10^5
-         - serverLoad[i] is either 0 or 1
-
-
-    1 means heavy load
-    0 normal load
-    circular topology
-    can swap any 2 servers in time period of 1 minute (one iteration)
-    how many iterations does it take to group all the heavy servers together?
-
-    // example 
-    // [1,0.0,1] is input array
-    // find the minumum number of minutes to group all the heavy servers together.  
-    // however got to be aware this is a circular array so in this instance the first and last servers are considered adjacent
-    // so in this case the answer is 0 moves required
-    // so output is 0
-
-    // example 2
-    // [1,0,1,0,1]
-    // swap 1 and 2
-    // [1,1,0,0,1]
-    // have to continue swapping until all the 1s are grouped together
-    // so answer is 1
-
-
-    // summary of instructions
+    
+    /*
 
     // get array of indices where server is under maximum load
     // binary array
