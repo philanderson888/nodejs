@@ -60,6 +60,7 @@ findPrimeFactors(7775460);
 findPrimeFactors(86240);
 findPrimeFactors(7919);
 encryptNumber(12721);
+getArrayOfMismatches('abdgggda', 'abdggda');
 
 
 function find(needle, haystack) {
@@ -750,3 +751,195 @@ function encryptNumber(inputNumber) {
     const outputString = outputArray.join(' ');
     console.log(`\n\nEncrypted output string is ${outputString}`);
 }
+
+/*
+ * Complete the 'getRemovableIndices' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts following parameters:
+ *  1. STRING str1
+ *  2. STRING str2
+ */
+
+function getArrayOfMismatches(string1, string2) {
+    
+    console.log(` `);
+    console.log(`\n\nFinding out the array of mismatches between ${string1} and ${string2}`);
+    // Write your code here
+    /*
+    
+    LOGIC 
+    
+            
+        does character match in string 2? if so do nothing and continue
+        if there is a mismatch then 
+        
+    loop string 1
+        get index
+        get character at that index
+        does string 2 character match string 1?  if so do nothing
+        if there is a mismatch then push index to index of mismatches
+        also note this character as mismatched character
+        check the index we are at presently
+        go to the next index ... is it the same character ... if so add that one to the array also 
+        and next index ...
+        and next ... 
+        repeat until there is no match
+        then we are done
+
+    eg string2 is abdgggda
+       string1 is abdgg da
+       so any item in string 2 at index 3, 4 or 5 can be removed to satisfy the result
+       so return array [3,4,5]
+       
+       
+       
+       PSEUDOCODE
+    
+    string1
+    string2 has one character removed
+       
+    const arrayOfMismatches = [];
+    let mismatchedCharacter = ''; 
+    let mismatchFound = false;
+    
+    for (let index = 0; index < string1.length; index++) {
+        const characterString1 = string1[index]
+        const characterString2 = string2[index]
+        
+        if (mismatchFound) {
+           if (characterString1 === mismatchedCharacter) {
+               arrayOfMismatches.push(index);
+               continue;
+            } else {
+               break; // we are done
+           }
+        }
+        
+        if (characterString1 = characterString2) {
+           continue;
+        } else {
+            mismatchFound = true;
+            mismatchedCharacter = characterString1;
+            arrayOfMismatches.push(index);
+            continue 
+        }
+        
+        
+    }
+    
+    if (arrayOfMismatches.length = 0) {
+       arrayOfMismatches.push(-1);
+       console.log(' no matches found' );
+    } else {
+        console.log (we have found array of matches ... )
+    }
+      
+    
+
+    */
+    
+    // CODE
+    
+    const arrayOfMismatches = [];
+    let mismatchedCharacter = ''; 
+    let mismatchedCharacterIndex = -1;
+    let mismatchFound = false;
+    
+    for (let index = 0; index < string1.length; index++) {
+        const characterString1 = string1[index]
+        const characterString2 = string2[index]
+        
+        if (mismatchFound) {
+            if (characterString1 === mismatchedCharacter) {
+               console.log(`mismatched character found at index ${index} and it is ${mismatchedCharacter}`);
+               arrayOfMismatches.push(index);
+               continue;
+            } else {
+               break; // we are done
+            }
+        }
+        
+        if (characterString1 === characterString2) {
+            console.log(`character ${characterString1} matches in both strings at index ${index}`);
+           continue;
+        } else {
+            console.log(`mismatched character found at index ${index} and it is ${characterString1}`);
+            mismatchFound = true;
+            mismatchedCharacter = characterString1;
+            mismatchedCharacterIndex = index;
+            break;
+        }
+    }
+
+    // now we have found the first mismatched character
+    console.log(' ');
+    console.log('... now checking for further mismatches ...');
+    if (mismatchFound) {
+        for (let index = mismatchedCharacterIndex; index >= 0; index--) {
+            const characterString1 = string1[index]
+            const characterString2 = string2[index]
+            if (characterString1 === mismatchedCharacter) {
+                console.log(`mismatched character found at index ${index} and it is ${mismatchedCharacter}`);
+                arrayOfMismatches.push(index);
+            } else {
+                break;
+            }
+        }
+    }
+    
+    if (arrayOfMismatches.length === 0) {
+       arrayOfMismatches.push(-1);
+       console.log(' no matches found' );
+    } else {
+        console.log ('we have found array of matches ... ')
+        console.log(arrayOfMismatches);
+        console.log(' ');
+        console.log('... sorting array of matches ...');
+        arrayOfMismatches.sort();
+        console.log(arrayOfMismatches);
+    }
+      
+    return arrayOfMismatches
+
+
+    /*
+
+    function main() {
+    const str1 = readLine();
+
+    const str2 = readLine();
+
+    const result = getRemovableIndices(str1, str2);
+
+    process.stdout.write(result.join('\n') + '\n');
+
+
+
+    function arrayOfMismatches(string1, string2) {
+        'use strict';
+
+    process.stdin.resume();
+    process.stdin.setEncoding('utf-8');
+
+    let inputString = '';
+    let currentLine = 0;
+
+    process.stdin.on('data', function(inputStdin) {
+        inputString += inputStdin;
+    });
+
+    process.stdin.on('end', function() {
+        inputString = inputString.split('\n');
+
+        main();
+    });
+
+    function readLine() {
+        return inputString[currentLine++];
+    }
+
+
+    */
+}
+
