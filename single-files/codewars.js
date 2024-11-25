@@ -61,6 +61,12 @@ findPrimeFactors(86240);
 findPrimeFactors(7919);
 encryptNumber(12721);
 getArrayOfMismatches('abdgggda', 'abdggda');
+codingChallenge();
+getServerLoad([1,0,0,1]);
+//findMaxSubstrings('superset, subset) {
+    // Write your code here
+
+//}
 
 
 function find(needle, haystack) {
@@ -943,3 +949,187 @@ function getArrayOfMismatches(string1, string2) {
     */
 }
 
+
+
+function findMaxSubstrings(superset, subset) {
+    // Write your code here
+
+    // lowercase letters
+    
+    // superset has placeholders with ?
+    
+    // find substrings = subset 
+    // can replace ? in super string
+    // can shuffle
+    
+    // example
+    // a??gz?b?
+    // subset = ab
+    // can make a? ?? ?b so 
+    
+    
+    return -1;
+}
+
+
+function getServerLoad(serverLoadInput) {
+
+    console.log(` `);
+    console.log(`============================================================`);
+    console.log(`               server load                                  `);
+    console.log(`============================================================`);
+    console.log(`\n\nFinding out the minimum number of minutes required to balance the server loads`);
+
+/*
+
+    A binary array, serverLoad, of length n is given to describe a circular chain of servers, 
+    where serverLoad[i] is 1 if the ith server is under heavy load, or 0 otherwise. 
+
+    Since the server topology is circular, the first server is considered adjacent to the last one. 
+
+    The load status of any two servers can be swapped in 1 minute.
+
+    Determine the minimum minutes required to group the heavily loaded servers together.
+
+    Example
+
+        Given, n = 5
+        serverLoad = [1, 0, 1, 0, 1]
+        Swap load status of servers at positions 1 and 2 (0-based indexing). The new load distribution is [1, 1, 0, 0, 1]. The last and first servers are considered adjacent so the servers are grouped as required.  The answer is 1 minute.
+
+    Function Description
+
+        Complete the function getMinimumMinutes in the editor below.
+
+    getMinimumMinutes has the following parameters:
+
+        int serverLoad[n]: the load status of the servers
+
+        Returns
+
+        int: the minimum number of minutes required to balance the server loads.
+
+    Constraints
+        - 1 ≤ n ≤ 2 * 10^5
+         - serverLoad[i] is either 0 or 1
+
+
+    1 means heavy load
+    0 normal load
+    circular topology
+    can swap any 2 servers in time period of 1 minute (one iteration)
+    how many iterations does it take to group all the heavy servers together?
+
+    // example 
+    // [1,0.0,1] is input array
+    // find the minumum number of minutes to group all the heavy servers together.  
+    // however got to be aware this is a circular array so in this instance the first and last servers are considered adjacent
+    // so in this case the answer is 0 moves required
+    // so output is 0
+
+    // example 2
+    // [1,0,1,0,1]
+    // swap 1 and 2
+    // [1,1,0,0,1]
+    // have to continue swapping until all the 1s are grouped together
+    // so answer is 1
+
+
+    // summary of instructions
+
+    // get array of indices where server is under maximum load
+    // binary array
+    // length n
+    // 1 means heavy load
+    // 0 normal load
+    // circular topology
+    // can swap any 2 servers in time period of 1 minute (one iteration)
+    // how many iterations does it take to group all the heavy servers together?
+
+    // example
+    const serverLoad1 = [1, 0, 1, 0, 1, 0, 1];
+    const doubleArray = [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1];
+    const move1       = [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1];
+    const move2       = [1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1];
+
+    // we have 2 moves and get our output of 4 consecutive servers under high load
+
+    */
+
+    const serverLoad1 = [1, 0, 1, 0, 1, 0, 1];
+    const serverLoad2 = [1, 0, 0, 1];
+    const serverLoad3 = [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1];
+
+    const option = 3;
+
+    let serverLoad = [];
+
+    if (option === 1) {
+        serverLoad = serverLoad1;
+    } else if (option === 2) {
+        serverLoad = serverLoad2;
+    } else if (option === 3) {
+        serverLoad = serverLoad3;
+    }
+
+    console.log(` `);
+    console.log(`input server load array is`)
+    console.log(serverLoad);
+              
+
+    const highLoadServerCount = serverLoad.reduce((acc, item) => acc + item, 0);
+    console.log(`\nnumber of servers is ${serverLoad.length}`); 
+    console.log(`number of servers under high load is ${highLoadServerCount}`);
+        
+   
+    console.log(`\nhandle circular case by doubling the original array`);
+    const doubleArray = [...serverLoad, ...serverLoad];
+    console.log(doubleArray);  
+
+    const maximumLoadArray = [];
+    
+    for (let i = 0; i < doubleArray.length; i++) {
+        if (doubleArray[i] === 1) {
+            maximumLoadArray.push(i);
+        }
+    }
+
+    console.log(`\narray of indexes in double array, where server is high load is ... `)
+    console.log(maximumLoadArray);
+
+
+    console.log(`\nget the consecutive server count in the double array`);
+
+    consecutiveCounts = [];
+    consecutiveCount = 0;
+    let isHighLoad = false;
+    doubleArray.forEach((item, index) => {
+        if (isHighLoad && item === 0) {
+            isHighLoad = false;
+            consecutiveCounts.push(consecutiveCount);
+            consecutiveCount = 0;
+        }
+        if (item === 1) {
+            isHighLoad = true;
+            consecutiveCount++;
+        } 
+    });
+
+    console.log(`\n${consecutiveCounts.length} groups of consecutive servers under high load`);
+    console.log(consecutiveCounts);
+
+    console.log(`\nget the max number of consecutive servers under high load`);
+    maxConsecutiveCount = Math.max(...consecutiveCounts);   
+    console.log(`\n${maxConsecutiveCount} servers under high load`);    
+
+    console.log(`\nso the number of swaps will equal highLoadServerCount - initialConsecutiveHighLoadServerCount`);
+    const numberOfSwaps = highLoadServerCount - maxConsecutiveCount;
+    console.log(`high server count ${highLoadServerCount} - max consecutive server high load count ${maxConsecutiveCount} = ${numberOfSwaps}`);
+    console.log(`\nnumber of swaps required to group all high load servers together is ${numberOfSwaps}`);
+
+    return numberOfSwaps;
+
+}
+
+
+function codingChallenge(){}
