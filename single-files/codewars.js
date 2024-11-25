@@ -59,6 +59,7 @@ findInterestingNumbers(67888, []);
 findPrimeFactors(7775460);
 findPrimeFactors(86240);
 findPrimeFactors(7919);
+encryptNumber(12721);
 
 
 function find(needle, haystack) {
@@ -716,4 +717,36 @@ function findPrimeFactors(n){
     console.log(`output string is ${outputString}`);
     return outputString;
 
+}
+
+function encryptNumber(inputNumber) {
+
+    /*
+
+    given input string of digits only encrypt it in this fashion
+
+    1. turn the string into an array of characters
+    2. for each character in the array, parse the rest of the array and find out how many instances of that same digit exist (including itself)
+    3. create a mapping of that digit to the number of instances of that digit
+    4. the encrypted output is the digit followed by the number of instances of that digit
+    5. return the encrypted string
+    6. example input 12721 creates the interim mapping 22111 and the output 12 22 71 21 11
+    */
+    const inputString = inputNumber.toString();
+    console.log(`\n\nEncrypting string ${inputString}`);
+    const inputArray = inputString.split('');
+    const outputArray = [];
+    for (let i = 0; i < inputArray.length; i++) {
+        const digit = inputString[i];
+        //console.log(`\n\nFinding out how many instances of ${digit} exist in the string`);
+        let counter = 0;
+        for (let j = i; j < inputString.length; j++) {
+            if (inputString[j] === digit) {
+                counter++;
+            }
+        }
+        outputArray.push(digit + counter);
+    }
+    const outputString = outputArray.join(' ');
+    console.log(`\n\nEncrypted output string is ${outputString}`);
 }
