@@ -1,0 +1,26 @@
+name: Run Learn JavaScript
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-learn-javascript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Latest version of checkout action
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4  # Latest version of setup-node action
+        with:
+          node-version: '20'  # Specify the Node.js version you want to use
+
+      - name: Run learn javascript
+        run: node projects/learn-javascript/index.js
+
