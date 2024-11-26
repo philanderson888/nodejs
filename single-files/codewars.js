@@ -15,6 +15,7 @@ console.log(find("google", "googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("ggg", "googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("_g_o_", "googgoogleggggoooglxeplexhexflexmexkex"));
 console.log(find("mex____", "xflexmexkex"));
+console.log(`2020 ... prep for coding tests`);
 checkIfSequenceIsValid("1 2 3 4");
 checkIfSequenceIsValid("1 2 3 5");
 checkIfSequenceIsValid("1 2 a 5");
@@ -59,14 +60,11 @@ findInterestingNumbers(67888, []);
 findPrimeFactors(7775460);
 findPrimeFactors(86240);
 findPrimeFactors(7919);
+console.log(`november 2024 ... prep for coding tests`);
 encryptNumber(12721);
 getArrayOfMismatches('abdgggda', 'abdggda');
-codingChallenge();
 getServerLoad([1,0,0,1]);
-//findMaxSubstrings('superset, subset) {
-    // Write your code here
-
-//}
+findMaxSubstrings('abcdeab', 'ab'); 
 
 
 function find(needle, haystack) {
@@ -842,27 +840,6 @@ function getArrayOfMismatches(string1, string2) {
 
 
 
-function findMaxSubstrings(superset, subset) {
-    // Write your code here
-
-    // lowercase letters
-    
-    // superset has placeholders with ?
-    
-    // find substrings = subset 
-    // can replace ? in super string
-    // can shuffle
-    
-    // example
-    // a??gz?b?
-    // subset = ab
-    // can make a? ?? ?b so 
-    
-    
-    return -1;
-}
-
-
 function getServerLoad(serverLoadInput) {
 
     console.log(` `);
@@ -967,4 +944,174 @@ function getServerLoad(serverLoadInput) {
 }
 
 
-function codingChallenge(){}
+
+
+function findMaxSubstrings(mainStringIn, subStringIn) {
+     
+    console.log(` `);
+    console.log(`============================================================`);
+    console.log(`               find max substrings                          `);
+    console.log(`============================================================`);
+
+
+    /*
+
+    task is to find the maximum number of substrings which can be made from a string consisting of letters and placeholder characters
+    which can represent any letter.
+
+    the string can be shuffled in any order to make as many substrings as possible.
+
+    example ... string of a??gz?b? and substring of ab ... we can created ab and ?? and ?? so 3 substrings 
+    ... so return 3
+
+    strategy
+    1. create an array of characters only including substring characters and placeholders
+    2. sort the array
+    3. count the number of each character
+    4. find the number of complete substrings
+    5. find the number of characters remaining
+    6. find the number of placeholders remaining
+    7. find the number of complete substrings remaining
+    8. find the number of placeholders required to complete a full substring
+    9. find the number of placeholders remaining after removing placeholders required
+    10. find the number of complete substrings after removing placeholders
+
+    */
+
+    const mainString1 = 'a??gz?b?';
+    const mainString2 = 'abcd???????eabc?????'; 
+    const mainString3 = 'abcd???????eabca?????'; 
+    const mainString4 = 'abcd???????eabcaaaa?????'; 
+    const subString = 'abc';
+
+    const option = 4;
+
+    let mainString = '';
+    if (option === 1) {
+        mainString = mainString1;
+    } else if (option === 2) {
+        mainString = mainString2;
+    } else if (option === 3) {
+        mainString = mainString3;
+    } else if (option === 4) {
+        mainString = mainString4;
+    }
+
+    console.log(`\nmain string is ${mainString}`);
+    const subStringLength = subString.length;
+    console.log(`sub string is ${subString} of length ${subStringLength}`);
+
+    let placeholders = mainString.split('').filter(item => item === '?');
+    let placeholdersCount = placeholders.length;
+    console.log(`\nplaceholders count is ${placeholdersCount}`);
+
+    console.log(`create an array from the input string but omit characters not in the sub string`);
+    const mainStringArray = mainString.split('').filter(item => subString.includes(item));
+    console.log(`main string array is`);
+    console.log(mainStringArray);
+
+    console.log(`\n... now sort the array ...`);
+    mainStringArray.sort();
+    console.log(mainStringArray);
+
+    console.log(`\n... now get a count of each letter`);
+    const mainStringArrayCount = {};
+    mainStringArray.forEach(item => {
+        if (item in mainStringArrayCount) {
+            mainStringArrayCount[item] += 1;
+        }
+        else {
+            mainStringArrayCount[item] = 1;
+        }
+    });
+
+    console.log(`\nmain string letter count is`);
+    console.log(mainStringArrayCount);
+
+    const completeSubstringCount = Math.min(...Object.values(mainStringArrayCount));
+    console.log(`\ncomplete substring count is ${completeSubstringCount}`);
+
+    let charactersRemainingObject = {};
+    for (const [key, value] of Object.entries(mainStringArrayCount)) {
+        if (value > completeSubstringCount) {
+            charactersRemainingObject[key] = value - completeSubstringCount;
+        }
+    }
+
+
+    let charactersRemainingArray = Object.keys(charactersRemainingObject);
+    let charactersRemainingCount = charactersRemainingArray.length;
+    let placeholdersRemaining = placeholdersCount;
+    let totalSubstrings = completeSubstringCount;
+
+    while (charactersRemainingCount > 0) {
+
+        console.log(`\n ... remove complete sets of matched characters ...`);
+        console.log(`... characters remaining object ... `);
+        console.log(charactersRemainingObject);
+
+        charactersRemainingArray = Object.keys(charactersRemainingObject);
+        charactersRemainingCount = charactersRemainingArray.length;
+        console.log(`\ncount of characters remaining is ${charactersRemainingCount} which are letters ${charactersRemainingArray}`);
+
+        console.log(`\nnow we need to determine if there are enough placeholders to complete a full substring`);
+        const placeholdersRequired = subStringLength - charactersRemainingCount;
+        console.log(`\nplaceholders required to complete a full substring is ${placeholdersRequired}`);
+
+        placeholdersRemaining = placeholdersRemaining - placeholdersRequired;
+        console.log(`\nplaceholders remaining after removing placeholders required is ${placeholdersRemaining}`);
+
+        if (placeholdersRemaining < 0) {
+            console.log(`\nnot enough placeholders to complete a full substring`);
+            break;
+        }
+
+        totalSubstrings = totalSubstrings + 1;
+        console.log(`\nthis would make for ${totalSubstrings} total substrings (complete and partial)`);
+
+        console.log(`\nnow have to remove the characters matched with the placeholders`);
+        let charactersRemainingObjectTemp = {};
+
+        for (const [key, value] of Object.entries(charactersRemainingObject)) {
+            if (value >=2 ) {
+                charactersRemainingObjectTemp[key] = value - 1;
+            }
+        }
+
+        charactersRemainingObject = charactersRemainingObjectTemp;
+
+        console.log(`\ncharacters remaining object after removing placeholders is`);
+        console.log(charactersRemainingObject);
+
+        charactersRemainingArray = Object.keys(charactersRemainingObject);
+        charactersRemainingCount = charactersRemainingArray.length;
+        console.log(`\ncount of characters remaining is ${charactersRemainingCount} which are letters ${charactersRemainingArray}`);
+
+        if (charactersRemainingCount === 0) {
+            console.log(`\nno characters remaining`);
+        } else {
+            console.log(`\ncharacters remaining after removing placeholders are`);
+            console.log(charactersRemainingObject);
+        }
+    }
+
+    console.log(`\n\nthe number of substrings generated so far is ${totalSubstrings}`);
+
+    console.log(`and we have no real characters left to match with placeholders`);
+
+    console.log(`\nbut how many placeholders do we have left?`);
+    console.log(`placeholders remaining is ${placeholdersRemaining}`);
+
+    console.log(`\n... now we have to determine how many full substrings of length ${subStringLength} with the remaining ${placeholdersRemaining} placeholders ...`);
+
+    const numbersOfCompleteSubstringsLeftToCreate = Math.floor(placeholdersRemaining / subStringLength);
+
+    if (numbersOfCompleteSubstringsLeftToCreate > 0) {
+        console.log(`\nwe can create ${numbersOfCompleteSubstringsLeftToCreate} complete substrings`);
+        totalSubstrings = totalSubstrings + numbersOfCompleteSubstringsLeftToCreate;
+        console.log(`\ntotal substrings is now ${totalSubstrings}`);
+    } else {
+        console.log(`\nnot enough placeholders to create a full substring`);
+    }
+
+}
