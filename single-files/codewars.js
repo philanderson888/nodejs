@@ -65,6 +65,7 @@ encryptNumber(12721);
 getArrayOfMismatches('abdgggda', 'abdggda');
 getServerLoad([1,0,0,1]);
 findMaxSubstrings('abcdeab', 'ab'); 
+taskScheduler()
 
 
 function find(needle, haystack) {
@@ -1113,5 +1114,71 @@ function findMaxSubstrings(mainStringIn, subStringIn) {
     } else {
         console.log(`\nnot enough placeholders to create a full substring`);
     }
+
+}
+
+
+function taskScheduler() {
+
+    /*
+    task complexity
+    given a set of tasks with a complexity, and a difference between tasks, find the maximum number of tasks that can be scheduled
+    eg n=7 tasks, k=2, complexity [2, 1, 4, 3, 6, 5, 8] ... output is 4
+    steps
+    - subtract the complexity of the first task from all the other tasks
+    - remove any negative values
+    - remove any values which are not divisible by k
+    - sort the array  
+    - remove duplicates
+    - left with [0,2,4,6] (after subtracting 2 the intial value ... 
+    - so answer is 4
+    */
+
+    console.log(`============================================================`);
+    console.log(`               task scheduler                                `);
+    console.log(`============================================================`);
+  
+    const taskComplexity1 = [2, 1, 4, 3, 6, 5, 8];
+    const taskComplexity2 = [5, 4, 2];
+    const taskComplexity = taskComplexity1;
+    const k = 2;
+    
+    const numberOfTasks = taskComplexity.length;
+    console.log(`number of tasks to complete is ${numberOfTasks}`);
+    
+    if (numberOfTasks === 1 ){
+        return 1;
+    }
+    
+    console.log(`task complexities are ${taskComplexity}`);
+    console.log(`initial task complexity is ${taskComplexity[0]}`);
+    console.log(`k is ${k}`);
+    console.log(` `);
+    console.log(`... now subtract the first task complexity from all the other tasks ...`);
+    const tasksWithInitialComplexityRemoved = taskComplexity.map(item => item - taskComplexity[0]);
+    console.log(`tasks with initial complexity removed are ${tasksWithInitialComplexityRemoved}`);
+    console.log(` `);
+    console.log(`... now remove any negative values ...`);
+    const positiveTaskComplexity = tasksWithInitialComplexityRemoved.filter(item => item >= 0);
+    console.log(`positive task complexity is ${positiveTaskComplexity}`);
+    console.log(` `);
+    console.log(`... now remove any values which are not divisible by k ...`);
+    const taskComplexityDivisibleByK = positiveTaskComplexity.filter(item => item % k === 0);
+    console.log(`task complexity divisible by k is ${taskComplexityDivisibleByK}`);
+    console.log(` `);
+    console.log(`... now sort the array ...`);
+    taskComplexityDivisibleByK.sort(function(a, b){return a - b});
+    console.log(`sorted task complexity is ${taskComplexityDivisibleByK}`);
+    console.log(` `);
+    console.log(`... now remove duplicates ...`);
+    const uniqueTaskComplexity = [...new Set(taskComplexityDivisibleByK)];
+    console.log(`unique task complexity is ${uniqueTaskComplexity}`);
+    console.log(` `);
+    console.log(`... now count the number of scheduled tasks ...`);
+    const numberOfScheduledTasks = uniqueTaskComplexity.length;
+    console.log(`number of scheduled tasks is ${numberOfScheduledTasks}`);
+
+    return numberOfScheduledTasks;
+    
 
 }
