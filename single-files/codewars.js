@@ -66,6 +66,16 @@ getArrayOfMismatches('abdgggda', 'abdggda');
 getServerLoad([1,0,0,1]);
 findMaxSubstrings('abcdeab', 'ab'); 
 taskScheduler()
+comparePoints([1,2,3],[3,2,1]);
+const animal1 = [0, 3];
+const animal2 = [4, 2];
+circusShow(animal1[0], animal1[1], animal2[0], animal2[1]);
+const factorArray1 = [2,6]
+const factorArray2 = [24, 36]
+findFactors(factorArray1, factorArray2);
+const factorArray3 = [2, 4];
+const factorArray4 = [16, 32, 96];
+findFactors(factorArray3, factorArray4);
 
 
 function find(needle, haystack) {
@@ -1180,5 +1190,146 @@ function taskScheduler() {
 
     return numberOfScheduledTasks;
     
+
+}
+
+
+
+function comparePoints(pointsA, pointsB) {
+
+    /*
+
+    we have two sets of points
+    we compare the points in each set and award a point to the person with the highest score
+    we return the total points for each person
+    eg     a = [1, 2, 3]       b = [3, 2, 1]    output = [1, 1]
+    */
+
+    let scoreA = 0;
+    let scoreB = 0;
+
+    for (let i = 0; i < pointsA.length; i++) {
+        if (pointsA[i] > pointsB[i]) {
+            scoreA++;
+        } else if (pointsA[i] < pointsB[i]) {
+            scoreB++;
+        }
+    }
+
+    console.log(`\n\npoints for person A are ${scoreA}`);
+    console.log(`points for person B are ${scoreB}`);
+
+    if (scoreA > scoreB) {
+        console.log(`person A wins`);
+    } else if (scoreA < scoreB) {
+        console.log(`person B wins`);
+    } else {
+        console.log(`it's a draw`);
+    }
+
+    return [scoreA, scoreB];
+
+}
+
+
+function circusShow(initialPositionAnimal1, speedAnimal1, initialPositionAnimal2, speedAnimal2) {
+
+    /*
+
+    circus show
+    two kangaroos have initial position x and speed of each jump v so input data is [x1, v1] and [x2, v2]
+    initial position time t = 0 the are at [x1, x2]
+    after time t they are at [x1 + v1*t, x2 + v2*t]
+    we have to determine if at any point on the journey they are at the same position ie x1 + v1*t = x2 + v2*t for some t
+
+    so mathematically x1 + v1*t = x2 + v2*t 
+    separate out t and we get t = (x2 - x1) / (v1 - v2) has to be an integer
+
+    */
+
+    console.log(`============================================================`);
+    console.log(`               circus show                                  `);
+    console.log(`============================================================`);
+
+    const x1 = initialPositionAnimal1;
+    const v1 = speedAnimal1;
+    const x2 = initialPositionAnimal2;
+    const v2 = speedAnimal2;
+
+    console.log(`animal 1 has initial position ${x1} and speed ${v1}`);
+    console.log(`animal 2 has initial position ${x2} and speed ${v2}`);
+
+    console.log(`\n... now determine if they will meet ...`);
+
+    let willMeet = false;
+    let willMeetTime = -1;
+    let willMeetPosition = -1;
+
+    if (v1 === v2) {
+        if (x1 === x2) {
+            willMeet = true;
+        }
+    } else {
+        const t = (x2 - x1) / (v1 - v2);
+        if (t >= 0 && Number.isInteger(t)) {
+            willMeet = true;
+            willMeetTime = t;
+        }
+    }
+
+    if (willMeet) {
+        willMeetPosition = x1 + v1 * willMeetTime;
+        console.log(`they will meet at time ${willMeetTime} at position ${willMeetPosition}`);
+    } else {
+        console.log(`they will not meet`);
+    }
+
+    return willMeet;
+    
+}
+
+function findFactors(factorArray1, factorArray2) {
+
+    /*
+    given arrays
+    a) the elements of the first array are all factors of the integer n
+    b) the integer n is a factor of all elements of the second array
+    */
+
+    console.log(`============================================================`);
+    console.log(`               find factors                                 `);
+    console.log(`============================================================`);
+
+    console.log(`first array is ${factorArray1}`);
+    console.log(`second array is ${factorArray2}`);
+
+    console.log(`\n... now find the factors ...`);
+
+    const factors = [];
+
+    const a = factorArray1;
+    const b = factorArray2;
+
+    const maxA = Math.max(...a);
+    const minB = Math.min(...b);
+
+    console.log(`max of a is ${maxA}`);
+    console.log(`min of b is ${minB}`);
+
+    for (let i = maxA; i <= minB; i++) {
+        if (a.every(item => i % item === 0) && b.every(item => item % i === 0)) {
+            factors.push(i);
+        }
+    }
+
+    const factorsFound = factors.length;
+
+    if (factorsFound === 0) {
+        console.log(`no factors found`);
+    } else {
+        console.log(`${factorsFound} factors found are ${factors}`);
+    }
+
+    return factorsFound;
 
 }
