@@ -86,8 +86,6 @@ REPL : TYPE 'NODE' AND ENTER SOME JAVASCRIPT SEPARATED BY SEMICOLONS TO EXECUTE 
 CONSOLE LOG HELLO WORLD
 STDOUT HELLO WORLD
 DEBUG : RUN NODE DEBUG <MYFILE.JS> AND OBSERVE OUTPUT.  TYPE REPL TO GET TO A COMMAND PROMPT TO VIEW AND SET VARIABLE VALUES.
-NODE-INSPECTOR : INSTALL NODE INSPECTOR GLOBALLY WITH NPM INSTALL NODE-INSPECTOR -G 
-NODE-INSPECTOR : RUN AN APP WITH NODE-DEBUG <MYAPP.JS>.   SET BREAKPOINTS AND RUN THE APP OBSERVING BREAKPOINTS IN CHROME.  SET VALUES TO WATCH AS WELL.
 STDIN ONE CHARACTER AND CONSOLE.LOG('YOU ENTERED THE CHARACTER' + CHARACTER)
 READLINE : READ ONE LINE OF TEXT AND OUTPUT
 PROMPT : PROMPT FOR A VALUE AND CONSOLE.LOG THE VALUE ENTERED
@@ -735,9 +733,8 @@ Chrome LiveReload : AUTO-REFRESH BROWSER ON SOURCE FILE CHANGES
 			
 			watch(x) - Add x to watch list
 		
-	DEBUGGING WITH NODE-INSPECTOR AND NODE-DEBUG
-		1. NPM INSTALL -G NODE-DEBUG 
-			THIS WILL INSTALL     NPM INSTALL -G NODE-INSPECTOR
+	DEBUGGING WITH NODE-DEBUG
+
 		2. node-debug myapp.js
 		3. Wait about 20 seconds for the page http://localhost:8080/debug?port=5858 to open up and refresh the debug data.
 		You will be able to set breakpoints etc and view all the output from all of the variables.
@@ -800,8 +797,7 @@ setTimeout(function(){
 
 ### DEBUG : EXTRA NOTES
 
-DEBUGGING WITH NODE-INSPECTOR 
-
+DEBUGGING 
 
 	https://docs.nodejitsu.com/articles/getting-started/how-to-debug-nodejs-applications
 	
@@ -810,23 +806,9 @@ DEBUGGING WITH NODE-INSPECTOR
 	http://jlunaquiroga.blogspot.co.uk/2014/06/debug-in-nodejs.html
 	
 	http://www.100percentjs.com/best-way-debug-node-js/
-	INSTALL 
-	
-		npm install node-inspector -g 
 		
-	START
-	
-		Open a command prompt and type
 		
-			node-inspector
-	
-	VIEW IN BROWSER
-	
-		Visit http://127.0.0.1:8080/debug?port=5858 to start debugging.
-		Or http://localhost:8080/?port=5858 will work also
-	THEN RUN YOUR APPLICATION WITH 
-		
-	With node inspector running in other terminal you have to start in debug mode your application with the following command:
+	start in debug mode your application with the following command:
 	nodemon --debug node_debug_05_http_server.js
 			or --debug-brk
 	
@@ -907,7 +889,7 @@ RUN WITH NODEMON
 	
 http://expressjs.com/en/guide/debugging.html
 	
-DEBUGGING WITH NODE-INSPECTOR
+DEBUGGING
 
 	NODE-DEBUG NODEMON APP_NAME (SEE BELOW)
 ONCE RUNNING, THE DEBUGGER WILL NOW OUTPUT COMMANDS SET WITH THE 'DEBUG' KEYWORD 
@@ -924,9 +906,8 @@ DEBUGGING TIME ELAPSED
 	From <https://www.npmjs.com/package/debug> 
 	
 	
-DEBUGGING WITH NODE-DEBUG / NODE-INSPECTOR
+DEBUGGING WITH NODE-DEBUG
 NPM INSTALL -G NODE-DEBUG
-NPM INSTALL -G NODE-INSPECTOR
 https://www.npmjs.com/package/node-debug
 THEN RUN APPLICATION WITH 
 	NODE-DEBUG .\bin\www 
@@ -936,31 +917,15 @@ THEN RUN APPLICATION WITH
 	TO OPEN A PAUSED COPY OF YOUR APPLICATION READY TO RUN, PAUSED BEFORE LINE 1 HAS STARTED READY TO PRESS 'CONTINUE' TO CONTINUE THE APP, AT HTTP://LOCALHOST:5858
 	
 	
-NODE INSPECTOR
-INSTALL
-	NPM INSTALL -G NODE-INSPECTOR
-	
-COMMAND LINE
-	NODE-INSPECTOR
-	
-BROWSER
-	
-	http://localhost:8080/debug?port=5858
 	
 DEBUGGING
-INSTALL NODE INSPECTOR
-RUN NODE INSPECTOR
-OPEN BROWSER AT PORT 5858
-RUN YOUR APP
 	1) NODE APP.JS    
-	2) NODE --DEBUG APP.JS     this starts the site but not the node inspector
+	2) NODE --DEBUG APP.JS
 	3) NODE DEBUG APP.JS
 	4) NODEMON DEBUG .\bin\www    THIS TRIGGERS IT BUT PROVIDES A LOT OF EXTRA CODE RUNNING IN THE DEBUGGER
 	
 DEBUGGING
-INSTALL NODE INSPECTOR
 RUN NODEMON --DEBUG .\BIN\WWW
-RUN NODE-INSPECTOR
 VISIT 5858 DEBUG SITE
 DEBUGGING WITHOUT NODEMON
 RUN NODEMON DEBUG .\BIN\WWW
@@ -973,7 +938,6 @@ NODEMON .\BIN\WWW ALSO WILL RUN YOUR APP
 DEBUGGING SUMMARY
 Console.log WILL ALWAYS LOG
 Require('debug')  and debug('message')  WILL ONLY LOG WHEN  --debug used
-NODE-INSPECTOR CAN BE USED TO DEBUG AS IN CHROME WHEN EG WEB APP RUNS
 CAN USE DEBUG INSTEAD OF --DEBUG
 TOOLS TO AUTO-START NODE AFTER CRASH - forever and pm2
 
