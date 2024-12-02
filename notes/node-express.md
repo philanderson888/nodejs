@@ -1922,8 +1922,6 @@ Web socket simple setup with express in a few lines
 https://hackernoon.com/nodejs-web-socket-example-tutorial-send-message-connect-express-set-up-easy-step-30347a2c5535
 Node back end api tutorial
 
-https://code.tutsplus.com/tutorials/build-a-todo-api-with-node-express-and-mongodb--cms-29343
-
 Node Exports
 
 Exporting with exports.functionName=function(){}

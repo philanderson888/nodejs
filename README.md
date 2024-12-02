@@ -280,8 +280,6 @@ Express 2010
 ## Installing node
 
 Note - npm is auto installed when node is installed 
-Install node in all 3 versions 
-https://code.tutsplus.com/tutorials/build-a-todo-api-with-node-express-and-mongodb--cms-29343
 Npm init -y       creates default npm init 
 Npm cache verify (also now is the recommended way to verify the cache is clear)
 Npm cache clean --force (now not recommended)
