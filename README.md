@@ -788,13 +788,7 @@ DEBUGGING
 	debugger listening on port 5858
 			CAN NOW DEBUG AT http://127.0.0.1:8080/debug?port=5858 
 			
-			
-			
-	
-	
-WEBSTORM BUILT IN DEBUGGING
-	FIND NODE FILE AND EITHER RUN OR RUN WITH DEBUG
-	https://www.jetbrains.com/webstorm/help/running-and-debugging-node-js.html
+
 DEBUGGING WITH DEBUG MODULE
 	see requiring the debug module in express_04 application which can be run using nodemon express in that folder
 	
@@ -823,16 +817,7 @@ DEBUGGING WITH DEBUG MODULE
 		
 		http MY MESSAGE HERE <value of my-variable-here>
 							
-							
-		
-		
-		
-DEBUGGING WITH DEVTOOL
-	NPM INSTALL -G DEVTOOL
-	
-	https://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools
-	
-	
+
 	
 EXPRESS DEBUGGING
 
