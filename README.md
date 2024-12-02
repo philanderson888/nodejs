@@ -96,8 +96,7 @@ PATH.DIRNAME : DISPLAY THE DIRECTORY NAME OF A FILE
 PATH.BASENAME : DISPLAY THE FILE NAME OF A FILE
 PATH.EXTNAME : DISPLAY THE EXTENSION OF A FILE
 ARGV : START A NODE APPLICATION WITH ARGUMENTS AND DISPLAY THOSE ARGUMENTS USING THE ARGV ARRAY
-OPTIMIST OR YARGS : START A NODE APPLICATION WITH A REQUIRED NAMED ARGUMENT AND CONSOLE.LOG OUT THE VALUE OF THAT ARGUMENT
-OPTIMIST : START A NODE APPLICATION AND DETECT IF AN ARGUMENT IS PRESENT (TRUE) OR ABSENT (FALSE).  JUST USE ONE LETTER TO REPRESENT THE ARGUMENT.  EG NODE MYAPP.JS S WILL DETECT THAT S=TRUE
+YARGS : START A NODE APPLICATION WITH A REQUIRED NAMED ARGUMENT AND CONSOLE.LOG OUT THE VALUE OF THAT ARGUMENT
 TASKKILL : CREATE A PROCESS EG RUN WORDPAD.  TASKLIST TO FIND PROCESS ID.  TASKKILL TO KILL THAT PROCESS FORCEFULLY.  <<Linux run TOP to get processes and KILL to kill that process>>
 TASKKILL : CREATE A PROCESS EG RUN WORDPAD.  TASKLIST TO FIND PROCESS ID.  USE NODE TO TERMINATE THE APPLICATION FORCEFULLY.  <<Linux run TOP to get processes and KILL to kill that process>>
 CREATE A MODULE TEST1.JS
@@ -137,7 +136,6 @@ HTTP SERVER : SEND A FORM TO THE USER WITH ONE FIELD AND ONE BUTTON.  WHEN THE F
 HTTP SERVER : SEND A FORM TO THE USER.  WHEN USER SUBMITS THE FORM, APPEND A TIMESTAMP TO A TEXT FILE.  
 NODE PROJECT : CREATE A NODE PROJECT FOLDER AND RUN NPM INIT TO GENERATE A PACKAGE.JSON FOLDER.  
 MEMWATCH : CAN YOU GENERATE AN EVENT WHICH WILL, OVER A PERIOD OF 20 SECONDS OR MORE, INCREASE GRADUALLY THE MEMORY USAGE OF YOUR APPLICATION?  CAN YOU LOG THE MEMORY HEAP SIZE AS YOU GO, SAY LOG SOMETHING EACH SECOND?  CAN YOU GET A LEAK TO TRIGGER WHICH REQUIRES CONSECUTIVE GROWTH OVER 20 SECONDS?
-FOREVER : START 3 NODE APPLICATIONS WITH FOREVER THEN STOP THEM AGAIN.  WHAT HAPPENS IF YOU MANUALLY TASKKILL ONE OF THE APPLICATIONS - DOES FOREVER AUTOMATICALLY START IT AGAIN?
 PM2 : REPEAT THE ABOVE WITH PM2
 EXEC : CAN YOU CREATE A CHILD PROCESS WHICH PAUSES FOR 2 SECONDS THEN COMMUNICATES IN SOME WAY WITH THE PARENT PROCESS?  PARENT WILL LISTEN FOR CHILD.ON('CLOSE') EVENT TO BE SURE CHILD HAS TERMINATED.
 SPAWN : CAN YOU SPAWN A CHILD PROCESS WHICH STDOUT SOME DATA TO THE PARENT WHICH GETS LOGGED?
@@ -152,8 +150,6 @@ POWERSHELL : GET SIZE OF FOLDER       ls -r | measure -s length
 LAB 36 : STDIN
 LAB 32 : READLINE
 LAB 30 : ARGV
-LAB 40 OPTIMIST
-LAB 42 OPTIMIST TRUE/FALSE
 LOOK AT 19 PATH
 LAB 60 : not working
 LAB 65 PROCESS.ENV.PATH
@@ -168,7 +164,6 @@ DEMO MYSQL LAB
 TALK ABOUT MEAN
 =  FUTURE LABS =
 		
-FOREVER
 WINSTON
 EXPRESS PASSPORT
 ASYNC PARALLEL
@@ -254,26 +249,6 @@ Express 2010
 			PERSISTENT STATE OF APPLICATION -> REDIS DATABASE !!!
 			
 			Redis is a data store well suited to handling simple data that doesn't need to be stored for long-term access, such as instant messages and game-related data. Redis stores data in RAM, logging changes to it to disk. The downside to this is that storage space is limited, but the advantage is that Redis can perform data manipulation quickly. If a Redis server crashes and the contents of RAM are lost, the disk log can be used to restore the data.
-			
-			AUTO REBOOT WITH FOREVER.JS 
-			
-			
-	
-	SINGLE THREAD
-	
-		PM2
-		
-		FOREVER 
-		
-			MONITOR ALL PROCESSES
-			RECOVER NODE IF CRASH
-		
-			RECOVER
-			
-				REDIS : DATABASE IN RAM TO TRANSACT ALL LOGS SO IF RECOVER NODE THEN CAN RECOVER ALL TRANSACTIONS
-	
-	
-	
 	
 ## First Tasks
 	
@@ -939,52 +914,7 @@ DEBUGGING SUMMARY
 Console.log WILL ALWAYS LOG
 Require('debug')  and debug('message')  WILL ONLY LOG WHEN  --debug used
 CAN USE DEBUG INSTEAD OF --DEBUG
-TOOLS TO AUTO-START NODE AFTER CRASH - forever and pm2
-
-		
-		
-Forever - Restart After Crash
-
-EVERYONE IS USING ONE THREAD SO ONE EXCEPTION WHICH REACHES
-THE TOP OF THE STACK CAN CRASH EVERYONE'S APPLICATION! 
-RESTART WITH 'FOREVER' (AND FOREVER-MONITOR) 
-	https://www.npmjs.com/package/forever
-	https://github.com/foreverjs/forever-monitor
-	http://expressjs.com/en/advanced/pm.html
-		
-	RESTART NODE SERVER AFTER CHANGE OR CRASH 
-	https://github.com/foreverjs/forever
-		
-	http://www.slidequest.com/q/70ang
-		
-	https://github.com/foreverjs/forever-monitor
-		
-	Forever, developed by nodejitsu, has functions to create applications that are always running—"forever" running. 
-	If the application dies, forever brings it back. 
-	It has built-in functionality to monitor processes. 
-	It also offers an API you can use to incorporate its features into your own code.
-		
-	INSTALL 
-		npm -g install forever
-		
-		npm install forever-monitor      
-		
-				LOCAL IF NEED TO USE FOREVER FROM NODE APP
-	RUN YOUR APP WITH FOREVER 
-		forever start myapp.js
-		
-	STOP
-		forever stop myapp.js
-		
-	WHAT IS RUNNING
-		forever list
-		
-		
-	RUN FOREVER LIKE NODEMON TO AUTO-RESTART APP AFTER CODE CHANGE
-		forever -w start myapp.js
-		
-		
-		
+TOOLS TO AUTO-START NODE AFTER CRASH - pm2
 			
 ## Node As A Service		
 			
@@ -999,8 +929,7 @@ PM2 - Restart After Crash
 			
 	INCLUDED AS PART OF NODE CORE
 		npm install pm2 -g
-	Same as forever ie keeps code running even after crash
-	https://github.com/Unitech/pm2
+
 	START
 	
 		pm2 start myapp.js

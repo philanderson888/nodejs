@@ -71,27 +71,11 @@ Intro
 	
 			PERSISTENT STATE OF APPLICATION -> REDIS DATABASE !!!
 			
-			Redis is a data store well suited to handling simple data that doesn't need to be stored for long-term access, such as instant messages and game-related data. Redis stores data in RAM, logging changes to it to disk. The downside to this is that storage space is limited, but the advantage is that Redis can perform data manipulation quickly. If a Redis server crashes and the contents of RAM are lost, the disk log can be used to restore the data.
-			
-			AUTO REBOOT WITH FOREVER.JS 
-			
-			
+			Redis is a data store well suited to handling simple data that doesn't need to be stored for long-term access, such as instant messages and game-related data. Redis stores data in RAM, logging changes to it to disk. The downside to this is that storage space is limited, but the advantage is that Redis can perform data manipulation quickly. If a Redis server crashes and the contents of RAM are lost, the disk log can be used to restore the data.		
 	
 	SINGLE THREAD
 	
 		PM2
 		
-		FOREVER 
-		
-			MONITOR ALL PROCESSES
-			RECOVER NODE IF CRASH
-		
-			RECOVER
-			
-				REDIS : DATABASE IN RAM TO TRANSACT ALL LOGS SO IF RECOVER NODE THEN CAN RECOVER ALL TRANSACTIONS
-	
-	
-	
-	
 	
 	
