@@ -39,10 +39,6 @@ app.listen(port8080);
 
 
 
-
-
-
-
 app.get('/jsonResponse', (req,res) => {
     console.log(`\n\nrequest parameters in req.query ...`)
     console.log(`request.query parameter is ... `)
