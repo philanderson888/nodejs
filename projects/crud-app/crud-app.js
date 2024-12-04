@@ -157,14 +157,12 @@ console.log(`node express app running on port 8080`)
 app.listen(port8080);
 
 
-
-
-
-
-
-
-
-
+setTimeout(() => {
+    console.log(`\nshutting down servers on ports 3000 and 3001 and express app on port 8080 after delay of 30 seconds`)
+    server3000.close();
+    server3001.close();
+    app.close();
+}, 1000 * 60 * 0.5);
 
 
 
