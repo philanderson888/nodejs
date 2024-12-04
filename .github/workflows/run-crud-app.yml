@@ -26,9 +26,21 @@ jobs:
           cd projects
           cd crud-app
           npm install
+          npm install --save curl
+          npm install
 
       - name: Run Node.js application
         run: |
           cd projects
           cd crud-app
           node crud-app.js
+
+      - name: Run curl
+        run: |
+          cd projects
+          cd crud-app
+          curl http://localhost:3000
+          curl http://localhost:3001
+          curl http://localhost:8080
+          curl http://localhost:8080/jsonResponse
+
