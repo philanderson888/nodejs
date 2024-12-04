@@ -10,6 +10,39 @@ const port3000 = 3000;
 const port3001 = 3001;
 const port8000 = 8000;
 
+const server3000 = http.createServer((req,res) => {
+    console.log(`\n\nrequest received on port ${port3000}`)
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end(`This is a plain text response from an http web server built in native nodejs`);
+});
+
+const server3001 = http.createServer((req,res) => {
+    console.log(`\n\nrequest received on port ${port3001}`)
+    console.log(`request parameters in req.query ...`)
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.end(`<h3>NodeJS api on port 3001 returns static HTML</h3><ul><li>home</li><ul><li><a href="http://localhost">http://localhost</a></li></ul></ul><ul><li>json</li><ul><li><a href="http://localhost/jsonResponse">http://localhost/jsonResponse => {     }</a></li><li><a href="http://localhost/jsonResponse?name=phil">http://localhost/jsonResponse?name=phil --> {  name : phil  }</a></li></ul><li>plain text</li><li>html</li></ul>`);
+});
+
+
+server3000.listen(port3000, hostname, () => {
+    console.log(`json server sending index.html at http://${hostname}:${port3000}`)
+});
+
+server3001.listen(port3001, hostname, () => {
+    console.log(`node server sending raw html at http://${hostname}:${port3001}`)
+});
+
+console.log(`node express app running on port 8080`)
+app.listen(port8080);
+
+
+
+
+
+
+
 app.get('/jsonResponse', (req,res) => {
     console.log(`\n\nrequest parameters in req.query ...`)
     console.log(`request.query parameter is ... `)
@@ -129,32 +162,10 @@ app.get('/', (req,res) => {
     res.sendFile(filePath);
 });
 
-const server3000 = http.createServer((req,res) => {
-    console.log(`\n\nrequest received on port ${port3000}`)
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end(`This is a plain text response from an http web server built in native nodejs`);
-});
-
-const server3001 = http.createServer((req,res) => {
-    console.log(`\n\nrequest received on port ${port3001}`)
-    console.log(`request parameters in req.query ...`)
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end(`<h3>NodeJS api on port 3001 returns static HTML</h3><ul><li>home</li><ul><li><a href="http://localhost">http://localhost</a></li></ul></ul><ul><li>json</li><ul><li><a href="http://localhost/jsonResponse">http://localhost/jsonResponse => {     }</a></li><li><a href="http://localhost/jsonResponse?name=phil">http://localhost/jsonResponse?name=phil --> {  name : phil  }</a></li></ul><li>plain text</li><li>html</li></ul>`);
-});
 
 
-server3000.listen(port3000, hostname, () => {
-    console.log(`json server sending index.html at http://${hostname}:${port3000}`)
-});
 
-server3001.listen(port3001, hostname, () => {
-    console.log(`node server sending raw html at http://${hostname}:${port3001}`)
-});
 
-console.log(`node express app running on port 8080`)
-app.listen(port8080);
 
 
 
