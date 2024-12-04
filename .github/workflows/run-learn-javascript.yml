@@ -22,5 +22,5 @@ jobs:
           node-version: '20'  # Specify the Node.js version you want to use
 
       - name: Run learn javascript
-        run: npm install -g glob && npm install --save glob && npm install && node projects/learn-javascript/index.js
+        run: npm install -g glob jest-haste-map && npm install --save glob jest-haste-map && npm install && node projects/learn-javascript/index.js
 
