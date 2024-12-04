@@ -22,5 +22,5 @@ jobs:
           node-version: '20'  # Specify the Node.js version you want to use
 
       - name: Run learn javascript
-        run: node projects/learn-javascript/index.js
+        run: npm install -g glob && node projects/learn-javascript/index.js
 
