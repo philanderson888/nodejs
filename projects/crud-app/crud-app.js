@@ -157,12 +157,41 @@ console.log(`node express app running on port 8080`)
 app.listen(port8080);
 
 
+
+
+
+function gracefulShutdown () {
+  console.log('Gracefully closing http server')
+
+  try {
+    app.close(function (err) {
+      if (err) {
+        console.error('There was an error', err.message)
+        process.exit(1)
+      } else {
+        console.log('http server closed successfully. Exiting!')
+        process.exit(0)
+      }
+    })
+
+    // closeAllConnections() is only available from Node v18.02
+    if (app.closeAllConnections) app.closeAllConnections()
+    else setTimeout(() => process.exit(0), 5000)
+
+  } catch (err) {
+    console.error('There was an error', err.message)
+    setTimeout(() => process.exit(1), 500)
+  }
+}
+
+
 setTimeout(() => {
     console.log(`\nshutting down servers on ports 3000 and 3001 and express app on port 8080 after delay of 30 seconds`)
     server3000.close();
     server3001.close();
-    app.close();
+    gracefulShutdown();
 }, 1000 * 60 * 0.5);
+
 
 
 
