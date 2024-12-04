@@ -5,7 +5,7 @@ const path = require('path');
 const axios = require('axios');
 
 const hostname = '127.0.0.1';
-const port80 = 80;
+const port8080 = 8080;
 const port3000 = 3000;
 const port3001 = 3001;
 const port8000 = 8000;
@@ -122,7 +122,7 @@ app.get('/sendPostRequestToNetlifyExpressApi02', (req,res) => {
 });
 
 app.get('/', (req,res) => {
-    console.log(`nodejs responding on port ${port80} with response.sendFile`)
+    console.log(`nodejs responding on port ${port8080} with response.sendFile`)
     console.log(`__dirname is ${__dirname}`)
     const filePath = path.join(__dirname + `/index.html`)
     console.log(`serving html file from path ${filePath}`)
@@ -153,8 +153,8 @@ server3001.listen(port3001, hostname, () => {
     console.log(`node server sending raw html at http://${hostname}:${port3001}`)
 });
 
-console.log(`node express app running on port 80`)
-app.listen(port80);
+console.log(`node express app running on port 8080`)
+app.listen(port8080);
 
 
 
