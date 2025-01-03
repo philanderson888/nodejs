@@ -76,6 +76,7 @@ findFactors(factorArray1, factorArray2);
 const factorArray3 = [2, 4];
 const factorArray4 = [16, 32, 96];
 findFactors(factorArray3, factorArray4);
+fizzBuzz(15);
 
 
 function find(needle, haystack) {
@@ -1333,3 +1334,26 @@ function findFactors(factorArray1, factorArray2) {
     return factorsFound;
 
 }
+
+function fizzBuzz(n) {
+
+    console.log(`============================================================`);
+    console.log(`               fizz buzz                                    `);
+    console.log(`============================================================`);
+
+    console.log(`... now output fizz buzz for numbers up to ${n} ...`);
+
+    for (let i = 1; i <= n; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            console.log(`fizz buzz`);
+        } else if (i % 3 === 0) {
+            console.log(`fizz`);
+        } else if (i % 5 === 0) {
+            console.log(`buzz`);
+        } else {
+            console.log(i);
+        }
+    }
+
+}
+
