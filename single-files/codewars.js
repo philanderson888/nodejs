@@ -77,6 +77,17 @@ const factorArray3 = [2, 4];
 const factorArray4 = [16, 32, 96];
 findFactors(factorArray3, factorArray4);
 fizzBuzz(15);
+validateISBN('9780306406');
+calculateMeanSquareDifference([1,2,3,4,5],[1,2,3,4,5]);
+calculateMeanSquareDifference([1,2,3,4,5],[1,2,3,4,6]);
+justifyText('The quick brown fox jumps over the lazy dog.', 10); 
+justifyText('a quick a a quicks a a quicker a brown a fox a jumps a over a log a wow a amazing.', 10);
+const LIPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis dolor mauris, at elementum ligula tempor eget. In quis rhoncus nunc, at aliquet orci. Fusce at dolor sit amet felis suscipit tristique. Nam a imperdiet tellus. Nulla eu vestibulum urna. Vivamus tincidunt suscipit enim, nec ultrices nisi volutpat ac. Maecenas sit amet lacinia arcu, non dictum justo. Donec sed quam vel risus faucibus euismod. Suspendisse rhoncus rhoncus felis at fermentum. Donec lorem magna, ultricies a nunc sit amet, blandit fringilla nunc. In vestibulum velit ac felis rhoncus pellentesque. Mauris at tellus enim. Aliquam eleifend tempus dapibus. Pellentesque commodo, nisi sit amet hendrerit fringilla, ante odio porta lacus, ut elementum justo nulla et dolor.';
+justifyText('123 45 6', 7)
+justifyText(LIPSUM, 30);
+amazon1();
+const deploymentData = [{"deployment_id": "d-12345678ab", "status": "Success"},{"deployment_id": "d-09876543cd", "status": "Fail"}]
+amazon2(deploymentData);
 
 
 function find(needle, haystack) {
@@ -1357,3 +1368,512 @@ function fizzBuzz(n) {
 
 }
 
+function validateISBN(isbn) {
+
+    console.log(`============================================================`);
+    console.log(`                  validate ISBN                             `);      
+    console.log(`============================================================`);
+
+    console.log(`... is ${isbn} a valid ISBN number ? ...`);
+    console.log(`sum of the digits multiplied by their position, then take modulus 11, is 0`);
+
+    /*
+        ISBN is 10 digit string with the last digit being a number or X
+
+        the ISBN is valid if the sum of the digits  multiplied by their position, then take modulus 11, is 0
+
+        eg 0-306-40615-2 is valid
+
+        because 0*1 + 3*2 + 0*3 + 6*4 + 4*5 + 0*6 + 6*7 + 1*8 + 5*9 + 2*10 = 6 + 6 + 24 + 20 + 0 + 42 + 8 + 45 + 18 + 20 = 189 which is divisible by 11
+    */
+
+          
+  let isValid = false;
+
+  // fail fast 
+
+  // if length is not 10 digits then fail
+
+  if (isbn.length !== 10) {
+    return isValid;
+  }
+
+  // if X count is not 0 or 1 then fail
+
+  if (isbn.split('').filter(item => item === 'X').length > 1) {
+    return isValid;
+  }
+
+  // if X is in any other position than the last position then fail
+
+  if (isbn.indexOf('X') !== 9 && isbn.indexOf('X') !== -1) {
+      return isValid;
+  }
+
+  let total = 0;
+  
+  for (let i = 0; i < isbn.length; i++) {
+    const place = i + 1;
+    let value = isbn[i];
+
+    if (value === 'X') {
+      value = 10;
+    }
+
+    total += value * place;
+
+  }
+
+  const isDivisibleBy11 = total % 11 === 0;
+
+  if (isDivisibleBy11) {
+    isValid = true;
+  }
+
+  console.log(`ISBN number ${isbn} is ${isValid ? 'valid' : 'invalid'}`);
+
+  return isValid;
+
+}
+
+function calculateMeanSquareDifference(array1, array2) {
+    
+    /*
+
+        accept 2 integer arrays of equal length
+
+        conpare the value in one array with the corresponding member in the other array
+
+        get the difference between the two values, then square it 
+
+        return the average of all the squared differences
+
+    */
+
+    const arrayLength = array1.length
+
+    console.log(`============================================================`);
+    console.log(`               mean square difference                       `);
+    console.log(`============================================================`);
+
+    console.log(`array 1 is ${array1}`);
+    console.log(`array 2 is ${array2}`);
+
+    let sumOfDifferencesSquared = 0;
+
+    for (let i = 0; i < arrayLength; i++) {
+        const difference = array1[i] - array2[i];
+        const differenceSquared = difference * difference;
+        sumOfDifferencesSquared += differenceSquared;
+    }
+
+    const meanSquareDifference = sumOfDifferencesSquared / arrayLength;
+
+    console.log(`mean square difference is ${meanSquareDifference}`);
+
+    return meanSquareDifference;
+
+}
+
+function justifyText(text, width) {
+
+    /* 
+    
+    single string input 
+
+    given width 
+
+    separate into an array of words
+
+    use \n to seaprate lines
+
+    last line should not terminate with \n
+
+    max word length will not exceed line length
+
+    all lines should end with a word and not a space 
+
+    justification should use spaces to fill in the gaps between words, evenly distributed, with any smaller spaces at the end
+
+    last line should not be justified 
+
+    line with one word will have no gaps
+
+    */
+
+    console.log(`============================================================`);
+    console.log(`               justify text                                 `);
+    console.log(`============================================================`);
+
+    console.log(`justify text to width ${width}`);
+
+    const words = text.split(' ');
+    console.log(`words are ${words}`);
+
+    // single word case
+
+    if (words.length === 1) {
+        console.log(`single word case`);
+        return text;
+    }
+
+    //let line = '';
+    //let lines = [];
+
+    /*
+
+    for (let i = 0; i < words.length; i++) {
+        
+        const newLine = line + words[i] + ' ';
+        console.log(`\nnew line is ${newLine}`);
+
+        console.log(`line length is ${newLine.length}`);
+
+        if (newLine.length > width) {
+            lines.push(line);
+            line = words[i] + ' ';
+        } else {
+            line = newLine;
+        }
+    }
+
+    lines.push(line);
+
+    console.log(`lines are`);
+    console.log(lines);
+
+    */
+
+    // try this again
+    let lines2 = [];
+    let line2 = '';
+    let cumulativeWordsWithSpaces = '';
+
+    for (let i = 0; i < words.length; i++) {
+
+        line2 = cumulativeWordsWithSpaces + words[i];
+
+        console.log(`\nline is ${line2} with length ${line2.length}`);
+
+        if (line2.length > width) {
+            lines2.push(cumulativeWordsWithSpaces);
+            line2 = '';
+            cumulativeWordsWithSpaces = words[i] + ' ';
+            continue;
+        }
+
+        cumulativeWordsWithSpaces += words[i] + ' ';
+        console.log(`cumulative words with spaces is ${cumulativeWordsWithSpaces}`);
+
+    }
+
+    // last line
+    lines2.push(cumulativeWordsWithSpaces.trim());
+
+    console.log(`lines are`);
+    console.log(lines2);
+
+    let justifiedLines = lines2.map(item => {
+        const itemTrimmed = item.trim();
+        console.log(`\n\njustifying line ${itemTrimmed}`);
+        const words = item.trim().split(' ');
+        console.log(`words are ${words}`);
+        const totalWords = words.length;
+        console.log(`total words are ${totalWords}`);
+        const rawLength = itemTrimmed.length;
+        console.log(`raw length is ${rawLength}`);
+        const totalSpaces = width - itemTrimmed.length;
+        console.log(`total spaces are ${totalSpaces}`);
+        const spacesPerWord = Math.floor(totalSpaces / (totalWords - 1));
+        console.log(`spaces per word are ${spacesPerWord}`);
+        const extraSpaces = totalSpaces % (totalWords - 1);
+        console.log(`extra spaces are ${extraSpaces}`);
+        let justifiedLine = '';
+        for (let i = 0; i < words.length; i++) {
+            justifiedLine += words[i];
+            if (i < totalWords - 1) {
+                justifiedLine += ' ';
+                justifiedLine += ' '.repeat(spacesPerWord);
+                if (i < extraSpaces) {
+                    justifiedLine += ' ';
+                }
+            }
+        }
+        console.log(`justified line is ${justifiedLine}`);
+        return justifiedLine;
+    });
+
+    console.log(`justified lines are`);
+    console.log(justifiedLines);
+
+    // undo last line justification
+    const lastLine = justifiedLines.pop();
+    console.log(`last line before treatment is ${lastLine}`);
+
+    const lastLineWordsJustified = lastLine.split(' ');
+    const lastLineWords = lastLineWordsJustified.filter(item => item !== ' ' && item !== '');
+    console.log(`last line words are ${lastLineWords}`);
+
+    let lastLineUnjustified = '';
+
+    for (let i = 0; i < lastLineWords.length; i++) {
+
+        lastLineUnjustified += lastLineWords[i];
+
+        if (i < lastLineWords.length - 1) {
+            lastLineUnjustified += ' ';
+        }
+    }
+
+    justifiedLines.push(lastLineUnjustified);
+    console.log(`last line is ${lastLineUnjustified}`);
+
+    // now convert back into a string with \n new line character added on every line except the last line
+
+    const justifiedText = justifiedLines.join('\n');
+    console.log(`justified text is`);
+    console.log(justifiedText);
+
+    return justifiedText
+
+}
+
+function amazon1(){
+
+    console.log(`============================================================`);
+    console.log(`                    barcode scanner                         `);
+    console.log(`============================================================`);
+
+    console.log(`input a config string`);
+    console.log(`return an array of strings to send to the barcode scanner for configuration`);
+
+    /*
+
+
+        barcode scanner
+
+        single string 
+
+        stored as a blob
+
+        request the configuration string
+
+        present configurations in correct order
+
+        encoded configuration string is <main-index> <configuration> pairs
+
+        separator is |
+
+        main-index is 4 digit numeric prefixed with zeros eg 0001
+
+        a) validate configuration string
+
+        b) output the configuration values in the correct order so that the barcode scanner can be configured
+
+        conditions
+
+        - separate configs with |
+        - indexes must be sequential eg 1,2,3
+        - alphanumeric only a..z..A..Z..0..9
+        - config length is 10 characters
+        - indices are unique ie 0001 cannot be repeated
+        - configurations also are unique and cannot be repeated
+        - 0000 is not valid 
+        - return ["invalid configuration"] if the incoming config is invalid
+
+        - input STRING
+        - output [STRING]
+
+
+    */
+
+    //const configIn = '0001LAJ5KBX9H8|0003UKURNK403F|0002MO6K1Z9WFA|0004OWRXZFMS2C';
+
+    const configIn = '0001LAJ5KBX9H8^|0003UKURNK403F|0002MO6K1Z9WFA|0004OWRXZFMS2C';
+
+    console.log(`incoming configuration string is ${configIn}`);
+
+    // fail fast - check if non-alphanumeric characters are present
+
+    const nonAlphanumericCharacters = configIn.match(/[^a-zA-Z0-9|]/g);
+
+    if (nonAlphanumericCharacters) {
+        console.log(`non-alphanumeric characters found`);
+        const invalidString = 'Invalid configuration';
+        let invalidOutput = [];
+        invalidOutput.push(invalidString);
+        console.log(`invalid output is ${invalidOutput}`);
+        return invalidOutput
+    }
+
+    // firstly parse to obtain pairs
+
+    const pairs = configIn.split('|');
+
+    console.log(`pairs are ${pairs}`);
+
+    // secondly parse each pair to obtain the index and the configuration
+
+    const pairsParsed = pairs.map(item => {
+        const index = item.slice(0, 4);
+        const configuration = item.slice(4);
+        return [index, configuration];
+    });
+
+    console.log(`parsed pairs are ${pairsParsed}`);
+
+    // return invalid if blank or empty pairs are present
+
+    const pairsParsedRemoveBlanks = pairsParsed.filter(item => item[0] !== '' && item[1] !== '');
+
+    if (pairsParsedRemoveBlanks.length !== pairsParsed.length) {
+        console.log(`parsed pairs removing blanks are ${pairsParsedRemoveBlanks}`);
+        const invalidString = "Invalid configuration";
+        let invalidOutput = [];
+        invalidOutput.push(invalidString);
+        console.log(`invalid output is ${invalidOutput}`);
+        return invalidOutput
+    }
+
+    // now we have to order the pairs 
+
+    const pairsOrdered = pairsParsed.sort((a, b) => a[0] - b[0]);
+
+    console.log(`ordered pairs are [${pairsOrdered}]`);
+
+    // if the sequential ordering is not present then also return invalid
+
+    const sequentialOrdering = pairsOrdered.every((item, index) => {
+        return parseInt(item[0]) === index + 1;
+    });
+
+    if (!sequentialOrdering) {
+        console.log(`sequential ordering not present`);
+        const invalidString = "Invalid configuration";
+        let invalidOutput = [];
+        invalidOutput.push(invalidString);
+        console.log(`invalid output is ${invalidOutput}`);
+        return invalidOutput
+    }
+
+    // return invalid if the output configurations are not unique
+
+    const configurations = pairsOrdered.map(item => item[1]);
+
+    if (new Set(configurations).size !== configurations.length) {
+        console.log(`configurations are not unique`);
+        const invalidString = "Invalid configuration";
+        let invalidOutput = [];
+        invalidOutput.push(invalidString);
+        console.log(`invalid output is ${invalidOutput}`);
+        return invalidOutput
+    }
+
+    // prepare the output array
+
+    const outputConfig = pairsOrdered.map(item => item[1]);
+
+    return outputConfig;
+}
+
+function amazon2(deployments){
+
+    /* 
+    
+    given array of 'deployment results'
+
+    parse data 
+
+    determine if deployment was successful or not
+
+    ensure json input is valid 
+
+    if not valid mark as an error
+
+    return the number of successful deployments, failed deployments and errors 
+
+    input is deployments[n] an array of JSON string data with 2 required fields 
+    - deployment_id = 12 character string starting 'd-' followed by 10 alphanumeric characters
+    - status = string 'Success' or 'Fail'
+
+    goal is to enumerate the number of 'success' objects, number of 'fail' objects and determine if the JSON is valid and if so mark that as an error object
+
+    return [success, fail, error]
+    
+    */
+
+    console.log(`============================================================`);
+    console.log(`                      deployments                          `);
+    console.log(`============================================================`);
+
+    console.log(`validate deployments fed in as JSON`);
+    console.log(`return the number of successful, failed and error deployments as a numeric array [success, fail, error]`);
+
+    console.log(` `);
+
+    console.log(`deployments input data is ${deployments}`);
+
+    // firstly parse into JSON
+
+    const deploymentsParsed = deployments.map(item => {
+        try {
+            return JSON.parse(item);
+        } catch (error) {
+            return 'error';
+        }
+    });
+
+    console.log(`deployments parsed are`);
+    console.log(deploymentsParsed);
+
+    // create the output integer totals
+
+    let success = 0;
+    let fail = 0;
+    let error = 0;
+
+    // parse through the data and count the number of 'Success' or 'Fail' or if an object does not match 'Success' or 'Fail' ie it is an error
+
+    deploymentsParsed.forEach(item => {
+
+        let isError = false;
+        let isSuccess = false;
+        let isFail = false;
+
+        if (item.status === 'Success') {
+            isSuccess = true;
+        } else if (item.status === 'Fail') {
+            isFail = true;
+        } else {
+            isError = true;
+        }
+
+        // also check if the 8 characters after the 'd-' are alphanumeric and if not mark as an error
+
+        console.log(`item is ${item}`);
+        console.log(`deployment_id is ${item.deployment_id}`);
+        console.log(`status is ${item.status}`);
+        console.log(`slice is ${item.deployment_id.slice(2)}`);
+        console.log(`is it alphanumeric ${item.deployment_id.slice(2).match(/[^a-zA-Z0-9]+$/) === null}`);
+            
+        if (item.deployment_id.slice(2).match(/[^a-zA-Z0-9]+$/) !== null) {
+            isError = true;
+        }
+
+        // increment the success, fail or error counters
+
+        if (isSuccess) {
+            success++;
+        } else if (isFail) {
+            fail++;
+        } else if (isError) {
+            error++;
+        }
+
+    });
+
+    const output = [success, fail, error];
+
+    return output;
+    
+}
