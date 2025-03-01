@@ -77,7 +77,14 @@ const factorArray3 = [2, 4];
 const factorArray4 = [16, 32, 96];
 findFactors(factorArray3, factorArray4);
 fizzBuzz(15);
-
+validateISBN('9780306406');
+calculateMeanSquareDifference([1,2,3,4,5],[1,2,3,4,5]);
+calculateMeanSquareDifference([1,2,3,4,5],[1,2,3,4,6]);
+justifyText('The quick brown fox jumps over the lazy dog.', 10); 
+justifyText('a quick a a quicks a a quicker a brown a fox a jumps a over a log a wow a amazing.', 10);
+const LIPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis dolor mauris, at elementum ligula tempor eget. In quis rhoncus nunc, at aliquet orci. Fusce at dolor sit amet felis suscipit tristique. Nam a imperdiet tellus. Nulla eu vestibulum urna. Vivamus tincidunt suscipit enim, nec ultrices nisi volutpat ac. Maecenas sit amet lacinia arcu, non dictum justo. Donec sed quam vel risus faucibus euismod. Suspendisse rhoncus rhoncus felis at fermentum. Donec lorem magna, ultricies a nunc sit amet, blandit fringilla nunc. In vestibulum velit ac felis rhoncus pellentesque. Mauris at tellus enim. Aliquam eleifend tempus dapibus. Pellentesque commodo, nisi sit amet hendrerit fringilla, ante odio porta lacus, ut elementum justo nulla et dolor.';
+justifyText('123 45 6', 7)
+justifyText(LIPSUM, 30);
 
 function find(needle, haystack) {
 
@@ -1357,3 +1364,272 @@ function fizzBuzz(n) {
 
 }
 
+function validateISBN(isbn) {
+
+    console.log(`============================================================`);
+    console.log(`                  validate ISBN                             `);      
+    console.log(`============================================================`);
+
+    console.log(`... is ${isbn} a valid ISBN number ? ...`);
+    console.log(`sum of the digits multiplied by their position, then take modulus 11, is 0`);
+
+    /*
+        ISBN is 10 digit string with the last digit being a number or X
+
+        the ISBN is valid if the sum of the digits  multiplied by their position, then take modulus 11, is 0
+
+        eg 0-306-40615-2 is valid
+
+        because 0*1 + 3*2 + 0*3 + 6*4 + 4*5 + 0*6 + 6*7 + 1*8 + 5*9 + 2*10 = 6 + 6 + 24 + 20 + 0 + 42 + 8 + 45 + 18 + 20 = 189 which is divisible by 11
+    */
+
+          
+  let isValid = false;
+
+  // fail fast 
+
+  // if length is not 10 digits then fail
+
+  if (isbn.length !== 10) {
+    return isValid;
+  }
+
+  // if X count is not 0 or 1 then fail
+
+  if (isbn.split('').filter(item => item === 'X').length > 1) {
+    return isValid;
+  }
+
+  // if X is in any other position than the last position then fail
+
+  if (isbn.indexOf('X') !== 9 && isbn.indexOf('X') !== -1) {
+      return isValid;
+  }
+
+  let total = 0;
+  
+  for (let i = 0; i < isbn.length; i++) {
+    const place = i + 1;
+    let value = isbn[i];
+
+    if (value === 'X') {
+      value = 10;
+    }
+
+    total += value * place;
+
+  }
+
+  const isDivisibleBy11 = total % 11 === 0;
+
+  if (isDivisibleBy11) {
+    isValid = true;
+  }
+
+  console.log(`ISBN number ${isbn} is ${isValid ? 'valid' : 'invalid'}`);
+
+  return isValid;
+
+}
+
+function calculateMeanSquareDifference(array1, array2) {
+    
+    /*
+
+        accept 2 integer arrays of equal length
+
+        conpare the value in one array with the corresponding member in the other array
+
+        get the difference between the two values, then square it 
+
+        return the average of all the squared differences
+
+    */
+
+    const arrayLength = array1.length
+
+    console.log(`============================================================`);
+    console.log(`               mean square difference                       `);
+    console.log(`============================================================`);
+
+    console.log(`array 1 is ${array1}`);
+    console.log(`array 2 is ${array2}`);
+
+    let sumOfDifferencesSquared = 0;
+
+    for (let i = 0; i < arrayLength; i++) {
+        const difference = array1[i] - array2[i];
+        const differenceSquared = difference * difference;
+        sumOfDifferencesSquared += differenceSquared;
+    }
+
+    const meanSquareDifference = sumOfDifferencesSquared / arrayLength;
+
+    console.log(`mean square difference is ${meanSquareDifference}`);
+
+    return meanSquareDifference;
+
+}
+
+function justifyText(text, width) {
+
+    /* 
+    
+    single string input 
+
+    given width 
+
+    separate into an array of words
+
+    use \n to seaprate lines
+
+    last line should not terminate with \n
+
+    max word length will not exceed line length
+
+    all lines should end with a word and not a space 
+
+    justification should use spaces to fill in the gaps between words, evenly distributed, with any smaller spaces at the end
+
+    last line should not be justified 
+
+    line with one word will have no gaps
+
+    */
+
+    console.log(`============================================================`);
+    console.log(`               justify text                                 `);
+    console.log(`============================================================`);
+
+    console.log(`justify text to width ${width}`);
+
+    const words = text.split(' ');
+    console.log(`words are ${words}`);
+
+    // single word case
+
+    if (words.length === 1) {
+        console.log(`single word case`);
+        return text;
+    }
+
+    //let line = '';
+    //let lines = [];
+
+    /*
+
+    for (let i = 0; i < words.length; i++) {
+        
+        const newLine = line + words[i] + ' ';
+        console.log(`\nnew line is ${newLine}`);
+
+        console.log(`line length is ${newLine.length}`);
+
+        if (newLine.length > width) {
+            lines.push(line);
+            line = words[i] + ' ';
+        } else {
+            line = newLine;
+        }
+    }
+
+    lines.push(line);
+
+    console.log(`lines are`);
+    console.log(lines);
+
+    */
+
+    // try this again
+    let lines2 = [];
+    let line2 = '';
+    let cumulativeWordsWithSpaces = '';
+
+    for (let i = 0; i < words.length; i++) {
+
+        line2 = cumulativeWordsWithSpaces + words[i];
+
+        console.log(`\nline is ${line2} with length ${line2.length}`);
+
+        if (line2.length > width) {
+            lines2.push(cumulativeWordsWithSpaces);
+            line2 = '';
+            cumulativeWordsWithSpaces = words[i] + ' ';
+            continue;
+        }
+
+        cumulativeWordsWithSpaces += words[i] + ' ';
+        console.log(`cumulative words with spaces is ${cumulativeWordsWithSpaces}`);
+
+    }
+
+    // last line
+    lines2.push(cumulativeWordsWithSpaces.trim());
+
+    console.log(`lines are`);
+    console.log(lines2);
+
+    let justifiedLines = lines2.map(item => {
+        const itemTrimmed = item.trim();
+        console.log(`\n\njustifying line ${itemTrimmed}`);
+        const words = item.trim().split(' ');
+        console.log(`words are ${words}`);
+        const totalWords = words.length;
+        console.log(`total words are ${totalWords}`);
+        const rawLength = itemTrimmed.length;
+        console.log(`raw length is ${rawLength}`);
+        const totalSpaces = width - itemTrimmed.length;
+        console.log(`total spaces are ${totalSpaces}`);
+        const spacesPerWord = Math.floor(totalSpaces / (totalWords - 1));
+        console.log(`spaces per word are ${spacesPerWord}`);
+        const extraSpaces = totalSpaces % (totalWords - 1);
+        console.log(`extra spaces are ${extraSpaces}`);
+        let justifiedLine = '';
+        for (let i = 0; i < words.length; i++) {
+            justifiedLine += words[i];
+            if (i < totalWords - 1) {
+                justifiedLine += ' ';
+                justifiedLine += ' '.repeat(spacesPerWord);
+                if (i < extraSpaces) {
+                    justifiedLine += ' ';
+                }
+            }
+        }
+        console.log(`justified line is ${justifiedLine}`);
+        return justifiedLine;
+    });
+
+    console.log(`justified lines are`);
+    console.log(justifiedLines);
+
+    // undo last line justification
+    const lastLine = justifiedLines.pop();
+    console.log(`last line before treatment is ${lastLine}`);
+
+    const lastLineWordsJustified = lastLine.split(' ');
+    const lastLineWords = lastLineWordsJustified.filter(item => item !== ' ' && item !== '');
+    console.log(`last line words are ${lastLineWords}`);
+
+    let lastLineUnjustified = '';
+
+    for (let i = 0; i < lastLineWords.length; i++) {
+
+        lastLineUnjustified += lastLineWords[i];
+
+        if (i < lastLineWords.length - 1) {
+            lastLineUnjustified += ' ';
+        }
+    }
+
+    justifiedLines.push(lastLineUnjustified);
+    console.log(`last line is ${lastLineUnjustified}`);
+
+    // now convert back into a string with \n new line character added on every line except the last line
+
+    const justifiedText = justifiedLines.join('\n');
+    console.log(`justified text is`);
+    console.log(justifiedText);
+
+    return justifiedText
+
+}
