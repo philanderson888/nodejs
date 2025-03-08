@@ -85,6 +85,8 @@ justifyText('a quick a a quicks a a quicker a brown a fox a jumps a over a log a
 const LIPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis dolor mauris, at elementum ligula tempor eget. In quis rhoncus nunc, at aliquet orci. Fusce at dolor sit amet felis suscipit tristique. Nam a imperdiet tellus. Nulla eu vestibulum urna. Vivamus tincidunt suscipit enim, nec ultrices nisi volutpat ac. Maecenas sit amet lacinia arcu, non dictum justo. Donec sed quam vel risus faucibus euismod. Suspendisse rhoncus rhoncus felis at fermentum. Donec lorem magna, ultricies a nunc sit amet, blandit fringilla nunc. In vestibulum velit ac felis rhoncus pellentesque. Mauris at tellus enim. Aliquam eleifend tempus dapibus. Pellentesque commodo, nisi sit amet hendrerit fringilla, ante odio porta lacus, ut elementum justo nulla et dolor.';
 justifyText('123 45 6', 7)
 justifyText(LIPSUM, 30);
+compareSumWithMaxProduct();
+nodeJsPrintFiles();
 
 function find(needle, haystack) {
 
@@ -1631,5 +1633,92 @@ function justifyText(text, width) {
     console.log(justifiedText);
 
     return justifiedText
+
+}
+
+function compareSumWithMaxProduct(){
+    
+    console.log(`============================================================`);
+    console.log(`             compare sum with max product                   `);
+    console.log(`============================================================`);
+
+    /*
+    array
+    return "true" if any two numbers can be multiplied so the answer is greater than double the sum of all the elements in the array
+    if not return "false"
+    eg 16*6 = 96 greater than double the sum
+    */
+
+    const arr = [2, 5, 7, 8];
+    console.log(`array is ${arr}`);
+
+    const arraySorted = arr.sort((a, b) => a - b);
+    console.log(`sorted array is ${arraySorted}`);
+
+    const sum = arraySorted.reduce((acc, item) => acc + item, 0);
+    console.log(`sum of array is ${sum}`);
+
+    const doubleSum = sum * 2;
+    console.log(`double sum is ${doubleSum}`);
+
+    if (arraySorted.length < 2) {
+        return 'false';
+    }
+
+    const biggestTwoNumbersMultiplied = arraySorted[arr.length - 1] * arraySorted[arr.length - 2];
+    console.log(`biggest two numbers multiplied is ${biggestTwoNumbersMultiplied}`);
+
+    if (biggestTwoNumbersMultiplied > doubleSum) {
+        console.log(`true`);
+        return 'true';
+    }
+
+}
+
+function nodeJsPrintFiles() {
+
+    console.log(`============================================================`);
+    console.log(`                   node js print files                      `);
+    console.log(`============================================================`);
+
+    /*
+    create new file 'newfile.txt'
+    fill with any content
+    using 'exec' print to the console all the files in the current directory
+    print format is FILENAME, FILENAME, FILENAME
+    */
+
+    const fs = require('fs');
+    const { exec } = require('child_process');
+
+    const fileNameNew = 'newfile.txt';
+    const fileContentLine1 = 'this is the content of the new file line 1';
+    const fileContentLine2 = 'this is the content of the new file line 2';
+    const fileContentLine3 = 'this is the content of the new file line 3';
+
+    fs.writeFileSync(fileNameNew, fileContentLine1 + '\n' + fileContentLine2 + '\n' + fileContentLine3);
+
+    outputFileNames = [];
+
+    for (const file of fs.readdirSync('./')) {
+        outputFileNames.push(file);
+    }
+
+    console.log(`output file names are`);
+    console.log(outputFileNames);
+
+    const outputString = outputFileNames.join(', ');
+    console.log(`output string is`);
+    console.log(outputString);
+
+    // print outputString using exec
+
+    exec(`echo ${outputString}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(stdout);
+    });
 
 }
